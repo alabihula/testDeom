@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var now = function() {
+			    var _ref;
+			    return (_ref = typeof performance !== "undefined" && performance !== null ? typeof performance.now === "function" ? performance.now() : void 0 : void 0) != null ? _ref : +(new Date);
+			  };
+			var options = {
+				eventLag: {
+					minSamples: 10,
+					sampleCount: 3,
+					lagThreshold: 3
+				}
+			};
+			var avgAmplitude = function(arr) {
+			    var count, sum, v, _i, _len;
+			    sum = count = 0;
+			    for (_i = 0, _len = arr.length; _i < _len; _i++) {
+			      v = arr[_i];
+			      sum += Math.abs(v);
+			      count++;
+			    }
+			    return sum / count;
+			  };
+			EventLagMonitor = (function() {
+			    function EventLagMonitor() {
+			      var avg, interval, last, points, samples,
+			        _this = this;
+			      this.progress = 0;
+			      avg = 0;
+			      samples = [];
+			      points = 0;
+			      last = now();
+			      interval = setInterval(function() {
+			        var diff;
+			        diff = now() - last - 50;
+			        last = now();
+			        samples.push(diff);
+			        if (samples.length > options.eventLag.sampleCount) {
+			          samples.shift();
+			        }
+			        avg = avgAmplitude(samples);
+			        if (++points >= options.eventLag.minSamples && avg < options.eventLag.lagThreshold) {
+			          _this.progress = 100;
+			          return clearInterval(interval);
+			        } else {
+			        console.log(_this.progress);
+			          return _this.progress = 100 * (3 / (avg + 3));
+			        }
+			      }, 50);
+			    }
+			
+			    return EventLagMonitor;
+			  })();
+			  EventLagMonitor();
+		</script>
+	</body>
+
+</html>

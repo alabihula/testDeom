@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>promise5</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Promise_(fn) {
+			    var state = "pending",
+			    	value = null,
+			        callbacks = [];  //callbacks为数组，因为可能同时有很多个回调
+			 
+			    this.then = function (onFulfilled) {
+			    	var pro = onFulfilled();
+			    	console.log(state);
+			    	 if (state === 'pending') {
+			            callbacks.push(onFulfilled);
+			            return pro instanceof Promise_?pro:this;
+			        }
+			        onFulfilled.call(null,value);
+			        return pro instanceof Promise_?pro:this;
+			    };
+			 
+			    function resolve(newValue) {
+			    	console.log("value: "+newValue);
+			    	value = newValue;
+			    	state = 'fulfilled';
+			        setTimeout(function () {
+			            callbacks.forEach(function (callback) {
+			                callback(value);
+			            });
+			        }, 0);
+			    }
+			    console.log(fn);
+			    //注册then函数，然后当异步执行完开始回调时，将resolve要执行的函数交给then注册的函数去执行：
+//			    (function(resolve,reject) {
+//					resolve(11111);
+//				})(function(v){console.log(v)})
+			    fn(resolve);
+			}
+			
+//			var d = new Promise_(function(re,e) {
+//				re("resolve complete");
+//				setTimeout(function() {
+//					//resolve后调用then
+//					d.then(function(v) {
+//						console.log("resolve完成之后注册then "+v);
+//					})
+//				},2000)
+//			});
+			var d = new Promise_(function(re,e) {
+				setTimeout(function() {
+					re("resolve complete");
+				},2000)
+			});
+			d.then(function(v){
+				console.log("1 "+v);
+				return new Promise_(function(re) {
+					re("after complete");
+				})
+			}).then(function(v) {
+				console.log("2 "+v);
+			})
+		</script>
+	</body>
+</html>

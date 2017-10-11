@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		#box{
+			background: black;
+			border-radius: 25px;
+			width: 50px;
+			height: 50px;
+			position: absolute;
+		}
+	</style>
+	<body>
+		<div id="box">
+			
+		</div>
+	</body>
+	<script type="text/javascript">
+		function Clock(x, y, r, id) {
+		    this.start = new Date();
+		    this.r = r;
+		    this.x = x;
+		    this.y = y;
+		    this.offsetX = r;
+		    this.offsetY = 0;
+		    this.id = id;
+		    this.update = function(){
+		        //update data
+		        var timespan = new Date() - this.start;
+		        var offsetR = ((timespan % 36000) % 720) / 360 * Math.PI;
+		        this.offsetX = this.r * Math.cos(offsetR);
+		        this.offsetY = this.r * Math.sin(offsetR);
+		 
+		        var that = this;
+		        setTimeout(function(){that.update()}, 20);
+		    };
+		    this.update();
+		    this.draw = function(){
+		        //draw
+		        var dom = document.getElementById(this.id);
+		        dom.style.left = this.x + this.offsetX + 'px';
+		        dom.style.top = this.y + this.offsetY + 'px';
+		 
+		        var that = this;
+		        //setTimeout(function(){that.draw()}, 20);
+		        requestAnimationFrame(function(){that.draw()});
+		    }
+		    this.draw();
+		}
+		Clock(150,150,100,"box");
+	</script>
+</html>

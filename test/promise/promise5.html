@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>promise5</title>
+	</head>
+	<script src="../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		function getURL(URL) {
+			return new Promise(function(resolve, reject) {
+				var req = new XMLHttpRequest();
+				req.open('GET', URL, true);
+				req.onload = function() {
+					if(req.status === 200) {
+						resolve(req.responseText);
+					} else {
+						reject(new Error(req.statusText));
+					}
+				};
+				req.onerror = function() {
+					reject(new Error(req.statusText));
+				};
+				req.send();
+			});
+		}
+		var request = {
+			comment: function getComment() {
+				return getURL('../json/set.json').then(JSON.parse);
+			},
+			people: function getPeople() {
+				return getURL('../json/set1.json').then(JSON.parse);
+			}
+		};
+
+
+
+		function main() {
+			function recordValue(results, value) {
+				results.push(value);
+				return results;
+			}
+			// [] 用来保存初始化的值
+			var pushValue = recordValue.bind(null, []);
+			return request.comment().then(pushValue).then(request.people).then(pushValue);
+		}
+		
+		// 运行的例子
+		main().then(function(value) {
+			console.log(JSON.stringify(value));
+		}).catch(function(error) {
+			console.log("main"+error);
+		});
+		
+		
+		function main2() {
+			return Promise.all([request.comment(),request.people()]);
+		}
+		main2().then(function(value) {
+			console.log("resolve: "+JSON.stringify(value));
+		}).catch(function(e) {
+			console.log("main2"+e);
+		})
+		
+		
+		//使用array .reduce使任务加入队列
+		function main3() {
+			function recordValue(results, value) {
+				results.push(value);
+				return results;
+			}
+			// [] 用来保存初始化的值
+			var pushValue = recordValue.bind(null, []);
+			
+			var funArr = [request.comment,request.people];
+			return funArr.reduce(function(prevent,current) {
+				return prevent.then(current).then(pushValue);
+			},Promise.resolve())
+		}
+		main3().then(function(v) {
+			console.log(v);
+		}).catch(function(e) {
+			console.log("main3 "+e);
+		})
+	</script>
+
+</html>

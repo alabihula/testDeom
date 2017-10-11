@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//3.寄生组合继承  
+	        /** 
+	         * 创建一个拥有指定原型的对象 与Object.create()方法类似 
+	         * @param  {Object} o [description] 
+	         */  
+	        function object(o) {  
+	            function F() {};  
+	            F.prototype = o;  
+	            return new F();  
+	        }  
+	        /** 
+	         * 通用方法实现子类继承父类 
+	         * @param  {function} child  子类构造函数 
+	         * @param  {function} father 被继承的父类构造函数 
+	         */  
+	        function inheritPrototype(child, father) {
+//	            var prototype = object(father.prototype); //创建一个指定原型的对象  
+	            var prototype = Object.create(father.prototype); //创建一个指定原型的对象  
+	            prototype.constructor = child; //增强对象  
+	            child.prototype = prototype; //子类的原型等于该对象  
+	        }  
+	        function father(name) {  
+	            this.faName = name;  
+	        }  
+	        father.prototype.getfaName = function() {  
+	            console.log(this.faName);  
+	        };  
+	        function child(chName,faName) {  
+	            this.chName = chName;  
+	            father.call(this,faName);  
+	        }  
+	        inheritPrototype(child, father); //子类的原型等于new 空函数(), 而new 空函数()出来的对象的原型等于父类的原型  
+	        child.prototype.getchName = function() {  
+	            console.log(this.chName);  
+	        };
+	        
+	        function father2() {
+	        	this.age = 22;
+	        }
+	        father = father2;
+	        
+	        console.log( child.prototype.isPrototypeOf(new child()) ); //true  
+	        console.log(new child() instanceof child); //true 
+	        var cnildOne = new child("父亲","小明");
+	        cnildOne.getchName();
+	        cnildOne.getfaName();
+	        cnildOne.age;
+		</script>
+	</body>
+</html>

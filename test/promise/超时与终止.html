@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>超时与终止</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var win = function() {
+				new Promise(function(re) {
+					setTimeout(function() {
+						console.log('1000ms');
+						re(1000);
+					}, 1000)
+				})
+			}
+			var losTime = null;
+			var los = function() {
+				return new Promise(function(resolve,reject) {
+					losTime = setTimeout(function() {
+						console.log('3000ms');
+//						resolve(3000);
+						reject("处理错误");
+					}, 3000)
+				})
+			}
+//			Promise.race([win(), los()]).then(function(v) {
+//				console.log(v)
+//			}).catch(function(e) {
+//				console.log(e)
+//			})
+			
+			//设置一个可控制的超时promise
+			var delayPro = function(outtime) {
+				return new Promise(function(re) {
+					setTimeout(re,outtime);
+				})
+			}
+			
+			//设置一个调用pro和超时控制的函数
+			var timeAction = function(promise,outtime) {
+				var timePro = delayPro(outtime).then(function() {
+					throw new Error("time："+outtime+" out");
+				})
+				return Promise.race([promise,timePro]);
+			}
+			
+			timeAction(los(),2000).then(function(v) {
+				console.log("resolve: "+v);
+			}).catch(function(e) {
+				console.log("error: "+e);
+//				clearTimeout(losTime);
+			});
+		</script>
+	</body>
+
+</html>

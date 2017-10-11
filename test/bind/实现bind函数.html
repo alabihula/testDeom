@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		Function.prototype.bind_ = function() {
+			var t = this,
+				param = Array.prototype.slice.call(arguments),
+				fn = param.shift(),
+				content = param;
+			return function() {
+				return t.apply(fn, content.concat(Array.prototype.slice.call(arguments)));
+			}
+		}
+		
+		//赋值默认值
+		var fuzhi = function() {
+			var t = this,
+				param = Array.prototype.slice.call(arguments),
+				fn = param.shift(),
+				content = param;
+			return function() {
+				return fn.apply(this,content.concat(Array.prototype.slice.call(arguments)))
+			}
+		}
+		
+		function test(n,name) {
+			setTimeout(function() {
+				console.log(name);
+			},n)
+		}
+		
+		var test_ = fuzhi(test,2000);
+		test_("hahah");
+
+		var i = 0;
+		function fn() {
+			i++;
+			if(i < 3) {
+				return fn();
+			} else {
+				return i;
+			}
+		}
+		var result = fn();
+		console.log(result);
+	</script>
+
+</html>

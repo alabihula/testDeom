@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/JavaScript">
+		    function init(){ 
+		        var worker = new Worker('compute.js'); 
+		        //event 参数中有 data 属性，就是子线程中返回的结果数据
+		        
+		        worker.addEventListener("message",function(event) {
+		        	// 把子线程返回的结果添加到 div 上
+		            document.getElementById("result").innerHTML += 
+		            event.data+"<br/>"; 
+		        })
+		        
+//		        worker.onmessage= function (event) { 
+//		            // 把子线程返回的结果添加到 div 上
+//		            document.getElementById("result").innerHTML += 
+//		               event.data+"<br/>"; 
+//		        }; 
+		    }
+		    init();
+		</script>
+		<div id="result"></div>
+	</body>
+</html>

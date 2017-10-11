@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function cloneOriginal(obj) {
+				if(typeof obj != "object" && obj != null || obj == null) return obj;
+				var temObj = obj.constructor === Array?[]:{};
+				for(var key in obj) {
+					temObj[key] = cloneOriginal(obj[key]);
+				}
+				return temObj;
+			}
+			
+			function extend() {
+				if(arguments.length < 2) return arguments;
+				var temObj = cloneOriginal(arguments[0]);
+				for(var i = 1;i<arguments.length;i++) {
+					for(var j in arguments[i]) {
+						temObj[j] = cloneOriginal(arguments[i][j]);
+					}
+				}
+				return temObj;
+			}
+			
+			var a = {name:111,age:222,kkk:[1,2,3],ddd:{height:100},e:function() {console.log("eee")}};
+			var b = {width:333};
+			var c = {color:"黄色",border:"1px"};
+			var d = extend(b,a,c);
+			console.log(d);
+			a.kkk.push(44444);
+			console.log(d);
+			
+			//2使用json解析
+			var a2 = {name:111,age:222,kkk:[1,2,3],ddd:{height:100}};
+			var b2 = JSON.parse(JSON.stringify(a));
+			console.log(b2);
+		</script>
+	</body>
+</html>

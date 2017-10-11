@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+		.box{
+			padding: 10px;
+			background: deepskyblue;
+		}
+		.box div{
+			background: greenyellow;
+			width: 100px;
+			height: 50px;
+			margin: 10px;
+		}
+		li{
+			box-shadow: 0px 0px 0px 1px black;
+		}
+	</style>
+	<body>
+		<div class="box">
+			<div class="box1">
+				box1
+			</div>
+			<div class="box2">
+				box2
+			</div>
+		</div>
+		
+		<ul id="test">
+	        <li>
+	            <p>11111111111</p>
+	        </li>
+	        <li>
+	            <div>
+	                22222222
+	            </div>
+	        </li>
+	        <li>
+	            <span>3333333333</span>
+	        </li>
+	        <li>4444444</li>
+	    </ul>
+	</body>
+	<script type="text/javascript">
+		var box = document.querySelector('.box');
+		var box1 = document.querySelector('.box1');
+		box.addEventListener('click',function(e) {
+			if(e.target.className == "box1"){
+				var div = document.createElement("div");
+				div.textContent = "add";
+				document.querySelector('.box').appendChild(div);
+			} else {
+				console.log("other");
+			}
+		},false)
+		
+		var ul = document.querySelector('ul');
+		ul.addEventListener('click',function(e) {
+			var target = e.target;
+			console.log(target);
+//	        while(target !== ul ){
+//	            if(target.tagName.toLowerCase() == 'li'){
+//	                console.log('li click~');
+//	                break;
+//	            }
+//	            target = target.parentNode;
+//	        }
+		},false)
+		
+		
+		
+		var extend = function() {
+		    var key,//对象key值
+		    out, //拷贝参数的第一个值：需要重组并最后返回的的对象 例：{}
+		    sources, //除去第一个重组参数后的对象数组
+		    source, //上一步的数组中的遍历对象
+		    val, //上一步对象对应参数
+		    _i, _len;
+		    out = arguments[0], sources = 2 <= arguments.length ?[].slice.call(arguments, 1) : [];
+		    for (_i = 0, _len = sources.length; _i < _len; _i++) {
+		      source = sources[_i];
+		      if (source) {
+		        for (key in source) {
+		          //此方法为了防止拷贝对象为null或者""的情况，例入extend({},a,null || "")
+		          if (!{}.hasOwnProperty.call(source, key)) continue;
+		          val = source[key];
+		          if ((out[key] != null) && typeof out[key] === 'object' && (val != null) && typeof val === 'object') {
+		            //当需要重组的对象不为空并且拷贝对象中也包含此对象的时候另起一个循环拷贝此对象，例：extend({c:{...}},a,{c:{...}})
+		            extend(out[key], val);
+		          } else {
+		            out[key] = val;
+		          }
+		        }
+		      }
+		    }
+		    return out;
+		  };
+		  
+		  var a = {a:1,c:{c1:1,c2:2},arr:[1,2,3]};
+		  var b = {};
+		  var c = extend({c:{c1:1,c2:2,c3:3}},a,b);
+		  c.arr.push(4);
+		  c.d = "d";
+		  console.log(a);
+		  console.log(b);
+		  console.log(c);
+	</script>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.box1{
+				width: 900px;
+				border: 1px black solid;
+				margin: 0 auto;
+				display: -webkit-flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				justify-content:center;/*属性定义了项目在主轴上的对齐方式。**/
+			}
+			.box2{
+				width: 900px;
+				height: 200px;
+				border: 1px black solid;
+				margin: 0 auto;
+				display: -webkit-flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				align-items:baseline;/**属性定义了项目在交叉轴上的对齐方式。**/
+			}
+			.box3{
+				width: 400px;
+				height: 200px;
+				border: 1px black solid;
+				margin: 0 auto;
+				display: -webkit-flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				align-content:center;/**属性定义了项目在交叉轴上的对齐方式。**/
+			}
+			div div{border: 1px black solid;margin: 10px;width: 100px;}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>justify-content</li>
+			<li>flex-start（默认值）：左对齐</li>
+			<li>flex-end：右对齐</li>
+			<li>center： 居中</li>
+			<li>space-between：两端对齐，项目之间的间隔都相等。</li>
+			<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
+		</ul>
+		<div class="box1">
+			<div class="">dfsdf1</div>
+			<div class="">dfsdf2</div>
+			<div class="">dfsdf3</div>
+			<div class="">dfsdf4</div>
+			<div class="">dfsdf5</div>
+			<div class="">dfsdf6</div>
+			<div class="">dfsdf6</div>
+			<div class="">dfsdf6</div>
+			<div class="">dfsdf6</div>
+		</div>
+		<ul>
+			<li>align-items</li>
+			<li>flex-start：交叉轴的起点对齐。</li>
+			<li>flex-end：交叉轴的终点对齐。</li>
+			<li>center：交叉轴的中点对齐。</li>
+			<li>baseline: 项目的第一行文字的基线对齐。</li>
+			<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
+		</ul>
+		<div class="box2">
+			<div class="">dfsdf1</div>
+			<div class="" style="padding-top: 20px;">dfsdf2</div>
+			<div class="">dfsdf3</div>
+			<div class="" style="padding-top: 30px;">dfsdf4</div>
+			<div class="">dfsdf5</div>
+			<div class="">dfsdf6</div>
+		</div>
+		<ul>
+			<li>align-content</li>
+			<li>flex-start：交叉轴的起点对齐。</li>
+			<li>flex-end：交叉轴的终点对齐。</li>
+			<li>center：交叉轴的中点对齐。</li>
+			<li>space-between: 项目的第一行文字的基线对齐。</li>
+			<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
+			<li>stretch（默认值）：轴线占满整个交叉轴</li>
+		</ul>
+		<div class="box3">
+			<div class="">dfsdf1</div>
+			<div class="" style="padding-top: 20px;">dfsdf2</div>
+			<div class="">dfsdf3</div>
+			<div class="" style="padding-top: 30px;">dfsdf4</div>
+			<div class="">dfsdf5</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<script type="text/javascript">
+		var require1 = (function() {
+			var modals = {};
+			var define = function(modalName,rel,fs) {
+				//把依赖数组中的名字转化成依赖方法
+				for(var i = 0;i<rel.length; i++) {
+					rel[i] = modals[rel[i]];
+				}
+				console.log(rel);
+				//apply中fs将作用于指向依赖函数本身，这样才能在需要依赖函数中通过rel.方法名实现调用，否则会出现作用于为window
+				modals[modalName] = fs.apply(fs,rel);
+			};
+			var getModal = function(name) {return modals[name]};
+			return {define:define,getModal:getModal}
+		})()
+		
+		
+		var require = function() {
+			var funObj = {};
+			var define = function(name,arr,fun) {
+				if(arr.length == 0) {
+					funObj[name] = fun();
+				} else {
+					funObj[name] = fun(funObj[arr[0]]);
+				}
+			}
+			
+			var getModal = function(name) {
+				return funObj[name];
+			}
+			return {define:define,getModal:getModal}
+		}()
+		//模块2
+		require.define("intro",[],function() {
+			var say = function(name) {
+				console.log("my name is : "+name);
+			}
+			return {say:say}
+		})
+		//模块1
+		require.define("minx",['intro'],function(intro) {
+			var goSay = function() {
+				intro.say("minxing");
+			}
+			return {goSay:goSay}
+		})
+		
+		var intro = require.getModal("intro");
+		intro.say("test");
+		var minx = require.getModal("minx");
+		minx.goSay();
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>promise5</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			function Promise(fn) {
+				var state = 'pending',
+					value = null,
+					callbacks = [],
+					Handler = function(onFulfilled, resolve) {
+						this.onFulfilled = onFulfilled || null;
+						this.resolve = resolve;
+					};
+
+				this.then = function(onFulfilled) {
+					return new Promise(function(resolve) {
+						console.log("then onFulfilled: "+onFulfilled);
+						var handler = new Handler(onFulfilled,resolve);
+						console.log("then resolve: "+resolve);
+						/* 
+						注意：这里利用了闭包特性，此处的handle并不是新Promise的handle函数，而是this.then所属promise的handle函数。
+						因此handler将被添加到this.then所属promise的deffereds数组中。
+						而onFulfilled和onRejected自然成为了this.then所属promise的状态转换事件处理函数，
+						而resolve和reject依旧是新promise实例的状态转换触发函数。
+						*/
+						handle(handler);
+					});
+				};
+
+				function handle(callback) {
+					console.log("state: "+state);
+					if(state === 'pending') {
+						callbacks.push(callback);
+						return;
+					}
+					//如果then中没有传递任何东西
+					if(!callback.onFulfilled) {
+						callback.resolve(value);
+						return;
+					}
+
+					var ret = callback.onFulfilled(value);
+					console.log(ret);
+					console.log("handle--value: "+value);
+					callback.resolve(ret);
+				}
+
+				function resolve(newValue) {
+					console.log("newValue: "+newValue);
+					if(newValue && (typeof newValue === 'object' || typeof newValue === 'function')) {
+						var then = newValue.then;
+						if(typeof then === 'function') {
+							then.call(newValue, resolve);
+							return;
+						}
+					}
+					state = 'fulfilled';
+					value = newValue;
+					setTimeout(function() {
+						callbacks.forEach(function(callback) {
+							console.log(callbacks);
+							handle(callback);
+						});
+					}, 0);
+				}
+				console.log("fn---" + fn);
+				/****
+				 * 注册then函数，然后当异步执行完开始回调时，将resolve要执行的函数交给then注册的函数去执行
+				 * 上面的resolve方法当做fn中入参resolve的实参传入，所以fn中resolve中传递的参数就是上面的newValue
+				 * (function(resolve,reject) {
+				 * 		resolve(11111);
+				 * })(function(v){console.log(v)})其中的console.log---》then中注册的执行方法
+				 */
+				fn(resolve);
+			}
+
+			var d = new Promise(function(re, e) {
+				setTimeout(function() {
+					re("resolve complete");
+				}, 2000)
+			});
+
+
+			//test1 
+//			d.then(function(v) {
+//				console.log("1 " + v);
+//			})
+
+			//test2
+			d.then(function(v) {
+				console.log("1 " + v);
+				return new Promise(function(re) {
+					re("after complete");
+				})
+			}).then(function(v) {
+				console.log("2 " + v);
+			})
+		</script>
+	</body>
+
+</html>

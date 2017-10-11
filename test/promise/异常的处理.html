@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>异常的处理</title>
+	</head>
+
+	<body>
+		<script type="text/javascript">
+			var parsePro = function(jsonStr) {
+				return new Promise(function(resolve) {
+					resolve(JSON.parse(jsonStr))
+				})
+			}
+
+			//正常捕获
+			//			parsePro("非法json").then(function(v) {
+			//				console.log(v)
+			//			}).catch(function(e) {
+			//				console.log("e: "+e);
+			//			})
+
+			//不捕获
+			parsePro('{"a":111}').then(function(v) {
+				setTimeout(function() {
+					throw new Error("异步错误");
+				},0)
+			}).catch(function(e) {
+				console.log("error: "+e);
+			})
+			console.log(111111111111111);
+		</script>
+	</body>
+
+</html>

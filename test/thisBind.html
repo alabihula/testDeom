@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>this绑定</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//1 硬绑定 apply和call
+			function foo() {
+				console.log(this.a);
+			}
+			
+			var obj = {
+				a:111,
+				foo:foo
+			}
+			
+			var foo_ = obj.foo;
+			foo_.apply(obj);
+			
+			//2 new，其实就是通过创建对象
+			function foo2() {
+				this.a = 222;
+			}
+			
+			var foo2_ = new foo2();
+			console.log(foo2_.a);
+			
+			//bind
+			function foo3() {
+				console.log(this.bbb);
+			}
+			var obj3 = {
+				bbb:333
+			}
+			
+			var foo3_ = foo3.bind(obj3);
+			foo3_();
+			
+			//使用空的非委托对象实现apply不需要this指定的便捷用法
+			var o = Object.create(null);
+			function arr(a,b,c) {
+				console.log("a: "+a+" b: "+b+" c: "+c);
+			}
+			arr.apply(o,[1,2,3]);
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>promise</title>
+	</head>
+	<script src="../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+	</body>
+	<script type="text/javascript">
+		if(window.Promise) {
+			alert('支持');
+		} else {
+			alert('不支持');
+		}
+		function check(index) {
+			return new Promise(function(resolve,reject) {
+				checkInit(resolve,reject);
+			})
+			function checkInit(resolve,reject) {
+				if(Math.random() > 0.5) {
+					console.log("成功"+index);
+					resolve("resove: "+index);
+				} else {
+					console.log("失败"+index);
+					reject("reject: "+index);
+				}
+			}
+		}
+
+		check(1).then(function(data) {
+			console.log("1---"+data);
+			return check(2);
+		}).then(function(data) {
+			console.log("then1: "+data);
+		}).catch(function(error) {
+			console.log("error");
+		})
+
+		var pro1 = new Promise(function(resolve,reject) {
+			$.ajax({
+				type:"get",
+				url:"../json/set.json",
+				dataType:"json",
+				success:function(data) {
+					if(data.code == 0) {
+						resolve(data.msg);
+					} else {
+						reject("set error");
+					}
+				}
+			});
+		})
+		var pro2 = new Promise(function(resolve,reject) {
+			$.ajax({
+				type:"get",
+				url:"../json/get.json",
+				dataType:"json",
+				success:function(data) {
+					if(data.code == 0) {
+						resolve(data.msg);
+					} else {
+						reject("get error");
+					}
+				}
+			});
+		})
+
+//		function alertMsg(msg) {
+//			$('body').html("<div style='margin:0 auto;width:100px;height:50px;box-shadow:0px 0px 10px 2px black'>"+msg+"</div>");
+//		}
+//
+//		pro2.then(function(data) {
+//			alertMsg(data);
+//			return pro1;
+//		}).then(function(data) {
+//			console.log(data);
+//		})
+
+
+		Promise.all([pro1,pro2]).then(function(data){
+			console.log("--------------------------.all-------------------------");
+			console.log(data)
+			alert(data)
+		},function(data) {
+			console.log("reject: "+data);
+			alert("reject: "+data);
+		})
+	</script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+		<div>4</div>
+		<div>5</div>
+	</body>
+	<script type="text/javascript">
+		function clickNodes(nodes) {
+			for (var i = 0;i<nodes.length; i++) {
+				var fun = function(i) {
+					return function(e) {
+						alert(i)
+					}
+				}
+				nodes[i].addEventListener('click',fun(i))
+			}
+		}
+		clickNodes(document.getElementsByTagName('div'));
+		
+		var timeOn = function(i) {
+			return function() {
+				console.log(i)
+			}
+		}
+		for (var i = 0;i<10;i++) {
+//			setTimeout(timeOn(i),1000)
+		}
+		
+		
+		Function.prototype.method = function(name,fun) {
+			if(this[name]) return this;
+			this[name] = fun;
+			return this;
+		}
+		
+		function str(a,b) {
+			return a+b;
+		}
+		str.method("addd",function() {
+			var arrSlice = Array.prototype.slice;
+			var temStr = arrSlice.call(arguments).slice(0,1);
+			var that = this;
+			return function() {
+				return that.apply(null,temStr.concat(arrSlice.call(arguments)));
+			}
+		})
+		var str_ = str.addd("temstr");
+		console.log(str_("after"));
+		console.log(str_("111111111111"));
+	</script>
+</html>

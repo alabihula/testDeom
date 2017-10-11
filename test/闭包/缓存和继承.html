@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var memoizer = function(memo,formula) {
+				var recur = function(n) {
+					var result = memo[n];
+					if(typeof result != 'number') {
+						result = formula(recur,n);
+						memo[n] = result;
+					}
+					return result;
+				}
+				return recur;
+			}
+			
+			Function.prototype.method = function(name,fn) {
+				if(this.prototype[name]) return this;
+				this.prototype[name] = fn;
+				return this;
+			}
+			Function.method('new',function() {
+				var that = Object.create(this.prototype);
+				var other = this.apply(that,arguments);
+				return (typeof other === 'object' && other) || that;
+			})
+			
+			//简单的伪类继承
+			Function.method("jc",function(jcObj) {
+				this.prototype = new jcObj();
+				return this;
+			})
+			
+			var people = function() {
+				this.name = "people";
+			}.method("getName",function() {
+				console.log(this.name);
+			})
+			
+			var man = function() {
+				this.manName = "man";
+			}
+			.jc(people)
+			.method("detail",function() {
+				console.log("my father`s name is: "+this.name);
+				console.log("my name is: "+this.manName);
+			})
+			
+			var obj = new man();
+			obj.detail()
+		</script>
+	</body>
+</html>

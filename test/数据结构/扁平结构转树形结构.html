@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<body>
+		<select id="a">
+			<option value="22">1</option>
+			<option value="333">2</option>
+		</select>
+		<select id="b">
+			<option value=""></option>
+		</select>
+		<select id="c">
+			<option value=""></option>
+		</select>
+	</body>
+	<script type="text/javascript">
+		var data = [{
+			"value": "浙江",
+			"children": [{
+				"value": "杭州",
+				"children": [{
+					"value": "西湖",
+					"children": [{
+						"value": "醋鱼"
+					}]
+				}, {
+					"value": "雷峰塔"
+				}]
+			}, {
+				"value": "温州",
+				"childre": [{
+					"value": "皮革厂"
+				}]
+			}, {
+				"value": "衢州",
+				"children": [{
+					"value": "鸭头"
+				}, {
+					"value": "秃头"
+				}, {
+					"value": "鸡头"
+				}]
+			}]
+		}, {
+			"value": "四川",
+			"children": [{
+				"value": "成都",
+				"children": [{
+					"value": "锦里"
+				}, {
+					"value": "方所"
+				}]
+			}, {
+				"value": "阿坝",
+				"children": [{
+					"value": "九寨沟"
+				}]
+			}]
+		}]
+
+		var valueStr = [];
+
+		function getSelect(data) {
+			var valueName = [];
+			data.map(function(v, i) {
+				valueName.push(v.value);
+				if(i == 0 && v.children) {
+					valueStr.push(getSelect(v.children));
+				}
+			})
+			return valueName;
+		}
+		var a_arr = getSelect(data);
+		var b_arr = valueStr;
+		b_arr.push(a_arr);
+		var seArr = b_arr.map(function(v, i) {
+			var selectArr = new Array("<select id=s" + i + ">");
+			var d = v.map(function(v_) {
+				return "<option value=" + v_ + ">" + v_ + "</option>";
+			})
+			selectArr.push(d + "</select>");
+			return selectArr;
+		})
+		$('body').html(seArr.reverse().join(""));
+
+		var data2 = [{
+			"province": "浙江",
+			"city": "杭州",
+			"name": "西湖"
+		}, {
+			"province": "四川",
+			"city": "成都",
+			"name": "锦里"
+		}, {
+			"province": "四川",
+			"city": "成都",
+			"name": "方所"
+		}, {
+			"province": "四川",
+			"city": "重庆",
+			"name": "辣子鸡"
+		}, {
+			"province": "四川",
+			"city": "重庆",
+			"name": "辣子鸡"
+		}, {
+			"province": "四川",
+			"city": "阿坝",
+			"name": "九寨沟"
+		}]
+		var arr_ = [];
+
+		function getProvince(arr, key) {
+			data2.map(function(v, i) {
+				if(!arr[0]) {
+					arr[0] = {};
+					arr[0].value = v[key];
+				} else {
+					var t = false;
+					arr.map(function(v_) {
+						if(v_.value == v[key]) {
+							t = true;
+							return;
+						}
+					})
+					if(!t) {
+						arr[i] = {};
+						arr[i].value = v[key];
+					}
+				}
+			})
+			return arr;
+		}
+		var returnArr = getProvince(arr_, "province");
+
+
+
+		function getBianCon(data,orderList) {
+			var returnArr = [],compareObj = {};
+			for (var i = 0,l = data.length;i<l;i++) {
+				var temArr = returnArr,temCompareObj = compareObj;
+				for (var j = 0,ll = orderList.length;j<ll;j++) {
+					var orderName = orderList[j],valueName = data[i][orderName];
+					if(!temCompareObj[valueName]) {
+						//step 1 设置value，children对象
+						var obj = {
+							value:valueName,
+							num:1
+						};
+						
+						//step 2判断是否有children，并且设置
+						if(j < ll-1) {
+							obj.children = [];
+							var childrenSub = obj.children;
+						}
+						
+						//step 3为returnArr push对象
+						var num = temArr.push(obj)-1;//num是比对函数compareObj的下标
+						
+						//step 4赋值比对函数
+						temCompareObj[valueName] = {
+							$$index:num
+						}
+						
+						//step 5初始化temArr(节点的children数组) 和temCompareObj(比对函数将上一步的下标对象赋值给下一个循环的初始值);
+//						temArr = tem;
+//						temArr = temArr[num].children;
+						temArr = childrenSub;
+						temCompareObj = temCompareObj[valueName];
+					} else {
+//						console.log(temArr);
+//						console.log(temCompareObj);
+						//step 1 因为已经重复了，所以直接初始化两个tem：temArr，temCompareObj
+						//！！！temArr始终是节点的children，因为下一次进行重复对比的就是此节点下的value
+						temArr[temCompareObj[valueName].$$index].num++;
+						
+						temArr = temArr[temCompareObj[valueName].$$index].children;
+						temCompareObj = temCompareObj[valueName];
+					}
+					
+				}
+			}
+			return returnArr;
+		}
+		
+		console.log(getBianCon(data2,['province','city','name']));
+
+
+		var transObject = function(tableData, keys) {
+			let hashTable = {},res = [];
+			for(let i = 0; i < tableData.length; i++) {
+				let arr = res,cur = hashTable;
+				for(let j = 0; j < keys.length; j++) {
+					let key = keys[j],filed = tableData[i][key];
+					if(!cur[filed]) {
+						//树形结构中的对象，以及对象中子对象children的指针函数tmp
+						let pusher = {
+								value: filed
+							},tmp;
+						//如果是最后的子元素，则不再添加children
+						if(j !== (keys.length - 1)) {
+							tmp = [];
+							pusher.children = tmp;//把对象中的children指针指向tmp
+						}
+						/**
+						 * 1 为hashTable（检测重复项）赋值，如果比对hashTable有值则视为重复不进行push
+						 * 2 为最终的res的指针arr赋值添加对象
+						 */
+						var num = arr.push(pusher);
+						cur[filed] = {
+							$$pos: num - 1
+						}
+						/**
+						 * 1 为判断重复函数的指针cur赋值，用来下次判断是否重复
+						 * 2 为res的children指针（上一步的tmp）重新指向arr，下次push则是对children赋值
+						 */
+						cur = cur[filed];
+						arr = tmp;
+					} else {
+						cur = cur[filed];
+						arr = arr[cur.$$pos].children;
+					}
+				}
+			}
+			return {
+				res:res,
+				hashTable:hashTable
+			}
+		}
+		
+		console.log(transObject(data2,['province', 'city', 'name']));
+	</script>
+
+</html>

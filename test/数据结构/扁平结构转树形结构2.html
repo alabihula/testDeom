@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="../js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<style type="text/css">
+		pre{
+			background: antiquewhite;
+		}
+		.js{
+			color: orangered;
+			font-size: 16px;
+			font-weight: bold;
+		}
+	</style>
+	<body>
+		<pre><code class="js"><span class="hljs-keyword">var input = {
+  h3: {
+    parent: <span class="hljs-string">'h2',
+    name: <span class="hljs-string">'副总经理(市场)'
+  },
+  h1: {
+    parent: <span class="hljs-string">'h0',
+    name: <span class="hljs-string">'公司机构'
+  },
+  h7: {
+    parent: <span class="hljs-string">'h6',
+    name: <span class="hljs-string">'副总经理(总务)'
+  },
+  h4: {
+    parent: <span class="hljs-string">'h3',
+    name: <span class="hljs-string">'销售经理'
+  },
+  h2: {
+    parent: <span class="hljs-string">'h1',
+    name: <span class="hljs-string">'总经理'
+  },
+  h8: {
+    parent: <span class="hljs-string">'h0',
+    name: <span class="hljs-string">'财务总监'
+  },
+  h6: {
+    parent: <span class="hljs-string">'h4',
+    name: <span class="hljs-string">'仓管总监'
+  },
+  h5: {
+    parent: <span class="hljs-string">'h4',
+    name: <span class="hljs-string">'销售代表'
+  },
+  h0: {
+    parent: <span class="hljs-string">'',
+    name: <span class="hljs-string">'root'
+  }
+};</span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>
+	</body>
+	<script type="text/javascript">
+		var data = {
+			h3: {
+				parent: 'h2',
+				name: '副总经理(市场)'
+			},
+			h1: {
+				parent: 'h0',
+				name: '公司机构'
+			},
+			h7: {
+				parent: 'h6',
+				name: '副总经理(总务)'
+			},
+			h4: {
+				parent: 'h3',
+				name: '销售经理'
+			},
+			h2: {
+				parent: 'h1',
+				name: '总经理'
+			},
+			h8: {
+				parent: 'h0',
+				name: '财务总监'
+			},
+			h6: {
+				parent: 'h4',
+				name: '仓管总监'
+			},
+			h5: {
+				parent: 'h4',
+				name: '销售代表'
+			},
+			h0: {
+				parent: '',
+				name: 'root'
+			}
+		};
+		
+		function con(data) {
+			var obj = {};
+			for(var key in data) {
+				var child = data[key];
+				var parentId = child.parent;
+				var nameId = child.name;
+				console.log(child);
+				if(parentId == "") {
+					obj[key] = child;
+				} else {
+					if(!obj[parentId] && obj[key] != key) {
+						obj[parentId] = {};
+						obj[parentId][key] = child;
+					} else {
+						obj[child.parent].parent = child.parent;
+						obj[child.parent].name = child.name;
+					}
+				}
+			}
+			return obj;
+		}
+		console.log(con(data));
+	</script>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>deferred&promise</title>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+		//deferred是包含promise的，一下为其实现原理
+		function Deferred() {
+			this.promise = new Promise(function(resolve,reject) {
+				console.log(this);
+				this._resolve = resolve;
+				this._reject = reject;
+			}.bind(this))
+		}
+		Deferred.prototype.resolve = function(v) {
+			this._resolve.call(this.promise,v);
+		}
+		Deferred.prototype.reject = function(e) {
+			this._reject.call(this.promise,e);
+		}
+		
+		function test(name) {
+			var de = new Deferred();
+			setTimeout(function() {
+				de.resolve(name)
+			},0)
+			return de.promise;
+		}
+		test("哈哈").then(function(v) {
+			console.log(v);
+		})
+	</script>
+</html>

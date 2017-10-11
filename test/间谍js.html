@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var initFun = function() {
+				this.init = function(name) {
+					console.log(name);
+				}
+				this.info = function() {
+					console.log("init info");
+				}
+			}
+			
+			var initFun_ = initFun;
+			initFun = function() {
+				var tem = new initFun_();
+				action(tem);
+				return tem;
+			}
+			
+			function action(obj) {
+				var init_ = obj.init;
+				obj.init = function(name) {
+					console.log("监听参数："+name);
+					init_.call(this,name);
+				}
+				console.log("开始监听");
+			}
+			
+			
+			var test = new initFun();
+			test.init("test");
+			test.info();
+//			console.log(test.info);
+		</script>
+	</body>
+</html>

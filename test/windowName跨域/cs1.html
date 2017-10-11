@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="UTF-8"/>
+	<head>
+	<!--<script src="test.js" type="text/javascript" charset="utf-8"></script>-->
+	<script>
+		
+		var d = document.createElement("script"),head = document.head;
+		d.src="test.js";
+		
+		d.onload = d.onreadystatechange = function(v1,v2) {
+			head.removeChild(d);
+			console.log(a);
+		}
+		
+		head.insertBefore(d,head.firstChild)
+		
+		function proxy(url, func) {
+			var isFirst = true,
+				ifr = document.createElement('iframe'),
+				loadFunc = function() {
+					if(isFirst) {
+						ifr.contentWindow.location = 'http://127.0.0.1:8020/test/windowName%E8%B7%A8%E5%9F%9F/proxy.html';
+						isFirst = false;
+					} else {
+						func(ifr.contentWindow.name);
+						ifr.contentWindow.close();
+						document.body.removeChild(ifr);
+						ifr.src = '';
+						ifr = null;
+					}
+				};
+
+			ifr.src = url;
+			ifr.style.display = 'none';
+			if(ifr.attachEvent) ifr.attachEvent('onload', loadFunc);
+			else ifr.onload = loadFunc;
+
+			document.body.appendChild(ifr);
+		}
+	</script>
+	</head>
+
+	<body>
+		<script>
+			//去左右空格;
+			function trim(s){
+			    return s.replace(/(^\s*)|(\s*$)/g, "");
+			}
+			proxy('http://127.0.0.1:8020/test/windowName%E8%B7%A8%E5%9F%9F/data.html', function(data) {
+				console.log(JSON.parse(data).foo);
+			});
+		</script>
+	</body>
+
+</html>

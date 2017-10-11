@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript">
+		Function.prototype.bind = function(context) {
+			var args = Array.prototype.slice.call(arguments, 1),
+				F = function() {},
+				self = this,
+				bound = function() {
+					console.log(this);
+					var innerArgs = Array.prototype.slice.call(arguments);
+					var finalArgs = args.concat(innerArgs);
+					return self.apply((this instanceof F ? this : context), finalArgs);
+				};
+			F.prototype = self.prototype;
+			bound.prototype = new F();
+			console.log(bound);
+			return bound;
+		};
+
+		var obj = {
+			name : "minxing"
+		}
+
+		var obj2 = function() {
+			console.log("name： " + this.name);
+		}
+
+		var obj3 = obj2.bind(obj);
+		obj3();
+		console.log(obj instanceof obj3)
+	</script>
+
+</html>

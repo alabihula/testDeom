@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>promise2</title>
+	</head>
+	<script src="js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+	</body>
+	<script type="text/javascript">
+		var loginFlag = false,
+			bindFlag = false,
+			loginReturn = true,
+			bindReturn = true;
+	
+	function test1() {
+		var login = function(callBack) {
+			if(loginReturn) {
+				console.log("登录成功");
+				loginFlag = true;
+				callBack();
+			} else {
+				console.log("登录失败");
+				loginFlag = false;
+			}
+		}
+		
+		var bind = function(callBack) {
+			if(bindReturn) {
+				console.log("绑定成功");
+				bindFlag = true;
+				callBack();
+			} else {
+				console.log("绑定失败");
+				bindFlag = false;
+			}
+		}
+		
+		var select = function() {
+			console.log("开始选择");
+		}
+	
+		var initF = function() {
+			if(!loginFlag) {
+				login(initF);
+				return;
+			}
+			
+			if(!bindFlag) {
+				bind(initF); 
+				return;
+			}
+			
+			select();
+		}
+		initF();
+	}
+	
+	function test2() {
+		var login = function() {
+			return new Promise(function(resolve,rejcet) {
+				if(loginReturn) {
+					loginFlag = true;
+					resolve("登录成功");
+				} else {
+					loginFlag = false;
+					rejcet(11);
+				}
+			})
+		}
+		
+		var bind = function() {
+			return new Promise(function(resolve,rejcet) {
+				if(bindReturn) {
+					bindFlag = true;
+					resolve("绑定成功");
+				} else {
+					bindFlag = false;
+				}
+			})	
+		}
+		
+		var select = function() {
+			return new Promise(function(resolve,rejcet) {
+				resolve("开始选择");
+			})	
+		}
+		
+		login().then(function(data) {
+			console.log("login return"+data);
+			return bind();
+		}).then(function(data) {
+			console.log("bind return"+data);
+			return select();
+		}).then(function(data) {
+			console.log("xuanze return: "+data);
+		},function(data) {
+			console.log("error: "+data);
+		})
+	}
+	
+//	test1();
+	test2();
+	</script>
+</html>

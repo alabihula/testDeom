@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<button onclick="add()">加载图片</button>
+		<img src="banner/images/0Qvwqqc37bm2T5U4.jpg" />
+	</body>
+	<script type="text/javascript">
+		function add() {
+			var img = new Image(),
+				loadAgain = true;
+			img.onload = function() {
+				if(!loadAgain) return;
+				img.onload = null;
+				console.log("onload: w " + img.width + " h " + img.height);
+			}
+			img.src = "banner/images/0Qvwqqc37bm2T5U4.jpg";
+			if(img.complete) {
+				console.log("complete: w " + img.width + " h " + img.height);
+				loadAgain = false;
+			}
+		}
+		document.onreadystatechange = function(e) {
+			console.log(document.readyState);
+			console.log(e);
+		}
+
+		function loadScript(url, func) {
+			var head = document.head || document.getElementByTagName('head')[0];
+			var script = document.createElement('script');
+			script.src = url;
+			script.onload = script.onreadystatechange = function() {
+				if(!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete') {
+					func();
+					script.onload = script.onreadystatechange = null;
+				}
+			};
+//			head.insertBefore(script);
+			head.appendChild(script);
+		}
+		window.baidu = {
+			sug: function(data) {
+				console.log(data);
+			}
+		}
+		loadScript('http://suggestion.baidu.com/su?wd=w', function() {
+			console.log('loaded')
+		});
+//		loadScript('http://localhost:8080/resteasyDemo/rest/echo/test?test=1', function() {
+//			console.log('loaded')
+//			console.log(name)
+//		});
+	</script>
+
+</html>
