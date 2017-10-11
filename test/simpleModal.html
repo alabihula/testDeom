@@ -14,9 +14,9 @@
 				for(var i = 0;i<rel.length; i++) {
 					rel[i] = modals[rel[i]];
 				}
-				console.log(rel);
+				console.log(this);
 				//apply中fs将作用于指向依赖函数本身，这样才能在需要依赖函数中通过rel.方法名实现调用，否则会出现作用于为window
-				modals[modalName] = fs.apply(fs,rel);
+				modals[modalName] = fs.apply(window,rel);
 			};
 			var getModal = function(name) {return modals[name]};
 			return {define:define,getModal:getModal}
@@ -39,23 +39,23 @@
 			return {define:define,getModal:getModal}
 		}()
 		//模块2
-		require.define("intro",[],function() {
+		require1.define("intro",[],function() {
 			var say = function(name) {
 				console.log("my name is : "+name);
 			}
 			return {say:say}
 		})
 		//模块1
-		require.define("minx",['intro'],function(intro) {
+		require1.define("minx",['intro'],function(intro) {
 			var goSay = function() {
 				intro.say("minxing");
 			}
 			return {goSay:goSay}
 		})
 		
-		var intro = require.getModal("intro");
+		var intro = require1.getModal("intro");
 		intro.say("test");
-		var minx = require.getModal("minx");
+		var minx = require1.getModal("minx");
 		minx.goSay();
 		
 		</script>

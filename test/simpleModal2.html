@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var require = function() {
+				var moduleList = {}
+				this.define = function(name,relist,callback) {
+					if(typeof relist == "function") {
+						moduleList[name] = relist.apply(null);
+					} else {
+						var returnModuleList = [];
+						for(var i = 0;i<relist.length;i++) {
+							var keyName = relist[i];
+							if(moduleList[keyName]) returnModuleList.push(moduleList[keyName]);
+						}
+						moduleList[name] = callback.apply(null,returnModuleList);
+					}
+				}
+				
+				this.require = function(nameList,callback) {
+					var returnModuleList = [];
+					for(var i = 0;i<nameList.length;i++) {
+						var keyName = nameList[i];
+						if(moduleList[keyName]) returnModuleList.push(moduleList[keyName]);
+					}
+					callback.apply(null,returnModuleList);
+				}
+			}
+			
+			var r = new require();
+			r.define("tom",function() {
+				return {
+					name:"闵星333"
+				}
+			})
+			
+			r.define("people",['tom'],function(t) {
+				return {
+					par:"人",
+					sayName:function() {
+						console.log(t.name+" is "+this.par);
+					}
+				}
+			})
+			
+//			r.define("people",function() {
+//				return {
+//					par:"人",
+//					sayName:function(name) {
+//						console.log(name+" is "+this.par);
+//					}
+//				}
+//			})
+			
+			
+			
+			r.require(["people","tom"],function(p,t) {
+//				p.sayName(t.name);
+				p.sayName();
+			})
+		</script>
+	</body>
+</html>
