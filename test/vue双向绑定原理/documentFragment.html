@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app">
+			<input type="text" name="aaa" id="aaa" v-model="aaa" />
+			<div id="bbb">{{aaa}}</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function Vue(options) {
+			this.data = options.data;
+			var el = document.getElementById(options.el);
+			if(options.el.indexOf("#") == -1) {
+			 	el = document.getElementsByClassName(options.el)[0];
+			} 
+			copyNodes(document.getElementById("app"),this);
+		}
+		var app = new Vue({
+			el:"#app",
+			data:{
+				aaa:"测试数据"
+			}
+		})
+		
+		//复制和劫持所有节点重新输入到指定元素中
+		function copyNodes(el,app) {
+			var fragment = document.createDocumentFragment();
+			var child = null;
+			while(child = el.firstChild) {
+				sysNode(child,app);
+				fragment.appendChild(child);
+			}
+			el.appendChild(fragment);
+		}
+		//解析 vue的字符指令 ，绑定初始数据
+		function sysNode(node,vue) {
+			//解析{{}}
+			var reg = /\{\{(.*)\}\}/;
+			//替换属性
+			if(node.nodeType === 1) {//元素
+				var attributes = node.attributes;
+				for (var i = 0;i<attributes.length;i++) {
+					var nodeName = attributes[i].nodeName;
+					if(nodeName == "v-model") {
+						var nodeValue = attributes[i].nodeValue;
+						node.value = vue.data[nodeValue];//得到v-model的值
+						node.removeAttribute("v-model");//删除v-model
+					}
+				}
+				//解析元素中的{{}}
+				if(reg.test(node.innerHTML)) {
+					var name = RegExp.$1;
+					name = name.trim();
+					node.innerHTML = vue.data[name];
+				}
+			}
+		}
+	</script>
+</html>

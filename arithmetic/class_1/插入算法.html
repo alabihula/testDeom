@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>11</title>
+	</head>
+	[6,13,5,7,2,66,33]
+	<body>
+		<script type="text/javascript">
+			var startTime = new Date().getTime();
+			var num = function() {
+				return parseInt(Math.random()*100);
+			}
+//			var arr = [6,13,5,7,2,66,33];
+			var arr = new Array();
+			for (var i = 0; i<100000;i++) {
+				arr.push(num());
+			}
+			for (var i = 1; i< arr.length; i++) {
+				var key = arr[i];
+				j = i - 1;//前一个元素
+				while(j>=0&&arr[j] > key) {
+					arr[j+1] = arr[j];//如果当前元素小于前一个元素，则换位：当前元素的值==前一个元素
+					j = j - 1;//前一个元素下标向左移动1（前面第二个）然后继续比较当前元素是否比（前面第二个元素）小
+//					console.log("每次循环比较："+arr.toString());
+				}
+				arr[j+1] = key;
+//				console.log("循环比较完："+arr.toString());
+			}
+			var endTime = new Date().getTime();
+			console.log(arr);
+			console.log("耗时： "+(endTime-startTime)+" ms");
+		</script>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="text" name="aaa" id="aaa" value="" />
+		<div id="str"></div>
+	</body>
+	<script type="text/javascript">
+		var obj = {};
+		Object.defineProperty(obj,"data",{
+			set:function(v) {
+				document.getElementById("aaa").value = v;
+				document.getElementById("str").innerHTML = v;
+			}
+		})
+		document.addEventListener('keyup',function(e) {
+			obj.data = e.target.value;
+		})
+	</script>
+</html>

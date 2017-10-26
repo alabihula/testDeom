@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<div id="app">
+			<input type="text" name="aaa" id="aaa" v-model="aaa" />
+			<div id="bbb">{{aaa}}</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		
+		//发布者
+		var pub = {
+			publish: function(dep) {
+				dep.notify()
+			}
+		}
+		
+		//订阅者
+		var sub1 = {update: function() {console.log("sub1");}}
+		var sub2 = {update: function() {console.log("sub2");}}
+		var sub3 = {update: function() {console.log("sub3");}}
+
+		//主题
+		var Dep = function() {
+			this.subs = [sub1, sub2, sub3];
+		}
+		//主题定义执行方法
+		Dep.prototype.notify = function() {
+			this.subs.forEach(function(sub) {
+				sub.update();
+			})
+		}
+		var dep = new Dep();
+		pub.publish(dep);
+	</script>
+
+</html>
