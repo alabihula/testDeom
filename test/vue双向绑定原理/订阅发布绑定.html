@@ -13,18 +13,6 @@
 		</div>
 	</body>
 	<script type="text/javascript">
-		//发布者
-		var pub = {
-			publish: function(dep) {
-				dep.notify()
-			}
-		}
-		
-		//订阅者
-		var sub1 = {update: function() {console.log("sub1");}}
-		var sub2 = {update: function() {console.log("sub2");}}
-		var sub3 = {update: function() {console.log("sub3");}}
-
 		//主题
 		var Dep = function() {
 			this.subs = [];
@@ -79,6 +67,7 @@
 		function observe(objCopy,obj) {
 			Object.keys(objCopy).forEach(function(key) {
 				defineReactive(obj.data,key,objCopy[key]);
+				//为每个vue中的data属性设置主题，然后在后面的解析node中为需要订阅的node设置订阅者参数，并添加到对应的主题中
 				zt[key] = new Dep();
 			})
 		}
