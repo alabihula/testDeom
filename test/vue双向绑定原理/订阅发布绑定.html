@@ -36,6 +36,7 @@
 				var className = options.el.split(".")[1];
 				el = document.getElementsByClassName(className)[0];
 			}
+			//定义set和get
 			observe(this.data,this);
 			var fragment = copyNodes(el, this);
 			el.appendChild(fragment);
