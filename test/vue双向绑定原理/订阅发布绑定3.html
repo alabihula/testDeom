@@ -29,12 +29,11 @@
 		
 		//定义订阅者
 		var Watcher = function(name,update) {
+			Dep.target = this;
 			this.update = update;
 			this.update();
-			zt[name].add(this);
+			Dep.target = null;
 		}
-		var zt={};
-		
 		function Vue(options) {
 			this.data = options.data;
 			var idName = options.el.split("#")[1];
@@ -62,24 +61,22 @@
 		function observe(objCopy,obj) {
 			Object.keys(objCopy).forEach(function(key) {
 				defineReactive(obj,key,objCopy[key]);
-				//为每个vue中的data属性设置主题，然后在后面的解析node中为需要订阅的node设置订阅者参数，并添加到对应的主题中
-				zt[key] = new Dep();
 			})
 		}
 		
 		//为obj定义set和get方法
 		function defineReactive(obj, key, val) {
+			var dep = new Dep();
 			Object.defineProperty(obj,key,{
 				get: function() {
-					console.log(111);
+					if(Dep.target) dep.add(Dep.target);
 					return val;
 				},
 				set: function(newVal) {//给vue中data设置值的时候访问
 					if(newVal == val) return;
 					val = newVal;
-					console.log(app[key]);
 					console.log(val);
-					zt[key].notify();
+					dep.notify();
 				}
 			})
 		}
@@ -111,6 +108,7 @@
 							vue[nodeValue] = e.target.value;
 						})
 						node.removeAttribute("v-model"); //删除v-model
+						
 						//为主题加入订阅者
 						var watcher = new Watcher(nodeValue,function() {
 							node.value = vue[nodeValue];
@@ -121,11 +119,10 @@
 				if(reg.test(node.innerHTML)) {
 					var name = RegExp.$1;
 					name = name.trim();
-					//为主题加入订阅者
+					
 					var watcher = new Watcher(name,function() {
 						node.innerHTML = vue[name];
 					});
-
 				}
 			}
 		}
