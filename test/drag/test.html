@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test" draggable="true" style="height:30px;width:130px;background:pink;float:left;">拖放源</div>
+    <div id="target" style="float:right;height: 200px;width:200px;background:lightblue;">拖放目标</div>
+    <script>
+        var timer, i = 0;
+        var timer1, i1 = 0;
+        var test = document.getElementById('test');
+        var target = document.getElementById('target');
+        //兼容IE8-浏览器
+        test.onmousedown = function () {
+            if (this.dragDrop) {
+                this.dragDrop();
+            }
+        }
+        test.ondragstart = function (e) {
+            this.style.backgroundColor = 'lightgreen';
+            this.innerHTML = '开始拖动';
+            e.dataTransfer.setData("name","hahahhaha");
+            console.log("ondragstart---"+e.target.id);
+        }
+        test.ondrag = function (e) {
+            if (timer) return;
+            timer = setInterval(function () {
+                test.innerHTML = '元素已被拖动' + ++i + '秒';
+            }, 1000);
+            console.log("ondrag---"+e.target.id);
+        }
+        test.ondragend = function (e) {
+            clearInterval(timer);
+            timer = 0;
+            i = 0;
+            this.innerHTML = '结束拖动';
+            this.style.backgroundColor = 'pink';
+            console.log("ondragend---"+e.target.id);
+        }
+        target.ondragenter = function (e) {
+            e = e || event;
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            }
+            this.innerHTML = '有元素进入目标区域';
+            this.style.background = 'red';
+            console.log("ondragenter---"+e.target.id);
+        }
+        target.ondragover = function (e) {
+            e = e || event;
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            }
+            if (timer1) return;
+            timer1 = setInterval(function () {
+                target.innerHTML = '元素已进入' + (++i1) + '秒';
+            }, 1000);
+            console.log("ondragover---"+e.target.id);
+        }
+        target.ondragleave = function (e) {
+            clearInterval(timer1);
+            timer1 = 0;
+            i1 = 0;
+            this.innerHTML = '元素已离开目标区域';
+            this.style.backgroundColor = 'lightblue';
+            console.log("ondragleave---"+e.target.id);
+        }
+        target.ondrop = function (e) {
+            clearInterval(timer1);
+            timer1 = 0;
+            i1 = 0;
+            this.innerHTML = '元素已落在目标区域';
+            this.style.backgroundColor = 'orange';
+            console.log("ondrop---"+e.target.id);
+            console.log("dataTransfer---"+e.dataTransfer.getData('name'));
+        }
+    </script>
+</body>
+
+</html>
