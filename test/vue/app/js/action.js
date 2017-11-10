@@ -76,6 +76,19 @@ define(['vue','vueax5','axios'], function(vue,vueax5,axios) {
 				}).catch(function(e) {
 					console.log("error: "+e);
 				})
+			},
+			show2:function() {
+				fetch("js/testUrl/getAlPlay.json").then(function(data) {
+					if(data.status == 0) {
+						return data.data;
+					} else {
+						throw new Error("code error");
+					}
+				}).then(function(data) {
+					console.log(data);
+				}).catch(function(e) {
+					console.log("error: "+e);
+				})
 			}
 		}
 	})
