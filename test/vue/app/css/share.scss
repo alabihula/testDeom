@@ -1,0 +1,42 @@
+@import '_reset';
+@import 'icon/iconfont.css';
+@mixin font-dpr($font-size) {
+    font-size: $font-size;
+    /*no*/
+    [data-dpr="2"] & {
+        font-size: $font-size * 2;
+        /*no*/
+    }
+    [data-dpr="3"] & {
+        font-size: $font-size * 3;
+        /*no*/
+    }
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font: 14px/1.5 Helvetica, 'SimHei';
+    /*no*/
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.hide_ {
+    display: none;
+}
+body>a{display: none;}
+.box {
+    
+}

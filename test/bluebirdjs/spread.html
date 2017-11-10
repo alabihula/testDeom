@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="bluebird.min.js"></script>
+</head>
+<body>
+    
+</body>
+<script>
+    var f1 = Promise.resolve(1);
+    var f2 = Promise.resolve(2);
+    Promise.all([f1,f2]).then(function (p1,p2) {
+        console.log(p1);
+    })
+    Promise.all([f1,f2]).then(function ([p1,p2]) {
+        console.log(p1);
+        console.log(p2);
+    })
+    Promise.all([f1,f2]).spread(function (p1,p2) {
+        console.log(p1);
+        console.log(p2);
+    })
+</script>
+</html>
