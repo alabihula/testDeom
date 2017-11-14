@@ -16,11 +16,12 @@
 			    	var pro = onFulfilled();
 			    	console.log(state);
 			    	 if (state === 'pending') {
-			            callbacks.push(onFulfilled);
-			            return pro instanceof Promise_?pro:this;
+						callbacks.push(onFulfilled);
+			            // return pro instanceof Promise_?pro:this;
 			        }
 			        onFulfilled.call(null,value);
-			        return pro instanceof Promise_?pro:this;
+					// return pro instanceof Promise_?pro:this;
+					return this;
 			    };
 			 
 			    function resolve(newValue) {
@@ -57,9 +58,9 @@
 			});
 			d.then(function(v){
 				console.log("1 "+v);
-				return new Promise_(function(re) {
-					re("after complete");
-				})
+				// return new Promise_(function(re) {
+				// 	re("after complete");
+				// })
 			}).then(function(v) {
 				console.log("2 "+v);
 			})
