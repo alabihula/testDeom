@@ -1,5 +1,7 @@
-define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axios) {
-	const urlObj = {
+'use strict';
+
+define(['promise', 'vue', 'vueax5', 'axios'], function (Promise, vue, vueax5, axios) {
+	var urlObj = {
 		stateByName: {
 			name: "轮训查询视频状态",
 			url: {
@@ -60,17 +62,17 @@ define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axio
 		mounted: function mounted() {},
 		watch: {},
 		methods: {
-			prof:function() {
-				const pro = Promise.resolve(2);
-				pro.then(v=>{
+			prof: function prof() {
+				var pro = Promise.resolve(2);
+				pro.then(function (v) {
 					alert(v);
-				})
+				});
 			},
 			show: function show() {
 				this.prof();
 				var t = this;
 				try {
-					this.axios("js/testUrl/getAlPlay.json").then(data=> {
+					this.axios("js/testUrl/getAlPlay.json").then(function (data) {
 						console.log(data);
 						t.btnName = 1111;
 						if (data.status == 200) {
@@ -78,10 +80,10 @@ define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axio
 						} else {
 							throw new Error("code error");
 						}
-					}).then(data=> {
+					}).then(function (data) {
 						console.log(data);
 						t.btnName = "haha";
-					}).catch(e=> {
+					}).catch(function (e) {
 						console.log("error: " + e);
 						t.btnName = e;
 					});

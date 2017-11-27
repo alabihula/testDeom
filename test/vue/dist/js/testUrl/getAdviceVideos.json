@@ -1,0 +1,41 @@
+[
+	{
+		"addTime": 1506388842000,
+		"commentCount": 0,
+		"coverImageUrl": "http://192.168.104.103:8080/upload/15063914480035640.png?v=1",
+		"isCollection": 0,
+		"memberId": 500956856,
+		"praiseCount": 0,
+		"videoDesc": "",
+		"videoId": 1,
+		"videoName": "HN10-2222",
+		"videoType": 2,
+		"videoUrl": "http://sw-wangmiao.oss-cn-shanghai.aliyuncs.com/backVideos/QrAMyPRBYDr4f6AR7wNMxEs8bdeWfrmY.mp4"
+	},
+	{
+		"addTime": 1506388842000,
+		"commentCount": 0,
+		"coverImageUrl": "http://192.168.104.103:8080/upload/15063914480035640.png?v=2",
+		"isCollection": 0,
+		"memberId": 500956856,
+		"praiseCount": 0,
+		"videoDesc": "",
+		"videoId": 1,
+		"videoName": "HN10-2222222",
+		"videoType": 2,
+		"videoUrl": "http://sw-wangmiao.oss-cn-shanghai.aliyuncs.com/backVideos/QrAMyPRBYDr4f6AR7wNMxEs8bdeWfrmY.mp4"
+	},
+	{
+		"addTime": 1506388842000,
+		"commentCount": 0,
+		"coverImageUrl": "http://192.168.104.103:8080/upload/15063914480035640.png?v=3",
+		"isCollection": 0,
+		"memberId": 500956856,
+		"praiseCount": 0,
+		"videoDesc": "",
+		"videoId": 1,
+		"videoName": "HN10-2222333333",
+		"videoType": 2,
+		"videoUrl": "http://sw-wangmiao.oss-cn-shanghai.aliyuncs.com/backVideos/QrAMyPRBYDr4f6AR7wNMxEs8bdeWfrmY.mp4"
+	}
+]

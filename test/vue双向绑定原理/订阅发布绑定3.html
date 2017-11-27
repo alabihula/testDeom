@@ -1,132 +1,241 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
 
-	<body>
-		<div id="app">
-			<input type="text" name="aaa" id="aaa" v-model="aaa" />
-			<div id="bbb">{{aaa}}</div>
-		</div>
-	</body>
-	<script type="text/javascript">
-		//主题
-		var Dep = function() {
-			this.subs = [];
-			this.add = function(sub) {
-				this.subs.push(sub);
+<body>
+	<div id="app">
+		<input type="text" name="aaa" id="aaa" v-model="aaa" />
+		<div>{{aaa}}</div>
+		<input type="text" name="bbb" id="bbb" v-model="obj.name" />
+		<div>{{obj.name}}</div>
+	</div>
+</body>
+<script type="text/javascript">
+	//主题
+	var Dep = function () {
+		this.subs = [];
+		this.add = function (sub) {
+			this.subs.push(sub);
+		}
+	}
+	//主题定义执行方法
+	Dep.prototype.notify = function () {
+		this.subs.forEach(function (sub) {
+			sub.update();
+		})
+	}
+
+	//定义订阅者
+	var Watcher = function (name, update) {
+		Dep.target = this;
+		this.update = update;
+		this.update();
+		Dep.target = null;
+	}
+
+	function Vue(options) {
+		this.data = options.data;
+		var idName = options.el.split("#")[1];
+		var el = document.getElementById(idName);
+		if (options.el.indexOf("#") == -1) {
+			var className = options.el.split(".")[1];
+			el = document.getElementsByClassName(className)[0];
+		}
+
+		//为每个data中参数绑定set和get方法，并设定初始值
+		observe(this.data, this);
+
+		//劫持指定元素下的全部节点，并且解析其中的vue标签并且赋值初始值
+		var fragment = copyNodes(el, this);
+		el.appendChild(fragment);
+	}
+	var app = new Vue({
+		el: "#app",
+		data: {
+			aaa: "测试数据",
+			str: 222,
+			obj: {
+				name: "hahha"
 			}
 		}
-		//主题定义执行方法
-		Dep.prototype.notify = function() {
-			this.subs.forEach(function(sub) {
-				sub.update();
-			})
-		}
-		
-		//定义订阅者
-		var Watcher = function(name,update) {
-			Dep.target = this;
-			this.update = update;
-			this.update();
-			Dep.target = null;
-		}
-		function Vue(options) {
-			this.data = options.data;
-			var idName = options.el.split("#")[1];
-			var el = document.getElementById(idName);
-			if(options.el.indexOf("#") == -1) {
-				var className = options.el.split(".")[1];
-				el = document.getElementsByClassName(className)[0];
-			}
-			
-			//为每个data中参数绑定set和get方法，并设定初始值
-			observe(this.data,this);
-			
-			//劫持指定元素下的全部节点，并且解析其中的vue标签并且赋值初始值
-			var fragment = copyNodes(el, this);
-			el.appendChild(fragment);
-		}
-		var app = new Vue({
-			el: "#app",
-			data: {
-				aaa: "测试数据",
-				str:222
+	})
+
+	function observe(objCopy, obj) {
+		if (!objCopy || typeof objCopy != 'object') return;
+		Object.keys(objCopy).forEach(function (key) {
+			defineReactive(obj, key, objCopy[key]);
+		})
+	}
+
+	//为obj定义set和get方法
+	function defineReactive(obj, key, val) {
+		var dep = new Dep();
+		observe(val, val);
+		Object.defineProperty(obj, key, {
+			get: function () {
+				console.log("get==>", this);
+				Dep.target && dep.add(Dep.target);
+				return val;
+			},
+			set: function (newVal) { //给vue中data设置值的时候访问
+				if (newVal == val) return;
+				val = newVal;
+				console.log("set==>", dep.subs);
+				dep.notify();
 			}
 		})
+	}
 
-		function observe(objCopy,obj) {
-			Object.keys(objCopy).forEach(function(key) {
-				defineReactive(obj,key,objCopy[key]);
-			})
+	//复制和劫持所有节点重新输入到指定元素中
+	function copyNodes(el, app) {
+		var fragment = document.createDocumentFragment();
+		var child = null;
+		while (child = el.firstChild) {
+			sysNode(child, app);
+			fragment.appendChild(child);
 		}
-		
-		//为obj定义set和get方法
-		function defineReactive(obj, key, val) {
-			var dep = new Dep();
-			Object.defineProperty(obj,key,{
-				get: function() {
-					if(Dep.target) dep.add(Dep.target);
-					return val;
-				},
-				set: function(newVal) {//给vue中data设置值的时候访问
-					if(newVal == val) return;
-					val = newVal;
-					console.log(val);
-					dep.notify();
-				}
-			})
-		}
-		
-		//复制和劫持所有节点重新输入到指定元素中
-		function copyNodes(el, app) {
-			var fragment = document.createDocumentFragment();
-			var child = null;
-			while(child = el.firstChild) {
-				sysNode(child, app);
-				fragment.appendChild(child);
-			}
-			return fragment;
-		}
-		
-		//解析 vue的字符指令 ，绑定初始数据
-		function sysNode(node, vue) {
-			//解析{{}}
-			var reg = /\{\{(.*)\}\}/;
-			//替换属性
-			if(node.nodeType === 1) { //元素
-				var attributes = node.attributes;
-				for(var i = 0; i < attributes.length; i++) {
-					var nodeName = attributes[i].nodeName;
-					if(nodeName == "v-model") {
-						var nodeValue = attributes[i].nodeValue;
-						
-						node.addEventListener("input",function(e) {
-							vue[nodeValue] = e.target.value;
-						})
-						node.removeAttribute("v-model"); //删除v-model
-						
-						//为主题加入订阅者
-						var watcher = new Watcher(nodeValue,function() {
-							node.value = vue[nodeValue];
-						});
-					}
-				}
-				//解析元素中的{{}}
-				if(reg.test(node.innerHTML)) {
-					var name = RegExp.$1;
-					name = name.trim();
-					
-					var watcher = new Watcher(name,function() {
-						node.innerHTML = vue[name];
+		return fragment;
+	}
+
+	//解析 vue的字符指令 ，绑定初始数据
+	function sysNode(node, vue) {
+		//解析{{}}
+		var reg = /\{\{(.*)\}\}/;
+		//替换属性
+		if (node.nodeType === 1) { //元素
+			var attributes = node.attributes;
+			for (var i = 0; i < attributes.length; i++) {
+				var nodeName = attributes[i].nodeName;
+				if (nodeName == "v-model") {
+					var nodeValue = attributes[i].nodeValue;
+
+					//为主题加入订阅者
+					var watcher = new Watcher(nodeValue, function () {
+
+						var valueList = nodeValue.split(".");
+						var l = valueList.length;
+						var result = vue[valueList[0]];
+						if (l > 1) {
+							for (let i = 1; i < l; i++) {
+								const v = valueList[i];
+								result = result[v];
+								console.log("循环加入订阅者result", result);
+							}
+						}
+
+						node.value = result;
 					});
+
+
+					node.addEventListener("input", function (e) {
+
+						var valueList = nodeValue.split(".");
+						var l = valueList.length;
+						var result = vue[valueList[0]];
+						if (l > 1) {
+							for (let i = 1; i < l-1; i++) {
+								const v = valueList[i];
+								result = result[v];
+							}
+							console.log("循环绑定订阅者result", result);
+							result[valueList[l-1]] = e.target.value;
+						} else {
+							vue[valueList[0]] = e.target.value;
+						}
+						
+					})
+					node.removeAttribute("v-model"); //删除v-model
+
 				}
 			}
+			//解析元素中的{{}}
+			if (reg.test(node.innerHTML)) {
+				var nodeValue = RegExp.$1;
+				nodeValue = nodeValue.trim();
+
+				var watcher = new Watcher(nodeValue, function () {
+
+					var valueList = nodeValue.split(".");
+					var l = valueList.length;
+					var result = vue[valueList[0]];
+					if (l > 1) {
+						for (let i = 1; i < l; i++) {
+							const v = valueList[i];
+							result = result[v];
+							console.log("循环加入订阅者result", result);
+						}
+					}
+
+					node.innerHTML = result;
+				});
+			}
 		}
-		
-	</script>
+	}
+
+
+	var a = {
+		data: {
+			name: 333
+		}
+	}
+	var b = {
+		data: {
+			name: 333
+		}
+	}
+
+	var kkk = {};
+
+	function eee(obj, key, v) {
+		Object.defineProperty(obj, key, {
+			set: function (newv) {
+				console.log("set");
+				v = newv;
+			},
+			get: function () {
+				console.log("get");
+				return v;
+			}
+		})
+	}
+
+	function ddd(obj) {
+		var tem = {
+			name: 23
+		}
+		Object.defineProperty(obj, "data", {
+			set: function (n) {
+
+			},
+			get: function () {
+				console.log(this + "===");
+				return tem;
+			}
+		})
+		// console.log(Object.getOwnPropertyDescriptor(obj.data,"name"));
+		Object.defineProperty(obj.data, "name", {
+			set: function (n) {
+
+			},
+			get: function () {
+				console.log(this + "---");
+				return {};
+			}
+		})
+	}
+	// eee(a,"data",{name:44});
+	// console.log(Object.getOwnPropertyDescriptor(a.data,"name"));
+	// eee(a.data,"name",{name:55});
+	// console.log("--------------------------");
+	// a.data.name;
+	// console.log("==========================");
+	// ddd(b);
+	// console.log("--------------------------");
+	// b.data.name;
+</script>
 
 </html>

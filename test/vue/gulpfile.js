@@ -14,6 +14,8 @@ optimize = require('amd-optimize'),
 module = require('./module.js'),
 moduleTem = cloneOriginal(module),
 watch =  require('gulp-watch'),
+babel = require('gulp-babel');
+plumber = require('gulp-plumber');
 changed = require('gulp-changed');
 
 function cloneOriginal(obj) {
@@ -114,11 +116,26 @@ gulp.task('rjs', function() {
     .pipe(gulp.dest(distUrl));
 });
 
+gulp.task('es5',function() {
+	return gulp.src('app/js/action.js')
+	.pipe(plumber())
+    .pipe(babel({
+      presets: [
+		  ["env", {
+			"targets": {
+			  "browsers": ["Chrome <=25","ie <= 8"]
+			}
+		  }]
+		]
+	}))
+    .pipe(gulp.dest('dist/js'))
+})
+
 //js
-gulp.task('scripts', ['rjs'],function() {
+gulp.task('scripts',['es5'],function() {
     return gulp.src([
-        'app/js/lib-flexible.min.js',
-    	'app/js/require.min.js'
+		'app/js/*.js',
+		'!app/js/action.js'
     ])
     .pipe(gulp.dest(distUrl+"/js"));
 });
@@ -189,7 +206,8 @@ gulp.task('serve', function() {
 	    port: port,
 	    ui: {
 	      port: port + 1
-	    }
+		},
+		browser: "chrome"
 	  });
 	gulp.watch(baseUrl+'/css/*.scss', ['csso']);
 	gulp.watch(baseUrl+'/*.html', ['html']);
@@ -216,7 +234,8 @@ gulp.task('serve-module', function() {
 	    port: port,
 	    ui: {
 	      port: port + 1
-	    }
+		},
+		browser: "chrome"
 	  });
 	gulp.watch(baseUrl+'/css/*.scss', ['csso']);
 	gulp.watch(baseUrl+'/module*/*.js',['module-rjs']);
@@ -234,10 +253,5 @@ gulp.task('serve-module', function() {
 // 监听分享
 gulp.task('app',['copy','json','scripts','html','img','csso'], function() {
 	gulp.start('serve');
-});
-
-// 监听审核
-gulp.task('module',['copy','img','csso','module-html','module-rjs'], function() {
-	gulp.start('serve-module');
 });
 
