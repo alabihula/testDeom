@@ -10,6 +10,10 @@
 		<div id="app">
 			<input type="text" name="aaa" id="aaa" v-model="aaa" />
 			<div id="bbb">{{aaa}}</div>
+
+			<ul v-for="v in arr">
+				<li>{{v}}</li>
+			</ul>
 		</div>
 	</body>
 	<script type="text/javascript">
@@ -55,7 +59,8 @@
 			el: "#app",
 			data: {
 				aaa: "测试数据",
-				str:222
+				str:222,
+				arr:[1,2,3]
 			}
 		})
 
@@ -116,7 +121,34 @@
 							node.value = vue[nodeValue];
 						});
 					}
+
+
+					//解析数组
+					if (nodeName == "v-for") {
+						var nodeValue = attributes[i].nodeValue;
+						console.log("v-for", nodeValue);
+						var vforArr = nodeValue.split(' ');
+						console.log("----", node);
+
+						Array.prototype.oldPush=Array.prototype.push;
+						Array.prototype.push = function (v) {
+							this.oldPush(v);
+							zt['arr'].notify();
+						}
+
+						if (reg.test(node.innerHTML)) {
+							var nodeValue = RegExp.$1;
+							nodeValue = nodeValue.trim();
+							console.log("括号", node.children);
+							var watcher = new Watcher('arr', function () {
+								node.innerHTML = vue['arr'];
+							})
+						}
+					}
+
 				}
+
+
 				//解析元素中的{{}}
 				if(reg.test(node.innerHTML)) {
 					var name = RegExp.$1;

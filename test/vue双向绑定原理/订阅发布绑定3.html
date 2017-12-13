@@ -12,6 +12,10 @@
 		<div>{{aaa}}</div>
 		<input type="text" name="bbb" id="bbb" v-model="obj.name" />
 		<div>{{obj.name}}</div>
+
+		<ul v-for="v in arr">
+			<li>{{v}}</li>
+		</ul>
 	</div>
 </body>
 <script type="text/javascript">
@@ -39,6 +43,7 @@
 
 	function Vue(options) {
 		this.data = options.data;
+		this.watch = options.watch;
 		var idName = options.el.split("#")[1];
 		var el = document.getElementById(idName);
 		if (options.el.indexOf("#") == -1) {
@@ -56,16 +61,26 @@
 	var app = new Vue({
 		el: "#app",
 		data: {
+			arr: [1, 2, 3],
 			aaa: "测试数据",
 			str: 222,
 			obj: {
 				name: "hahha"
 			}
+		},
+		watch: {
+			aaa: function () {
+				if (this.aaa.indexOf('_') != -1) {
+					console.log("watcher..........on");
+				} else {
+					console.log("watcher..........off");
+				}
+			}
 		}
 	})
 
 	function observe(objCopy, obj) {
-		if (!objCopy || typeof objCopy != 'object') return;
+		if (!objCopy || typeof objCopy != 'object' || Object.prototype.toString.call(objCopy) == "[object Array]") return;
 		Object.keys(objCopy).forEach(function (key) {
 			defineReactive(obj, key, objCopy[key]);
 		})
@@ -113,9 +128,8 @@
 				if (nodeName == "v-model") {
 					var nodeValue = attributes[i].nodeValue;
 
-					//为主题加入订阅者
+					//为主题加入订阅者，赋值
 					var watcher = new Watcher(nodeValue, function () {
-
 						var valueList = nodeValue.split(".");
 						var l = valueList.length;
 						var result = vue[valueList[0]];
@@ -126,39 +140,77 @@
 								console.log("循环加入订阅者result", result);
 							}
 						}
-
 						node.value = result;
 					});
 
-
+					//绑定点击事件
 					node.addEventListener("input", function (e) {
-
 						var valueList = nodeValue.split(".");
 						var l = valueList.length;
 						var result = vue[valueList[0]];
 						if (l > 1) {
-							for (let i = 1; i < l-1; i++) {
+							for (let i = 1; i < l - 1; i++) {
 								const v = valueList[i];
 								result = result[v];
 							}
 							console.log("循环绑定订阅者result", result);
-							result[valueList[l-1]] = e.target.value;
+							result[valueList[l - 1]] = e.target.value;
 						} else {
 							vue[valueList[0]] = e.target.value;
 						}
-						
+
+						//实现watch
+						for (const key in vue.watch) {
+							if (key == nodeValue) {
+								vue.watch[key].call(vue);
+							}
+						}
+
+
+						// var watcher = new Watcher(nodeValue, function () {
+						// 	var valueList = nodeValue.split(".");
+						// 	var l = valueList.length;
+						// 	var result = vue[valueList[0]];
+						// 	if (l > 1) {
+						// 		for (let i = 1; i < l; i++) {
+						// 			const v = valueList[i];
+						// 			result = result[v];
+						// 			console.log("循环加入订阅者result", result);
+						// 		}
+						// 	}
+						// 	node.value = result;
+						// });
+
+
+
 					})
 					node.removeAttribute("v-model"); //删除v-model
 
 				}
+
+				//解析数组
+				if (nodeName == "v-for") {
+					var nodeValue = attributes[i].nodeValue;
+					console.log("v-for", nodeValue);
+					var vforArr = nodeValue.split(' ');
+					console.log("----", node);
+
+					if (reg.test(node.innerHTML)) {
+						var nodeValue = RegExp.$1;
+						nodeValue = nodeValue.trim();
+						console.log("括号", node.children);
+						var watcher = new Watcher(nodeValue, function () {
+							node.innerHTML = vue['arr'];
+						})
+					}
+				}
 			}
 			//解析元素中的{{}}
 			if (reg.test(node.innerHTML)) {
+				console.log(node);
 				var nodeValue = RegExp.$1;
 				nodeValue = nodeValue.trim();
-
 				var watcher = new Watcher(nodeValue, function () {
-
 					var valueList = nodeValue.split(".");
 					var l = valueList.length;
 					var result = vue[valueList[0]];
@@ -175,67 +227,6 @@
 			}
 		}
 	}
-
-
-	var a = {
-		data: {
-			name: 333
-		}
-	}
-	var b = {
-		data: {
-			name: 333
-		}
-	}
-
-	var kkk = {};
-
-	function eee(obj, key, v) {
-		Object.defineProperty(obj, key, {
-			set: function (newv) {
-				console.log("set");
-				v = newv;
-			},
-			get: function () {
-				console.log("get");
-				return v;
-			}
-		})
-	}
-
-	function ddd(obj) {
-		var tem = {
-			name: 23
-		}
-		Object.defineProperty(obj, "data", {
-			set: function (n) {
-
-			},
-			get: function () {
-				console.log(this + "===");
-				return tem;
-			}
-		})
-		// console.log(Object.getOwnPropertyDescriptor(obj.data,"name"));
-		Object.defineProperty(obj.data, "name", {
-			set: function (n) {
-
-			},
-			get: function () {
-				console.log(this + "---");
-				return {};
-			}
-		})
-	}
-	// eee(a,"data",{name:44});
-	// console.log(Object.getOwnPropertyDescriptor(a.data,"name"));
-	// eee(a.data,"name",{name:55});
-	// console.log("--------------------------");
-	// a.data.name;
-	// console.log("==========================");
-	// ddd(b);
-	// console.log("--------------------------");
-	// b.data.name;
 </script>
 
 </html>
