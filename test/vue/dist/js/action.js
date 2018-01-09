@@ -1,6 +1,6 @@
 'use strict';
 
-define(['promise', 'vue', 'vueax5', 'axios'], function (Promise, vue, vueax5, axios) {
+define(['promise', 'vue', 'axios'], function (Promise, vue, axios) {
 	var urlObj = {
 		stateByName: {
 			name: "轮训查询视频状态",
@@ -51,8 +51,7 @@ define(['promise', 'vue', 'vueax5', 'axios'], function (Promise, vue, vueax5, ax
 			}
 		}
 	};
-	window.Promise = Promise;
-	vueax5(vue, axios);
+	window.Promise = window.Promise || Promise;
 	new vue({
 		el: ".box",
 		data: {
@@ -71,29 +70,25 @@ define(['promise', 'vue', 'vueax5', 'axios'], function (Promise, vue, vueax5, ax
 			show: function show() {
 				this.prof();
 				var t = this;
-				try {
-					this.axios("js/testUrl/getAlPlay.json").then(function (data) {
-						console.log(data);
-						t.btnName = 1111;
-						if (data.status == 200) {
-							return data.data;
-						} else {
-							throw new Error("code error");
-						}
-					}).then(function (data) {
-						console.log(data);
-						t.btnName = "haha";
-					}).catch(function (e) {
-						console.log("error: " + e);
-						t.btnName = e;
-					});
-				} catch (e) {
-					alert(e);
-				}
+				axios("js/testUrl/getAlPlay.json").then(function (data) {
+					console.log(data);
+					t.btnName = 1111;
+					if (data.status == 200) {
+						return data.data;
+					} else {
+						throw new Error("code error");
+					}
+				}).then(function (data) {
+					console.log(data);
+					t.btnName = "haha";
+				}).catch(function (e) {
+					console.log("error: " + e);
+					t.btnName = e;
+				});
 			},
 			show2: function show2() {
 				var t = this;
-				this.$http("js/testUrl/getAlPlay.json").then(function (data) {
+				axios("js/testUrl/getAlPlay.json").then(function (data) {
 					console.log(data);
 					if (data.status == 200) {
 						return data.data;

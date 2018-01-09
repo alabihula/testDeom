@@ -19,7 +19,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-	//主题
+	//主题/主题 ====>
 	var Dep = function () {
 		this.subs = [];
 		this.add = function (sub) {
@@ -33,7 +33,7 @@
 		})
 	}
 
-	//定义订阅者
+	//定义订阅者======>观察者
 	var Watcher = function (name, update) {
 		Dep.target = this;
 		this.update = update;

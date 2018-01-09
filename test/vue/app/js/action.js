@@ -1,4 +1,4 @@
-define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axios) {
+define(['promise', 'vue', 'axios'], function (Promise, vue, axios) {
 	const urlObj = {
 		stateByName: {
 			name: "轮训查询视频状态",
@@ -49,8 +49,7 @@ define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axio
 			}
 		}
 	};
-	window.Promise = Promise;
-	vueax5(vue, axios);
+	window.Promise = window.Promise || Promise;
 	new vue({
 		el: ".box",
 		data: {
@@ -60,38 +59,34 @@ define(['promise','vue', 'vueax5', 'axios'], function (Promise,vue, vueax5, axio
 		mounted: function mounted() {},
 		watch: {},
 		methods: {
-			prof:function() {
+			prof: function () {
 				const pro = Promise.resolve(2);
-				pro.then(v=>{
+				pro.then(v => {
 					alert(v);
 				})
 			},
-			show: function show() {
+			show() {
 				this.prof();
 				var t = this;
-				try {
-					this.axios("js/testUrl/getAlPlay.json").then(data=> {
-						console.log(data);
-						t.btnName = 1111;
-						if (data.status == 200) {
-							return data.data;
-						} else {
-							throw new Error("code error");
-						}
-					}).then(data=> {
-						console.log(data);
-						t.btnName = "haha";
-					}).catch(e=> {
-						console.log("error: " + e);
-						t.btnName = e;
-					});
-				} catch (e) {
-					alert(e);
-				}
+				axios("js/testUrl/getAlPlay.json").then(data => {
+					console.log(data);
+					t.btnName = 1111;
+					if (data.status == 200) {
+						return data.data;
+					} else {
+						throw new Error("code error");
+					}
+				}).then(data => {
+					console.log(data);
+					t.btnName = "haha";
+				}).catch(e => {
+					console.log("error: " + e);
+					t.btnName = e;
+				});
 			},
-			show2: function show2() {
+			show2() {
 				var t = this;
-				this.$http("js/testUrl/getAlPlay.json").then(function (data) {
+				axios("js/testUrl/getAlPlay.json").then(function (data) {
 					console.log(data);
 					if (data.status == 200) {
 						return data.data;
