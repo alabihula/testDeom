@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>sticky footer</title>
+    <style type="text/css">
+        .box{ position:fixed;display: flex; flex-flow: column;min-height: 100%;}
+        .main{
+            display: block;
+            flex: 1;  
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="main clearfix">
+            <div class="content">
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+                <p>这里是内容区域</p>
+            </div>
+        </div>
+        <div class="footer">这是footer区域</div>
+    </div>
+</body>
+
+</html>
