@@ -666,6 +666,8 @@ var Dep = function Dep () {
 };
 
 Dep.prototype.addSub = function addSub (sub) {
+  //minxing---console
+  console.log('Dep addSub from Watcher addDep',sub);
   this.subs.push(sub);
 };
 
@@ -673,8 +675,10 @@ Dep.prototype.removeSub = function removeSub (sub) {
   remove(this.subs, sub);
 };
 
-Dep.prototype.depend = function depend () {
+Dep.prototype.depend = function depend (from) {
   if (Dep.target) {
+    //minxing---console
+    console.log('Dep depend this:调用Watcher的addDep方法，将自身watcher实例加入到subs中-------from:'+from,this);
     Dep.target.addDep(this);
   }
 };
@@ -829,6 +833,8 @@ var arrayMethods = Object.create(arrayProto);[
     while ( len-- ) args[ len ] = arguments[ len ];
 
     var result = original.apply(this, args);
+    //minxing---console
+    console.log('def arrayMethods---this',this)
     var ob = this.__ob__;
     var inserted;
     switch (method) {
@@ -871,6 +877,9 @@ var Observer = function Observer (value) {
   this.value = value;
   this.dep = new Dep();
   this.vmCount = 0;
+  //minxing---console
+  //minxing 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）
+  console.log('Observer 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）',value);
   def(value, '__ob__', this);
   if (Array.isArray(value)) {
     var augment = hasProto
@@ -890,6 +899,8 @@ var Observer = function Observer (value) {
  */
 Observer.prototype.walk = function walk (obj) {
   var keys = Object.keys(obj);
+  //minxing---console
+  console.log('after check arr begain definePrototype=============');
   for (var i = 0; i < keys.length; i++) {
     defineReactive(obj, keys[i], obj[keys[i]]);
   }
@@ -911,6 +922,13 @@ Observer.prototype.observeArray = function observeArray (items) {
  * the prototype chain using __proto__
  */
 function protoAugment (target, src, keys) {
+  //minxing---console
+  console.log('------------------------------------------------------------------------');
+  console.log('重新赋值原型__prop__,为数组重新定义可以执行发布订阅sub.update的内置方法');
+  console.log('protoAugment target',target);
+  console.log('protoAugment src',src);
+  console.log('protoAugment keys',keys);
+  console.log('-------------------------------------------------------------------------');
   /* eslint-disable no-proto */
   target.__proto__ = src;
   /* eslint-enable no-proto */
@@ -938,6 +956,8 @@ function observe (value, asRootData) {
     return
   }
   var ob;
+  //minxing---console
+  console.log('observe value',value)
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__;
   } else if (
@@ -983,6 +1003,8 @@ function defineReactive (
     get: function reactiveGetter () {
       var value = getter ? getter.call(obj) : val;
       if (Dep.target) {
+        //minxing---console
+        console.log('defineProperty get dep.depend==========Dep.target:',Dep.target)
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
@@ -1077,6 +1099,8 @@ function del (target, key) {
  * we cannot intercept array element access like property getters.
  */
 function dependArray (value) {
+  //minxing---console
+  console.log('dependArray value---__ob__.dep.depend',value)
   for (var e = (void 0), i = 0, l = value.length; i < l; i++) {
     e = value[i];
     e && e.__ob__ && e.__ob__.dep.depend();
@@ -1794,6 +1818,8 @@ function withMacroTask (fn) {
 }
 
 function nextTick (cb, ctx) {
+  //minxing---console
+  console.log('nextTick cb',cb);
   var _resolve;
   callbacks.push(function () {
     if (cb) {
@@ -1933,6 +1959,8 @@ var seenObjects = new _Set();
  * is collected as a "deep" dependency.
  */
 function traverse (val) {
+  //minxing---console
+  console.log('traverse val',val);
   _traverse(val, seenObjects);
   seenObjects.clear();
 }
@@ -2752,6 +2780,7 @@ function mountComponent (
   // we set this to vm._watcher inside the watcher's constructor
   // since the watcher's initial patch may call $forceUpdate (e.g. inside child
   // component's mounted hook), which relies on vm._watcher being already defined
+  console.log('window begain new Watcher');
   new Watcher(vm, updateComponent, noop, null, true /* isRenderWatcher */);
   hydrating = false;
 
@@ -2930,6 +2959,8 @@ function flushSchedulerQueue () {
 
   // do not cache length because more watchers might be pushed
   // as we run existing watchers
+  //minxing---console
+  console.log('flushSchedulerQueue queue',queue);
   for (index = 0; index < queue.length; index++) {
     watcher = queue[index];
     id = watcher.id;
@@ -3067,8 +3098,10 @@ var Watcher = function Watcher (
   this.expression = expOrFn.toString();
   // parse expression for getter
   if (typeof expOrFn === 'function') {
+    console.log('%cWatcher getter exOrFn','font-size:30px',expOrFn)
     this.getter = expOrFn;
   } else {
+    console.log('%cWatcher getter parsePath-exOrFn','font-size:30px',expOrFn)
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
       this.getter = function () {};
@@ -3089,10 +3122,12 @@ var Watcher = function Watcher (
  * Evaluate the getter, and re-collect dependencies.
  */
 Watcher.prototype.get = function get () {
+  console.log('%cWatcher get===========targetstack数组添加target:watcher实例','color:red')
   pushTarget(this);
   var value;
   var vm = this.vm;
   try {
+    console.log('Watcher get this',this)
     value = this.getter.call(vm, vm);
   } catch (e) {
     if (this.user) {
@@ -3106,7 +3141,10 @@ Watcher.prototype.get = function get () {
     if (this.deep) {
       traverse(value);
     }
+    console.log('Watcher get value',value);
+    //minxing---console
     popTarget();
+    console.log('%cWatcher get===========删除targetstack数组中的最后一个target','color:red')
     this.cleanupDeps();
   }
   return value
@@ -3130,8 +3168,7 @@ Watcher.prototype.addDep = function addDep (dep) {
  * Clean up for dependency collection.
  */
 Watcher.prototype.cleanupDeps = function cleanupDeps () {
-    var this$1 = this;
-
+  var this$1 = this;
   var i = this.deps.length;
   while (i--) {
     var dep = this$1.deps[i];
@@ -3147,6 +3184,8 @@ Watcher.prototype.cleanupDeps = function cleanupDeps () {
   this.deps = this.newDeps;
   this.newDeps = tmp;
   this.newDeps.length = 0;
+  console.log('%cWatcher cleanupDeps','color:blue',this.deps);
+  window.ddd = this.deps;
 };
 
 /**
@@ -3154,12 +3193,15 @@ Watcher.prototype.cleanupDeps = function cleanupDeps () {
  * Will be called when a dependency changes.
  */
 Watcher.prototype.update = function update () {
+  //minxing---console
   /* istanbul ignore else */
   if (this.lazy) {
     this.dirty = true;
   } else if (this.sync) {
+    console.log('Watcher update sync---run')
     this.run();
   } else {
+    console.log('Watcher update---queueWatcher')
     queueWatcher(this);
   }
 };
@@ -3170,6 +3212,7 @@ Watcher.prototype.update = function update () {
  */
 Watcher.prototype.run = function run () {
   if (this.active) {
+    //minxing---console
     var value = this.get();
     if (
       value !== this.value ||
@@ -3179,6 +3222,7 @@ Watcher.prototype.run = function run () {
       isObject(value) ||
       this.deep
     ) {
+      console.log('%cWatcher run---set new value','color:red',this.value);
       // set new value
       var oldValue = this.value;
       this.value = value;
@@ -3201,6 +3245,8 @@ Watcher.prototype.run = function run () {
  */
 Watcher.prototype.evaluate = function evaluate () {
   this.value = this.get();
+  //minxing 计算属性initComputed的时候创建了计算属性的get，并且把计算属性的执行方法加入了订阅者中，此时就是执行那个依赖方法
+  console.log('evaluate value===================================',this.value);
   this.dirty = false;
 };
 
@@ -3208,11 +3254,12 @@ Watcher.prototype.evaluate = function evaluate () {
  * Depend on all deps collected by this watcher.
  */
 Watcher.prototype.depend = function depend () {
-    var this$1 = this;
-
+  var this$1 = this;
+  //minxing---console
+  console.log('%cWatcher depend','color:green;font-weight:bold;font-size:20px;',this.deps);
   var i = this.deps.length;
   while (i--) {
-    this$1.deps[i].depend();
+    this$1.deps[i].depend("from Watcher depend");
   }
 };
 
@@ -3356,6 +3403,8 @@ function initData (vm) {
       proxy(vm, "_data", key);
     }
   }
+  //minxing---console
+  console.log('initData data',data);
   // observe data
   observe(data, true /* asRootData */);
 }
@@ -3395,6 +3444,9 @@ function initComputed (vm, computed) {
         computedWatcherOptions
       );
     }
+
+    console.log('initComputed watchers',watchers);
+    console.log('initComputed _computedWatchers',vm._computedWatchers);
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
@@ -3445,13 +3497,16 @@ function defineComputed (
 }
 
 function createComputedGetter (key) {
+  console.log('createComputedGetter key',key);
   return function computedGetter () {
     var watcher = this._computedWatchers && this._computedWatchers[key];
     if (watcher) {
       if (watcher.dirty) {
+        console.log('createComputedGetter watcher evaluate===========');
         watcher.evaluate();
       }
       if (Dep.target) {
+        console.log('createComputedGetter watcher depend===========');
         watcher.depend();
       }
       return watcher.value
@@ -4429,6 +4484,9 @@ function renderMixin (Vue) {
     // render self
     var vnode;
     try {
+      //minxing---important:执行了更新vm的data数据后又进行了一次数据get操作
+      console.log('_render _renderProxy',vm._renderProxy);
+      console.log('_render $createElement',vm.$createElement);
       vnode = render.call(vm._renderProxy, vm.$createElement);
     } catch (e) {
       handleError(e, vm, "render");
