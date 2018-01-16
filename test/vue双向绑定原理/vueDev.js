@@ -442,6 +442,7 @@ function isReserved (str) {
  * Define a property.
  */
 function def (obj, key, val, enumerable) {
+  console.log('%cdef---定义property','color:white;background:red','obj: '+JSON.stringify(obj)+' key: '+key);
   Object.defineProperty(obj, key, {
     value: val,
     enumerable: !!enumerable,
@@ -879,7 +880,7 @@ var Observer = function Observer (value) {
   this.vmCount = 0;
   //minxing---console
   //minxing 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）
-  console.log('Observer 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）',value);
+  console.log('Observer 递归为data/value 定义__ob__为dep实例（直接调用此参数执行发布操作）',value);
   def(value, '__ob__', this);
   if (Array.isArray(value)) {
     var augment = hasProto
@@ -900,7 +901,7 @@ var Observer = function Observer (value) {
 Observer.prototype.walk = function walk (obj) {
   var keys = Object.keys(obj);
   //minxing---console
-  console.log('after check arr begain definePrototype=============');
+  console.log('%cwalk---开始定义getter和setter','background:green;color:white');
   for (var i = 0; i < keys.length; i++) {
     defineReactive(obj, keys[i], obj[keys[i]]);
   }
@@ -910,6 +911,7 @@ Observer.prototype.walk = function walk (obj) {
  * Observe a list of Array items.
  */
 Observer.prototype.observeArray = function observeArray (items) {
+  console.log('%cobserveArray---为每一个数组使用observe递归其元素','background:green;color:white');
   for (var i = 0, l = items.length; i < l; i++) {
     observe(items[i]);
   }
@@ -924,7 +926,7 @@ Observer.prototype.observeArray = function observeArray (items) {
 function protoAugment (target, src, keys) {
   //minxing---console
   console.log('------------------------------------------------------------------------');
-  console.log('重新赋值原型__prop__,为数组重新定义可以执行发布订阅sub.update的内置方法');
+  console.log('%cprotoAugment---重新赋值原型__prop__,为数组重新定义可以执行发布订阅sub.update的内置方法','color:white;background:green');
   console.log('protoAugment target',target);
   console.log('protoAugment src',src);
   console.log('protoAugment keys',keys);
@@ -951,15 +953,19 @@ function copyAugment (target, src, keys) {
  * returns the new observer if successfully observed,
  * or the existing observer if the value already has one.
  */
+var observeNum = 1;
 function observe (value, asRootData) {
+  //minxing---console
+  console.log('%cobserve=======>'+observeNum,'font-size:20px;border:1px solid black',value);
+  observeNum++;
   if (!isObject(value) || value instanceof VNode) {
     return
   }
   var ob;
-  //minxing---console
-  console.log('observe value',value)
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__;
+    //minxing---console
+    console.log('%c value hasOwn __ob__; ob = value.__ob__','border:1px green solid',ob)
   } else if (
     observerState.shouldConvert &&
     !isServerRendering() &&
@@ -3098,10 +3104,10 @@ var Watcher = function Watcher (
   this.expression = expOrFn.toString();
   // parse expression for getter
   if (typeof expOrFn === 'function') {
-    console.log('%cWatcher getter exOrFn','font-size:30px',expOrFn)
+    console.log('%cWatcher getter exOrFn is function','font-size:25px;background:red;color:white',expOrFn)
     this.getter = expOrFn;
   } else {
-    console.log('%cWatcher getter parsePath-exOrFn','font-size:30px',expOrFn)
+    console.log('%cWatcher getter exOrFn not function','font-size:25px;background:red;color:white',expOrFn)
     this.getter = parsePath(expOrFn);
     if (!this.getter) {
       this.getter = function () {};
@@ -3113,6 +3119,7 @@ var Watcher = function Watcher (
       );
     }
   }
+  console.log('%c如果 watcher.lazy == false, '+this.lazy+' 执行get','background:red;color:white');
   this.value = this.lazy
     ? undefined
     : this.get();
@@ -3127,7 +3134,7 @@ Watcher.prototype.get = function get () {
   var value;
   var vm = this.vm;
   try {
-    console.log('Watcher get this',this)
+    console.log('%c1 Watcher get 执行getter','background:red;color:white',this)
     value = this.getter.call(vm, vm);
   } catch (e) {
     if (this.user) {
@@ -3185,7 +3192,6 @@ Watcher.prototype.cleanupDeps = function cleanupDeps () {
   this.newDeps = tmp;
   this.newDeps.length = 0;
   console.log('%cWatcher cleanupDeps','color:blue',this.deps);
-  window.ddd = this.deps;
 };
 
 /**
@@ -3304,6 +3310,8 @@ function proxy (target, sourceKey, key) {
 }
 
 function initState (vm) {
+  //minxing---console
+  console.log('%cinitState','font-size:20px;border:1px solid black')
   vm._watchers = [];
   var opts = vm.$options;
   if (opts.props) { initProps(vm, opts.props); }
@@ -3366,6 +3374,7 @@ function initProps (vm, propsOptions) {
 }
 
 function initData (vm) {
+  console.log('%cinitData','font-size:20px;border:1px solid black')
   var data = vm.$options.data;
   data = vm._data = typeof data === 'function'
     ? getData(data, vm)
@@ -3403,8 +3412,6 @@ function initData (vm) {
       proxy(vm, "_data", key);
     }
   }
-  //minxing---console
-  console.log('initData data',data);
   // observe data
   observe(data, true /* asRootData */);
 }
@@ -3421,6 +3428,7 @@ function getData (data, vm) {
 var computedWatcherOptions = { lazy: true };
 
 function initComputed (vm, computed) {
+  console.log('%cinitComputed','font-size:20px;border:1px solid black')
   var watchers = vm._computedWatchers = Object.create(null);
   // computed properties are just getters during SSR
   var isSSR = isServerRendering();
@@ -3434,7 +3442,13 @@ function initComputed (vm, computed) {
         vm
       );
     }
-
+    //minxing---console
+    console.log('%cinitComputed 定义watchers[key]=new Watcher(vm getter noop computedWatcherOptions)','color:white;padding:5px;background:black');
+    console.log('%c1 key','color:white;padding:5px;background:black',key);
+    console.log('%c2 vm','color:white;padding:5px;background:black',vm);
+    console.log('%c3 getter','color:white;padding:5px;background:black',getter);
+    console.log('%c4 watchers','color:white;padding:5px;background:black',watchers);
+    console.log('%c5 vm._computedWatchers','color:white;padding:5px;background:black',vm._computedWatchers);
     if (!isSSR) {
       // create internal watcher for the computed property.
       watchers[key] = new Watcher(
@@ -3444,9 +3458,6 @@ function initComputed (vm, computed) {
         computedWatcherOptions
       );
     }
-
-    console.log('initComputed watchers',watchers);
-    console.log('initComputed _computedWatchers',vm._computedWatchers);
 
     // component-defined computed properties are already defined on the
     // component prototype. We only need to define computed properties defined
@@ -3468,6 +3479,7 @@ function defineComputed (
   key,
   userDef
 ) {
+  console.log('%cdefineComputed','font-size:20px;border:1px solid black')
   var shouldCache = !isServerRendering();
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = shouldCache
@@ -3543,6 +3555,7 @@ function initMethods (vm, methods) {
 }
 
 function initWatch (vm, watch) {
+  console.log('%cinitWatch','font-size:20px;border:1px solid black')
   for (var key in watch) {
     var handler = watch[key];
     if (Array.isArray(handler)) {
