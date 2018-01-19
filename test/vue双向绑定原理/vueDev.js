@@ -679,7 +679,7 @@ Dep.prototype.removeSub = function removeSub (sub) {
 Dep.prototype.depend = function depend (from) {
   if (Dep.target) {
     //minxing---console
-    console.log('Dep depend this:调用Watcher的addDep方法，将自身watcher实例加入到subs中-------from:'+from,this);
+    console.log('%cDep depend this:调用Watcher的addDep方法，将自身watcher实例加入到subs中-------from:'+from,'background:#FF9800;color:black;font-weight:bold',this);
     Dep.target.addDep(this);
   }
 };
@@ -687,6 +687,8 @@ Dep.prototype.depend = function depend (from) {
 Dep.prototype.notify = function notify () {
   // stabilize the subscriber list first
   var subs = this.subs.slice();
+  //minxing---console
+  console.log('%cnotify now dep id is:'+this.id,'background:red;color:white;font-size:30px;',subs);
   for (var i = 0, l = subs.length; i < l; i++) {
     subs[i].update();
   }
@@ -1010,7 +1012,7 @@ function defineReactive (
       var value = getter ? getter.call(obj) : val;
       if (Dep.target) {
         //minxing---console
-        console.log('defineProperty get dep.depend==========Dep.target:',Dep.target)
+        console.log('%cdefineProperty 触发元素 get dep.depend=====computedNum:'+computedNum+'=====Dep.target:','border:5px solid green',Dep.target)
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
@@ -2966,7 +2968,7 @@ function flushSchedulerQueue () {
   // do not cache length because more watchers might be pushed
   // as we run existing watchers
   //minxing---console
-  console.log('flushSchedulerQueue queue',queue);
+  console.log('%cflushSchedulerQueue 执行watcher队列中watcher.run方法','background:blue;color:white',queue)
   for (index = 0; index < queue.length; index++) {
     watcher = queue[index];
     id = watcher.id;
@@ -3041,6 +3043,7 @@ function callActivatedHooks (queue) {
  * pushed when the queue is being flushed.
  */
 function queueWatcher (watcher) {
+  console.log('%cqueueWatcher 将watcher加入watcher队列','background:blue;color:white',watcher)
   var id = watcher.id;
   if (has[id] == null) {
     has[id] = true;
@@ -3079,6 +3082,8 @@ var Watcher = function Watcher (
   options,
   isRenderWatcher
 ) {
+  //minxing---console
+  console.log('%cnew Watcher','color:red;border:3px green solid;font-size:40px',cb);
   this.vm = vm;
   if (isRenderWatcher) {
     vm._watcher = this;
@@ -3128,13 +3133,22 @@ var Watcher = function Watcher (
 /**
  * Evaluate the getter, and re-collect dependencies.
  */
-Watcher.prototype.get = function get () {
+var computedNum = 0;
+Watcher.prototype.get = function get (computedFlag) {
   console.log('%cWatcher get===========targetstack数组添加target:watcher实例','color:red')
   pushTarget(this);
   var value;
   var vm = this.vm;
   try {
     console.log('%c1 Watcher get 执行getter','background:red;color:white',this)
+    //minxing---add(computedFlag)
+    // if(computedFlag) {
+    //   console.log('%cminxing add get','color:blue;font-size:30px',this.getter);
+    //   this.getter = function() {
+    //     computedNum = 1;
+    //     return this.lastNum+"-computed-"+this.num;
+    //   }
+    // }
     value = this.getter.call(vm, vm);
   } catch (e) {
     if (this.user) {
@@ -3161,6 +3175,7 @@ Watcher.prototype.get = function get () {
  * Add a dependency to this directive.
  */
 Watcher.prototype.addDep = function addDep (dep) {
+  console.log('%cWatcher addDep===========以来绑定 this.newDeps','color:white;background:#5fba7d',this.newDeps)
   var id = dep.id;
   if (!this.newDepIds.has(id)) {
     this.newDepIds.add(id);
@@ -3191,7 +3206,7 @@ Watcher.prototype.cleanupDeps = function cleanupDeps () {
   this.deps = this.newDeps;
   this.newDeps = tmp;
   this.newDeps.length = 0;
-  console.log('%cWatcher cleanupDeps','color:blue',this.deps);
+  console.log('%cWatcher cleanupDeps after','color:blue',this.deps);
 };
 
 /**
@@ -3204,10 +3219,10 @@ Watcher.prototype.update = function update () {
   if (this.lazy) {
     this.dirty = true;
   } else if (this.sync) {
-    console.log('Watcher update sync---run')
+    console.log('%cWatcher update (sync is true)---执行run方法','background:blue;color:white')
     this.run();
   } else {
-    console.log('Watcher update---queueWatcher')
+    console.log('%cWatcher update---执行queueWatcher','background:blue;color:white')
     queueWatcher(this);
   }
 };
@@ -3220,6 +3235,7 @@ Watcher.prototype.run = function run () {
   if (this.active) {
     //minxing---console
     var value = this.get();
+    console.log('%cWatcher run---执行get()','color:red;font-size:20px;',this.value);
     if (
       value !== this.value ||
       // Deep watchers and watchers on Object/Arrays should fire even
@@ -3250,7 +3266,9 @@ Watcher.prototype.run = function run () {
  * This only gets called for lazy watchers.
  */
 Watcher.prototype.evaluate = function evaluate () {
-  this.value = this.get();
+  //minxing---add
+  var computedFlag = true;
+  this.value = this.get(computedFlag);
   //minxing 计算属性initComputed的时候创建了计算属性的get，并且把计算属性的执行方法加入了订阅者中，此时就是执行那个依赖方法
   console.log('evaluate value===================================',this.value);
   this.dirty = false;
@@ -3262,6 +3280,10 @@ Watcher.prototype.evaluate = function evaluate () {
 Watcher.prototype.depend = function depend () {
   var this$1 = this;
   //minxing---console
+  if(closeWatcherDepend) {
+    console.log('%cWatcher CLOSE depend','color:green;font-weight:bold;font-size:20px;',this.deps);
+    return;
+  }
   console.log('%cWatcher depend','color:green;font-weight:bold;font-size:20px;',this.deps);
   var i = this.deps.length;
   while (i--) {
@@ -3521,6 +3543,7 @@ function createComputedGetter (key) {
         console.log('createComputedGetter watcher depend===========');
         watcher.depend();
       }
+      console.log('%ccreateComputedGetter watcher.value is','color:blue;font-size:40px',watcher.value);
       return watcher.value
     }
   }

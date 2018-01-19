@@ -10,28 +10,32 @@
 <body>
    <div class="app">
        <h1>{{num}}</h1>
+       <!-- <h1>{{lastNum}}</h1> -->
        <h2>{{comNum}}</h2>
        <p v-for="v in arr">{{v}}</p>
    </div>
 </body>
 <script>
+    var closeWatcherDepend = false;
+
      var app = new Vue({
         el:'.app',
         data:{
             num:1,
+            lastNum:2,
             arr:['a','b','c']
         },
         mounted() {
-            // this.num = 2;
+            // this.addNum();
         },
         computed:{
             'comNum'() {
-                return this.num+"------computed";
+                return this.num+"-computed-"+this.lastNum;
             }
         },
         methods:{
             addNum() {
-                this.num  = 3333;
+                this.num  = 3;
             }
         }
     })
