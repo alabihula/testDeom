@@ -661,9 +661,14 @@ var uid = 0;
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
-var Dep = function Dep () {
+//minxing---add
+window.allDep = [];
+var Dep = function Dep (type) {
   this.id = uid++;
   this.subs = [];
+  //minxing---console
+  window.allDep.push(this);
+  console.log('%cnew Dep('+type+') id:','font-size:25px;border-left:20px red solid;',this.id);
 };
 
 Dep.prototype.addSub = function addSub (sub) {
@@ -878,7 +883,7 @@ var observerState = {
  */
 var Observer = function Observer (value) {
   this.value = value;
-  this.dep = new Dep();
+  this.dep = new Dep('new Observer value---'+JSON.stringify(value));
   this.vmCount = 0;
   //minxing---console
   //minxing 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）
@@ -958,7 +963,7 @@ function copyAugment (target, src, keys) {
 var observeNum = 1;
 function observe (value, asRootData) {
   //minxing---console
-  console.log('%cobserve=======>'+observeNum,'font-size:20px;border:1px solid black',value);
+  console.log('%cobserve=======>'+observeNum,'font-size:20px;border-left:20px solid green',value);
   observeNum++;
   if (!isObject(value) || value instanceof VNode) {
     return
@@ -967,7 +972,7 @@ function observe (value, asRootData) {
   if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
     ob = value.__ob__;
     //minxing---console
-    console.log('%c value hasOwn __ob__; ob = value.__ob__','border:1px green solid',ob)
+    console.log('%cobserve value hasOwn __ob__; ob = value.__ob__','border-left:20px green solid',ob)
   } else if (
     observerState.shouldConvert &&
     !isServerRendering() &&
@@ -975,6 +980,7 @@ function observe (value, asRootData) {
     Object.isExtensible(value) &&
     !value._isVue
   ) {
+    console.log('%cobserve new Observer','border-left:20px green solid',value)
     ob = new Observer(value);
   }
   if (asRootData && ob) {
@@ -993,7 +999,7 @@ function defineReactive (
   customSetter,
   shallow
 ) {
-  var dep = new Dep();
+  var dep = new Dep('defineReactive key---'+JSON.stringify(key));
 
   var property = Object.getOwnPropertyDescriptor(obj, key);
   if (property && property.configurable === false) {
