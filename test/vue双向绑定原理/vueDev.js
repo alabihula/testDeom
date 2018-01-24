@@ -1831,6 +1831,13 @@ function withMacroTask (fn) {
   })
 }
 
+//minxing---des
+/**
+ * 综上，nextTick的目的就是产生一个回调函数加入task或者microtask中，
+ * 当前栈执行完以后（可能中间还有别的排在前面的函数）调用该回调函数，
+ * 起到了异步触发（即下一个tick时触发）的目的。
+ * 所以html中使用$nextTick函数原因就是把需要做的事情推送到了队列中，render队列完成后再执行加入的事件
+ */
 function nextTick (cb, ctx) {
   //minxing---console
   console.log('nextTick cb',cb);
@@ -2951,11 +2958,16 @@ function resetSchedulerState () {
   {
     circular = {};
   }
+  console.log('%cresetSchedulerState waiting','border-left:20px solid yellow',waiting);
   waiting = flushing = false;
 }
 
 /**
  * Flush both queues and run the watchers.
+ */
+//minxing---des
+/**
+ * nextTick的回调函数，在下一个tick时flush掉两个队列同时运行watchers*
  */
 function flushSchedulerQueue () {
   flushing = true;
