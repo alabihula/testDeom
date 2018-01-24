@@ -5,7 +5,7 @@
 		<title></title>
 		<style type="text/css">
 			.box1{
-				width: 900px;
+				width: 100%;
 				border: 1px black solid;
 				margin: 0 auto;
 				display: -webkit-flex;
@@ -14,7 +14,7 @@
 				justify-content:center;/*属性定义了项目在主轴上的对齐方式。**/
 			}
 			.box2{
-				width: 900px;
+				width: 100%;
 				height: 200px;
 				border: 1px black solid;
 				margin: 0 auto;
@@ -24,7 +24,7 @@
 				align-items:baseline;/**属性定义了项目在交叉轴上的对齐方式。**/
 			}
 			.box3{
-				width: 400px;
+				width: 100%;
 				height: 200px;
 				border: 1px black solid;
 				margin: 0 auto;
@@ -33,7 +33,21 @@
 				flex-wrap: wrap;
 				align-content:center;/**属性定义了项目在交叉轴上的对齐方式。**/
 			}
-			div div{border: 1px black solid;margin: 10px;width: 100px;}
+			div div,div p{border: 1px black solid;margin: 10px;width: 100px;}
+			.box1>p{
+				flex: 0 0 100px;
+				width: 100px;
+				display: table;
+				height: 100px;
+			}
+			.box1>p>span{
+				display: table-cell;
+				width: 100px;
+				vertical-align: middle;
+			}
+			.box1>div{
+				flex: 1;
+			}
 		</style>
 	</head>
 	<body>
@@ -46,15 +60,8 @@
 			<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
 		</ul>
 		<div class="box1">
+			<p><span>hahhahaddddddddddddddddddddddddh</span></p>
 			<div class="">dfsdf1</div>
-			<div class="">dfsdf2</div>
-			<div class="">dfsdf3</div>
-			<div class="">dfsdf4</div>
-			<div class="">dfsdf5</div>
-			<div class="">dfsdf6</div>
-			<div class="">dfsdf6</div>
-			<div class="">dfsdf6</div>
-			<div class="">dfsdf6</div>
 		</div>
 		<ul>
 			<li>align-items</li>
