@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    'use strict'
+    //使用递归将求和过程复杂化
+    function sum(x, y) {
+        if (y > 0) {
+            return sum(x + 1, y - 1);
+        } else {
+            return x;
+        }
+    }
+
+    function sum2(x, y) {
+        function recur(a, b) {
+            if (b > 0) {
+                return recur(a + 1, b - 1);
+            } else {
+                return a;
+            }
+        }
+        //尾递归即在程序尾部调用自身，注意这里没有其他的运算
+        return recur(x, y);
+    }
+
+    function tco(f) {
+        var value;
+        var active = false;
+        var accumulated = [];
+
+        return function accumulator() {
+            accumulated.push(arguments);
+
+            if (!active) {
+                active = true;
+
+                while (accumulated.length) {
+                    console.log('while:',accumulated);
+                    value = f.apply(this, accumulated.shift());
+                }
+
+                active = false;
+                console.log('return value:',value);
+                return value;
+            }
+        }
+    }
+    //这种方式确实有点奇怪，但的确没有改动很多源码，只是以直接量的形式使用tco函数包裹源码
+    var sum = tco(function (x, y) {
+        if (y > 0) {
+            return sum(x + 1, y - 1)
+        } else {
+            return x
+        }
+    });
+    console.log('sum',sum);
+    console.log('result:',sum(1, 10)) // => 11
+</script>
+
+</html>

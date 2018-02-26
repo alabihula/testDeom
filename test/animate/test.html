@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .run {
+        background: black;
+        width: 166px;
+        height: 100px;
+        position: relative;
+    }
+    .run:after{
+        content: '';
+        position: absolute;
+        background: url("./Gif.png");
+        width: 166px;
+        height: 100px;
+        top: 0px;
+        left: 0px;
+        animation: liveRun 0.5s steps(6) infinite;
+        -webkit-animation: liveRun 0.5s steps(6) infinite;
+    }
+    @keyframes liveRun {
+        to {
+            background-position: -996px 0;
+        }
+    }
+
+    @-webkit-keyframes liveRun {
+        to {
+            background-position: -996px 0;
+        }
+    }
+</style>
+
+<body>
+    <div class="run"></div>
+</body>
+
+</html>

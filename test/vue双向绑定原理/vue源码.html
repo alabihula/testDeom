@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <!-- <script src="vueVnode.js"></script> -->
     <script src="vueDev.js"></script>
 </head>
 <body>
@@ -12,6 +13,7 @@
        <h1>{{num}}</h1>
        <!-- <h1>{{lastNum}}</h1> -->
        <h2>{{comNum}}</h2>
+       <h3>{{obj}}</h3>
        <p v-for="v in arr">{{v}}</p>
    </div>
 </body>
@@ -23,10 +25,11 @@
         data:{
             num:1,
             lastNum:2,
-            arr:['a','b','c']
+            obj:{a:1},
+            arr:['a','b','c',[1,2]]
         },
         mounted() {
-            // this.addNum();
+            this.addNum();
         },
         computed:{
             'comNum'() {
