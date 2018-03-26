@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="./axios.min.js"></script>
+
+<body>
+    <script>
+        axios.interceptors.request.use(function (config) {
+            if (config.method === 'post') {
+                if (config.data) {
+                    var dataObj = config.data;
+                    var keysArr = Object.keys(dataObj);
+                    var param = keysArr.map(function (name) {
+                        return name + '=' + encodeURIComponent(dataObj[name]);
+                    }).join('&');
+                    config.data = param;
+                }
+            }
+            console.log(config);
+            return config;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+        // axios.post('http://localhost:8080/resteasyDemo/rest/echo/getInfo', {
+        //         params: {
+        //             name: 'aaa&bbb'
+        //         }
+        //     })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/resteasyDemo/rest/echo/getInfo',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            data: {
+                name:'bbb&ccc'
+            }
+        });
+    </script>
+</body>
+
+</html>

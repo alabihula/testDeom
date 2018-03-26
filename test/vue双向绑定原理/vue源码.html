@@ -11,7 +11,7 @@
 <body>
    <div class="app">
        <h1>{{num}}</h1>
-       <!-- <h1>{{lastNum}}</h1> -->
+       <h1>{{lastNum}}</h1>
        <h2>{{comNum}}</h2>
        <h3>{{obj}}</h3>
        <p v-for="v in arr">{{v}}</p>
@@ -26,10 +26,10 @@
             num:1,
             lastNum:2,
             obj:{a:1},
-            arr:['a','b','c',[1,2]]
+            arr:['a','b','c',{name:222}]
         },
         mounted() {
-            this.addNum();
+            // this.addNum();
         },
         computed:{
             'comNum'() {

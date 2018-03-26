@@ -663,12 +663,14 @@ var uid = 0;
  */
 //minxing---add
 window.allDep = [];
-var Dep = function Dep (type) {
+var Dep = function Dep (des) {
   this.id = uid++;
   this.subs = [];
-  //minxing---console
+  //minxing---add start
+  this.des = des;
   window.allDep.push(this);
-  console.log('%cnew Dep('+type+') id:','font-size:25px;border-left:20px red solid;',this.id);
+  //minxing---add end
+  console.log('%cnew Dep('+des+') id:','font-size:25px;border-left:20px red solid;',this.id);
 };
 
 Dep.prototype.addSub = function addSub (sub) {
@@ -884,7 +886,7 @@ var observerState = {
  */
 var Observer = function Observer (value) {
   this.value = value;
-  this.dep = new Dep('new Observer value---'+JSON.stringify(value));
+  this.dep = new Dep(JSON.stringify(value));
   this.vmCount = 0;
   //minxing---console
   //minxing 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）
@@ -909,7 +911,7 @@ var Observer = function Observer (value) {
 Observer.prototype.walk = function walk (obj) {
   var keys = Object.keys(obj);
   //minxing---console
-  console.log('%cwalk---开始定义getter和setter','background:green;color:white');
+  console.log('%cwalk---开始定义getter和setter','background:green;color:white',keys);
   for (var i = 0; i < keys.length; i++) {
     defineReactive(obj, keys[i], obj[keys[i]]);
   }
@@ -919,7 +921,7 @@ Observer.prototype.walk = function walk (obj) {
  * Observe a list of Array items.
  */
 Observer.prototype.observeArray = function observeArray (items) {
-  console.log('%cobserveArray---为每一个数组使用observe递归其元素','background:green;color:white');
+  console.log('%cobserveArray---为每一个数组使用observe递归其元素','background:green;color:white',items);
   for (var i = 0, l = items.length; i < l; i++) {
     observe(items[i]);
   }
@@ -1002,7 +1004,7 @@ function defineReactive (
   shallow
 ) {
   console.log('%cdefineProperty','border:6px solid blue','val: ',val,'obj: ',obj,'key: ',key)
-  var dep = new Dep('defineReactive key---'+JSON.stringify(key));
+  var dep = new Dep(key);
 
   var property = Object.getOwnPropertyDescriptor(obj, key);
   if (property && property.configurable === false) {
@@ -1025,6 +1027,13 @@ function defineReactive (
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
+          /**
+           * minxing des
+           * 此处加入这个为数组和对象中遍历收集依赖的操作是为了给后续如果给对象和数组中子对象赋值和添加新值
+           * 例入：data中arr:[1,2,{name:111}]
+           * app.$set(app.arr[3],'b',222)
+           * 当设置后就会触发上面的收集器dep从而出发notify更改试图(因为deps中有上面收集的watcher)，否则没有watcher执行notify没法更改arr的视图
+           */
           if (Array.isArray(value)) {
             dependArray(value);
           }
@@ -1081,6 +1090,7 @@ function set (target, key, val) {
     return val
   }
   defineReactive(ob.value, key, val);
+  console.log('%c $set ob:','border-top:100px solid black',ob);
   ob.dep.notify();
   return val
 }
@@ -1117,7 +1127,7 @@ function del (target, key) {
  */
 function dependArray (value) {
   //minxing---console
-  console.log('%cdependArray value---__ob__.dep.depend','border-left:10px red solid',value)
+  console.log('%cdependArray value---__ob__.dep.depend','border-left:20px red solid',value)
   for (var e = (void 0), i = 0, l = value.length; i < l; i++) {
     e = value[i];
     e && e.__ob__ && e.__ob__.dep.depend();
@@ -3256,7 +3266,7 @@ Watcher.prototype.run = function run () {
   if (this.active) {
     //minxing---console
     var value = this.get();
-    console.log('%cWatcher run---执行get()','color:red;font-size:20px;',this.value);
+    console.log('%cWatcher run---执行get()','color:red;font-size:20px;',value);
     if (
       value !== this.value ||
       // Deep watchers and watchers on Object/Arrays should fire even
@@ -3265,7 +3275,7 @@ Watcher.prototype.run = function run () {
       isObject(value) ||
       this.deep
     ) {
-      console.log('%cWatcher run---set new value','color:red',this.value);
+      console.log('%cWatcher run---set new value---cb','color:red',this.value,this.cb);
       // set new value
       var oldValue = this.value;
       this.value = value;
