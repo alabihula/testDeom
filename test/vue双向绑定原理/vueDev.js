@@ -886,7 +886,7 @@ var observerState = {
  */
 var Observer = function Observer (value) {
   this.value = value;
-  this.dep = new Dep(JSON.stringify(value));
+  this.dep = new Dep(JSON.stringify(value)+'---observer');
   this.vmCount = 0;
   //minxing---console
   //minxing 递归为data/value 定义__ob__：Dep（直接调用此参数执行发布操作）
@@ -1004,7 +1004,7 @@ function defineReactive (
   shallow
 ) {
   console.log('%cdefineProperty','border:6px solid blue','val: ',val,'obj: ',obj,'key: ',key)
-  var dep = new Dep(key);
+  var dep = new Dep(key+'---defineReactive');
 
   var property = Object.getOwnPropertyDescriptor(obj, key);
   if (property && property.configurable === false) {
@@ -3248,6 +3248,7 @@ Watcher.prototype.update = function update () {
   //minxing---console
   /* istanbul ignore else */
   if (this.lazy) {
+    console.log('--------------------------------------------------++++++----------------------------------------------');
     this.dirty = true;
   } else if (this.sync) {
     console.log('%cWatcher update (sync is true)---执行run方法','background:blue;color:white')
@@ -3481,7 +3482,7 @@ function getData (data, vm) {
 var computedWatcherOptions = { lazy: true };
 
 function initComputed (vm, computed) {
-  console.log('%cinitComputed','font-size:20px;border:1px solid black')
+  console.log('%cinitComputed','font-size:20px;border:1px solid black',computed)
   var watchers = vm._computedWatchers = Object.create(null);
   // computed properties are just getters during SSR
   var isSSR = isServerRendering();
@@ -3532,7 +3533,7 @@ function defineComputed (
   key,
   userDef
 ) {
-  console.log('%cdefineComputed','font-size:20px;border:1px solid black')
+  console.log('%cdefineComputed','font-size:20px;border:10px solid red')
   var shouldCache = !isServerRendering();
   if (typeof userDef === 'function') {
     sharedPropertyDefinition.get = shouldCache
@@ -3566,13 +3567,13 @@ function createComputedGetter (key) {
   return function computedGetter () {
     var watcher = this._computedWatchers && this._computedWatchers[key];
     if (watcher) {
+      console.log('%ccreateComputedGetter watcher evaluate:watcher.dirty===========','border-bottom:30px solid lightblue',watcher.dirty);
       if (watcher.dirty) {
-        console.log('createComputedGetter watcher evaluate===========');
         watcher.evaluate();
       }
       if (Dep.target) {
         console.log('createComputedGetter watcher depend===========');
-        watcher.depend();
+        // watcher.depend();
       }
       console.log('%ccreateComputedGetter watcher.value is','color:blue;font-size:40px',watcher.value);
       return watcher.value

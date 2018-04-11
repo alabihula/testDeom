@@ -1,0 +1,33 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+swiper,swiper-item,image,view{
+  box-sizing: border-box;
+}
+view{
+  font-family: SourceHanSansCN light
+}
+.flex-row {
+  display: flex;
+  flex-direction:row;
+  align-items:center;
+  }
+.flex-row-centerb {
+  display: flex;
+  flex-direction:row;
+  align-items:baseline;
+  justify-content:center;
+}
+.flex-row-center {
+  display: flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:center;
+}

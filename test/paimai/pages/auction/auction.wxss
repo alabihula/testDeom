@@ -1,0 +1,180 @@
+/* pages/auction/auction.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.box{
+  padding-bottom: 100rpx;
+}
+.swiper{
+  display: block;
+  height: 700rpx;
+  width: 750rpx;
+  text-align: center;
+  position: relative;
+}
+.slide-image{
+  width: 690rpx;
+  height: 690rpx;
+  margin-top: 4rpx;
+  display: inline-block;
+}
+.pageNo{
+  position: absolute;
+  width: 100rpx;
+  height: 40rpx;
+  right: 20rpx;
+  font-size: 24rpx;
+  bottom: 10rpx;
+  color: #aaaaaa;
+}
+.detailBox{
+  padding: 0rpx 30rpx;
+  border-bottom: 16rpx solid #e4e4e4;
+}
+.priceBox{
+  width: 100%;
+  height: 80rpx;
+  border-bottom: 1px solid #aaaaaa;
+}
+.priceDetail{
+  font-family: PingFang SC light;
+  font-weight: bold;
+  color: #FF0000;
+  font-size: 40rpx;
+}
+.priceDetail .icon-p{
+  font-size: 28rpx;
+  margin-right: 3rpx;
+  font-weight: normal;
+}
+.disPrice{
+  color: #888888;
+  font-size: 26rpx;
+  vertical-align: middle;
+  text-decoration: line-through
+}
+.disPrice .icon-p{
+  font-size: 28rpx;
+  margin-left: 5rpx;
+}
+.discount{
+  color: white;
+  line-height: 30rpx;
+  margin-left: 15rpx;
+  background: #FF0000;
+  padding: 0rpx 15rpx;
+  font-size: 24rpx;
+  height: 30rpx;
+  border-radius: 5rpx;
+}
+.infoDetail{
+  font-family: SourceHanSanCN light;
+  padding: 10rpx 0rpx;
+  line-height: 50rpx;
+}
+.goodsName{
+  font-weight: bold;
+  font-size: 34rpx;
+}
+.goodsDes{
+  font-size: 28rpx;
+}
+.goodsNum{
+  margin-left: 60rpx;
+}
+.timeBox{
+  height: 300rpx;
+  width: 100%;
+  border: 1rpx solid #888888;
+  font-size: 30rpx;
+  padding: 20rpx 30rpx;
+  position: relative;
+  overflow: hidden;
+}
+.peoNowBox{
+  color: #FF0000;
+  margin: 25rpx 0rpx;
+}
+.peoNow{
+  font-size: 50rpx;
+}
+.grev{
+  margin: 15rpx 0rpx;
+  color: #888888;
+}
+.invite{
+  position: absolute;
+  right: 30rpx;
+  top: 15rpx;
+  text-align: center;
+}
+.icon-fenxiang{
+  font-size: 50rpx;
+}
+.tips{
+  font-size: 30rpx;
+  color: #FF0000;
+  margin-top: 20rpx;
+  padding: 0rpx 60rpx;
+  text-indent: 60rpx;
+}
+.friendsBox{
+  font-size: 30rpx;
+  padding-top: 40rpx;
+}
+.headPic{
+  border: 1rpx solid #888888;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: 35rpx;
+}
+.friendsBox .title{
+  padding-left: 30rpx;
+}
+.friendsBox .flex-row-center{
+  margin: 20rpx 0rpx;
+}
+.friendsBox .tr{
+  width: 33.3%;
+  text-align: center;
+}
+.friendsBox .tr .on{
+  width: 80rpx;
+  display: inline-block;
+  background: #FF0000;
+  color: white;
+}
+.friendsBox .tr .off{
+  display: inline-block;
+  width: 80rpx;
+  background: #e4e4e4;
+}
+.opBox{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 100rpx;
+  border: 1px solid #e4e4e4;
+  background: white;
+  font-size: 25rpx;
+  text-align: center;
+  padding: 5rpx;
+}
+.opBox .bleft{
+  width: 20%;
+}
+.opBox .bleft .iconfont{
+  font-size: 50rpx;
+}
+.opBox .bCenter{
+  width: 60%;
+  font-size: 40rpx;
+  color: white;
+  height: 85rpx;
+  line-height: 80rpx;
+  background: #35cc35;
+}
+.opBox .bRight{
+  width: 20%;
+}
+.opBox .bRight .iconfont{
+  font-size: 50rpx;
+}
