@@ -65,7 +65,9 @@
       <view class='iconfont icon-fenxiang'></view>
       分享
     </view>
-    <view class='bCenter'>出价</view>
+    <view class='bCenter'>
+      <navigator url="../pay/pay" hover-class="navigator-hover">出价</navigator>
+    </view>
     <view class='bRight'>
       <navigator url="../center/center" hover-class="navigator-hover">
       <view class='iconfont icon-wode-F'></view>我的

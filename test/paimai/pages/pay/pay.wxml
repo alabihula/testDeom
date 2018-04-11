@@ -1,0 +1,41 @@
+<!--pages/pay/pay.wxml-->
+<view class='box'>
+  <view class='titleBox'>
+    <view class='bigBox'>
+      <image class='bigPic' src="{{bigPic}}"></image>
+      <view class='bigBg'></view>
+    </view>
+    <image class='smallPic' src="{{smallPic}}"></image>
+    <view class='area'>
+      <text>出价范围</text>
+      <text class='pl'>￥{{startPrice}}~{{endPrice}}</text>
+      <text>仅限出价{{time}}次</text>
+    </view>
+  </view>
+  
+  <view class='priceBox'>
+    <view class='priceDes'>出价金额：</view>
+    <view class='nowPrice'>
+      <text>￥{{nowPrice}}</text>
+    </view>
+    <view class='slideBox flex-row-center'>
+      <text>￥{{startPrice}}</text>
+      <view class="slide">
+        <slider activeColor="#444444" backgroundColor="#888888" block-size="22" block-color="rgba(0,0,0,0.6)" bindchanging="sliderchange" min="{{startPrice}}" max="{{endPrice}}"/>
+      </view>
+      <text>￥{{endPrice}}</text>
+    </view>
+  </view>
+
+  <view class='pro'>
+    <label class="checkbox flex-row-center">
+      <checkbox color="#888888" value="{{item.name}}" checked="checked"/>
+      <text>已阅读本活动协议</text>
+    </label>
+    <view>本拍品非质量问题不做退换货</view>
+    <view>竞拍未中标所支付金额1个工作日内退换</view>
+    <button type="primary" bindtap="primary">确认支付</button>
+  </view>
+
+  
+</view>

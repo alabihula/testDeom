@@ -8,7 +8,7 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 }
-swiper,swiper-item,image,view{
+swiper,swiper-item,image,view,text,slider{
   box-sizing: border-box;
 }
 view{

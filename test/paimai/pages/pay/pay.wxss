@@ -1,0 +1,102 @@
+/* pages/pay/pay.wxss */
+.titleBox{
+  position: relative;
+  height: 470rpx;
+}
+.bigBox{
+   position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 300rpx;
+  overflow: hidden;
+}
+.bigBg{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 300rpx;
+  background: rgba(0, 0, 0, 0.5)
+}
+.bigPic{
+  position: absolute;
+  width: 610rpx;
+  height: 610rpx;
+  top:-305rpx;
+  left: 70rpx;
+  border: 1px solid #e4e4e4;
+}
+.smallPic{
+  position: absolute;
+  width: 220rpx;
+  height: 220rpx;
+  top: 220rpx;
+  left: 50rpx;
+  border: 1px solid #e4e4e4;
+}
+.area{
+   position: absolute;
+    width: 480rpx;
+    height: 150rpx;
+    font-size: 30rpx;
+    top: 310rpx;
+    left: 290rpx;
+}
+.area text{
+  display: block;
+}
+.pl{
+  padding-left: 20rpx;
+}
+.priceBox{
+    position: absolute;
+    width: 100%;
+    height: 300rpx;
+    top: 480rpx;
+    left: 0rpx;
+}
+.slideBox{
+  width: 100%;
+}
+.slide{
+  padding: 0px;
+  width: 480rpx;
+}
+.slideBox text{
+  font-size: 30rpx;
+}
+.priceDes{
+  font-size: 30rpx;
+  padding-left: 100rpx;
+}
+.nowPrice{
+  width: 100%;
+  display: inline-block;
+  font-size: 60rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.nowPrice text{
+  border-bottom: 4rpx solid #999999;
+}
+.pro{
+  position: absolute;
+  width: 100%;
+  top: 800rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+.checkbox{
+  color: blue;
+}
+.checkbox checkbox{
+  transform:scale(0.6) translateX(40%);
+}
+button{
+  width: 90%;
+  height: 80rpx;
+  margin-top: 80rpx;
+  font-size: 35rpx;
+  font-weight: normal;
+  line-height: 80rpx;
+}
