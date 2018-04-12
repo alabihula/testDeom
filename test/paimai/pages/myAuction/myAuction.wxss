@@ -1,0 +1,92 @@
+/* pages/myAuction/myAuction.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.title{
+  text-align: center;
+  margin-top: 20rpx;
+  height: 90rpx;
+  font-size: 35rpx;
+  line-height: 90rpx;
+}
+.title .on{
+  color: red;
+}
+.title text{
+  width: 30%;
+}
+.content{
+
+}
+.headBox{
+  height: 110rpx;
+}
+.line{
+  border: 2rpx solid #e4e4e4;
+}
+.share{
+  width: 10%;
+}
+.btn,.payStatus{
+  width: 130rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2)
+}
+
+.tab1 .headDes,.tab3 .headDes{
+  width: 65%;
+}
+.tab2 .headDes{
+  width: 70%;
+}
+.btn.on{
+  background: #35cc35;
+  color: white;
+}
+.headDes{
+  padding-left: 20rpx;
+  line-height: 40rpx;
+}
+.share .iconfont{
+  font-size: 40rpx
+}
+.share{
+  text-align: center;
+  font-size: 28rpx
+}
+.headDes text:nth-child(1){
+  display: block;
+  font-size: 30rpx;
+}
+.headDes text:nth-child(2){
+  display: block;
+  font-size: 25rpx;
+}
+.headBox image{
+  width: 80rpx;
+  height: 80rpx;
+  border: 1rpx solid #e4e4e4;
+  border-radius: 40rpx;
+}
+.goodBox{
+  background: rgba(0, 0, 0, 0.1);
+  height: 180rpx;
+  padding-left: 20rpx;
+}
+.goodBox text{
+  width: 80%;
+  padding-left: 10rpx;
+  font-size: 30rpx;
+}
+.goodBox image{
+  width: 140rpx;
+  height: 140rpx;
+  border: 4rpx solid white;
+}
+.timeBox{
+  display: block;
+  font-size: 30rpx;
+  text-align: center;
+  padding:10rpx;
+}

@@ -1,1 +1,103 @@
 /* pages/center/center.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.titleBox{
+  position: relative;
+  height: 280rpx;
+  padding-top: 40rpx;
+  border-bottom: 20rpx solid #e4e4e4;
+}
+.titleBox image{
+  width: 120rpx;
+  height: 120rpx;
+  border: 1rpx solid #e4e4e4;
+  border-radius: 60rpx;
+}
+.userBox{
+  width: 360rpx;
+  padding-left: 30rpx;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+.userName{
+  color: #888888;
+}
+.price>text{
+  color: orangered;
+}
+.card{
+  width: 180rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 38rpx;
+  background: #35cc35;
+}
+.titleBox>text{
+  margin-top: 30rpx;
+  display: inline-block;
+  width: 100%;
+  font-size: 26rpx;
+  text-align: center;
+}
+.navList{
+  position: relative;
+  font-size: 30rpx;
+  border-left: 2rpx solid #e4e4e4;
+  border-right: 2rpx solid #e4e4e4;
+}
+.navList navigator{
+  height: 90rpx;
+  border-bottom: 2rpx solid #e4e4e4;
+  line-height: 90rpx;
+  padding-left: 50rpx;
+}
+.navList .icon-inRight{
+  font-size: 18rpx;
+}
+.navList .iconfont{
+  color: #444444;
+}
+.navList navigator text:nth-child(1){
+  width: 10%;
+}
+.navList navigator text:nth-child(2){
+  width: 80%;
+}
+.navList navigator text:nth-child(3){
+  width: 10%;
+}
+.myAuction text:nth-child(1){
+  font-size: 40rpx;
+}
+.record text:nth-child(1){
+  font-size: 50rpx;
+}
+.address text:nth-child(1){
+  font-size: 50rpx;
+  font-weight: 700;
+}
+.service text:nth-child(1){
+  font-size: 50rpx;
+}
+.desBox{
+  margin-top: 100rpx;
+  text-align: center;
+}
+.desBox text{
+  display: block;
+  font-size: 30rpx;
+}
+.bottomBtn{
+  position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  margin-left: -160rpx;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

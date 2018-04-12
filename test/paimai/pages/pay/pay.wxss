@@ -75,8 +75,9 @@
   text-align: center;
   margin-bottom: 40rpx;
 }
-.nowPrice text{
-  border-bottom: 4rpx solid #999999;
+.nowPrice .proStr{
+  padding-right: 12rpx;
+  border-bottom: 3rpx solid #999999;
 }
 .pro{
   position: absolute;

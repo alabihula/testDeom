@@ -1,0 +1,21 @@
+<!--pages/record/record.wxml-->
+<view class='box'>
+  <view class='title flex-row-center'>
+    <view>日期</view>
+    <view>来源</view>
+    <view>收支</view>
+    <view>剩余</view>
+  </view>
+  <view wx:for="{{list}}" wx:key class='content flex-row-center'>
+    <view>{{item.date}}</view>
+    <view><image src="{{item.headPic}}"></image></view>
+    <view>-{{item.priceIn}}</view>
+    <view>{{item.priceLast}}</view>
+  </view>
+
+  <view class='bottomBtn'>
+    <navigator url="/pages/shop/shop" hover-class="navigator-hover">
+    去消费
+    </navigator>
+  </view>
+</view>

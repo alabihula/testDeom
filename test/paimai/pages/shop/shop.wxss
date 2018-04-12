@@ -1,0 +1,40 @@
+/* pages/shop/shop.wxss */
+.box{
+  text-align: center;
+}
+.map{
+  display: inline-block;
+  width: 600rpx;
+  height: 600rpx;
+  border: 1rpx solid #e4e4e4;
+  margin:30rpx 0rpx;
+}
+.desBox{
+  padding-left: 100rpx;
+  line-height: 50rpx;
+}
+.desBox text{
+  font-size: 35rpx;
+  display: block;
+  text-align: left;
+}
+.tip{
+  font-size:30rpx;
+  margin-top: 40rpx;
+}
+.tip text{
+  display: block;
+}
+.service{
+    position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  margin-left: -160rpx;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

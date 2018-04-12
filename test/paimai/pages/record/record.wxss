@@ -1,0 +1,40 @@
+/* pages/record/record.wxss */
+.box{
+  font-size: 30rpx;
+  text-align: center;
+}
+.title{
+  height: 80rpx;
+  border: 1rpx solid #e4e4e4;
+}
+.title view{
+  width: 25%;
+}
+.content{
+  height: 85rpx;
+  border-left: 1rpx solid #e4e4e4;
+  border-right: 1rpx solid #e4e4e4;
+  border-bottom: 1rpx solid #e4e4e4;
+}
+.content view{
+  width: 25%;
+}
+.content image{
+  width: 70rpx;
+  height: 70rpx;
+  border: 1rpx solid #e4e4e4;
+  border-radius: 40rpx;
+}
+.bottomBtn{
+  position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  margin-left: -160rpx;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

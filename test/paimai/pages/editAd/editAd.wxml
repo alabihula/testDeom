@@ -1,0 +1,21 @@
+<!--pages/addAd/addAd.wxml-->
+<view class='box'>
+  <view class='form'>
+    <view class='peo flex-row'>
+    <label>收货人</label>
+    <input placeholder="姓名" auto-focus/>
+  </view>
+   <view class='phone flex-row'>
+    <label>手机号</label>
+    <input placeholder="11位手机号"/>
+  </view>
+   <view class='add flex-row'>
+    <label>详细地址</label>
+    <input placeholder="市区街道门牌信息"/>
+  </view>
+  </view>
+  
+   <view class='bottomBtn'>
+    保存
+  </view>
+</view>

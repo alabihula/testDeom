@@ -10,7 +10,8 @@ Page({
     startPrice: 99,
     endPrice: 499,
     time:1,
-    nowPrice:0
+    nowPrice:0,
+    protocol:true
   },
 
   onLoad: function (options) {

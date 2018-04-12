@@ -1,0 +1,14 @@
+<!--pages/shop/shop.wxml-->
+<view class='box'>
+  <view class='map'></view>
+  <view class='desBox'>
+    <text>地址：dfdfdf</text>
+    <text>电话：0993333</text>
+  </view>
+  <view class='tip'>
+    <text>请您到店选购商品</text>
+    <text>别忘记出示会员卡进行消费抵扣哦</text>
+  </view>
+
+  <view class='service'>联系客服</view>
+</view>

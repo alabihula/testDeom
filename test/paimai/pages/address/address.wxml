@@ -1,0 +1,30 @@
+<!--pages/address/address.wxml-->
+<view class='box'>
+  <view class='addressBox' wx:for="{{adArr}}" wx:key>
+    <view class='line1 flex-row-center'>
+      <text>{{item.name}}</text>
+      <text>{{item.phone}}</text>
+    </view>
+    <view class='address'>{{item.address}}</view>
+    <view class='bottom flex-row-center'>
+      <label class='flex-row'>
+        <checkbox color="#888888" value="{{item.name}}" checked="checked"/>
+        <text>使用地址</text>
+      </label>
+      <view class='edit flex-row'>
+        <text class='iconfont icon-tianxie'></text>
+        <text>编辑</text>
+      </view>
+      <view class='del flex-row'>
+        <text class='iconfont icon-shanchu'></text>
+        <text>删除</text>
+      </view>
+    </view>
+  </view>
+
+  <view class='bottomBtn'>
+    <navigator url="/pages/editAd/editAd" hover-class="navigator-hover">
+    新增地址
+    </navigator>
+  </view>
+</view>

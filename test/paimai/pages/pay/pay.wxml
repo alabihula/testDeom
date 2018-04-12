@@ -28,14 +28,12 @@
   </view>
 
   <view class='pro'>
-    <label class="checkbox flex-row-center">
+    <view class="checkbox flex-row-center">
       <checkbox color="#888888" value="{{item.name}}" checked="checked"/>
-      <text>已阅读本活动协议</text>
-    </label>
+      <navigator class='proStr' url="../protocol/protocol" hover-class="navigator-hover">已阅读本活动协议</navigator>
+    </view>
     <view>本拍品非质量问题不做退换货</view>
     <view>竞拍未中标所支付金额1个工作日内退换</view>
     <button type="primary" bindtap="primary">确认支付</button>
   </view>
-
-  
 </view>

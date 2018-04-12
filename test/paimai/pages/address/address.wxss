@@ -1,0 +1,57 @@
+/* pages/address/address.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.addressBox{
+  height: 300rpx;
+  border: 1rpx solid #e4e4e4;
+  font-size: 30rpx;
+  padding: 20rpx 30rpx;
+  position: relative;
+}
+.line1 text:nth-child(1) {
+  width: 40%;
+}
+.line1 text:nth-child(2) {
+  width: 60%;
+}
+.address{
+  font-size: 25rpx;
+  color: #888888;
+  margin-top: 10rpx;
+}
+checkbox{
+  margin-right: 10rpx;
+  transform:scale(0.8) translateX(40%);
+}
+.bottom{
+  width: 100%;
+  position: absolute;
+  bottom: 20rpx;
+}
+.bottom label{
+  width: 60%;
+}
+.bottom .edit{
+  text-align: left;
+  width: 20%;
+}
+.bottom .edit .iconfont{
+  font-size: 40rpx;
+  font-weight: 700;
+}
+.bottom .del{
+  text-align: left;
+  width: 20%;
+}
+.bottomBtn{
+  position: fixed;
+  bottom: 10rpx;
+  left: 50%;
+  margin-left: -160rpx;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

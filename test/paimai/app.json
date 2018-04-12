@@ -1,9 +1,18 @@
 {
   "pages": [
     "pages/auction/auction",
+    "pages/editAd/editAd",
+    "pages/address/address",
+    "pages/record/record",
+    "pages/myAuction/myAuction",
     "pages/center/center",
+    "pages/shop/shop",
+    "pages/pay/pay",
+    
     "pages/logs/logs",
-    "pages/pay/pay"
+    "pages/protocol/protocol",
+    "pages/service/service"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,2 +1,51 @@
 <!--pages/center/center.wxml-->
-<text>pages/center/center.wxml</text>
+<view class='box'>
+  <view class='titleBox'>
+    <view class='flex-row-center'>
+      <image src="{{headPic}}"></image>
+      <view class='userBox'>
+        <view class='userName'>{{userName}}</view>
+        <view class='price'>低佣金：
+          <text>{{price}}</text>
+        </view>
+      </view>
+      <view class='card'>会员卡</view>
+    </view>
+    <text>低佣金为参与竞拍好友共同享有，先用先得，不可提现。</text>
+  </view>
+
+  <view class="navList">
+    <navigator class='flex-row-center myAuction' url="/pages/myAuction/myAuction" hover-class="navigator-hover">
+      <text class='iconfont icon-paimai'></text>
+      <text>我的竞拍</text>
+      <text class='iconfont icon-inRight'></text>
+    </navigator>
+    <navigator class='flex-row-center record' url="/pages/record/record" hover-class="navigator-hover">
+      <text class='iconfont icon-shijian'></text>
+      <text>抵佣金纪录</text>
+      <text class='iconfont icon-inRight'></text>
+    </navigator>
+    <navigator class='flex-row-center address' url="/pages/address/address" hover-class="navigator-hover">
+      <text class='iconfont icon-tianxie'></text>
+      <text>收货地址</text>
+      <text class='iconfont icon-inRight'></text>
+    </navigator>
+    <navigator class='flex-row-center service' url="/pages/service/service" hover-class="navigator-hover">
+      <text class='iconfont icon-kefu'></text>
+      <text>联系客服</text>
+      <text class='iconfont icon-inRight'></text>
+    </navigator>
+  </view>
+
+  <view class='desBox'>
+    <text>3天后</text>
+    <text>将扣减到期抵用金:9999</text>
+    <text>请尽快消费抵扣</text>
+  </view>
+
+  <view class='bottomBtn'>
+    <navigator url="/pages/shop/shop" hover-class="navigator-hover">
+    去消费
+    </navigator>
+  </view>
+</view>
