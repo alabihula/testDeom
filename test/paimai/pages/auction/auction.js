@@ -5,8 +5,8 @@ Page({
       "../../images/pic2.png",
       "../../images/pic3.png"
     ],
-    friendsArr:[
-      { pic: "../../images/head.png",price:99,status:0},
+    friendsArr: [
+      { pic: "../../images/head.png", price: 99, status: 0 },
       { pic: "../../images/head.png", price: 99, status: 0 },
       { pic: "../../images/head.png", price: 399, status: 1 },
       { pic: "../../images/head.png", price: 199, status: 1 },
@@ -15,49 +15,73 @@ Page({
     ],
     indicatorDots: false,
     autoplay: false,
-    interval: 300,
-    duration: 300,
-    nowPage:1,
-    allPage:0,
-    startPrice:99,
-    endPrice:499,
-    disPrice:499,
-    goodsName:"迪奥同款春秋小开衫高端大气上档次",
-    goodsSize:"S/M/L/XL",
-    goodsNum:1,
-    endTime:"00天54分33秒"
+    interval: 200,
+    duration: 200,
+    nowPage: 1,
+    allPage: 0,
+    startPrice: 99,
+    endPrice: 499,
+    disPrice: 499,
+    goodsName: "迪奥同款春秋小开衫高端大气上档次",
+    goodsSize: "S/M/L/XL",
+    goodsNum: 1,
+    endTime: "00天54分33秒",
+    animationPay: {},
+    pay_bigPic: '../../images/pic.png',
+    pay_smallPic: '../../images/pic.png',
+    pay_startPrice: 99,
+    pay_endPrice: 499,
+    pay_time: 1,
+    pay_nowPrice: 0,
+    pay_protocol: true
+
   },
   onLoad: function () {
     this.setData({
       allPage: this.data.imgUrls.length,
       startPrice: this.data.startPrice.toFixed(2),
       endPrice: this.data.endPrice.toFixed(2),
-      disPrice: this.data.disPrice.toFixed(2)
+      disPrice: this.data.disPrice.toFixed(2),
+      pay_startPrice: this.data.pay_startPrice.toFixed(2),
+      pay_endPrice: this.data.pay_endPrice.toFixed(2),
+      pay_nowPrice: parseInt(this.data.pay_startPrice),
     })
+  },
+  sliderchange(e) {
+    this.setData({
+      pay_nowPrice: e.detail.value,
+    })
+    console.log(e.detail.value)
   },
   change(e) {
     this.setData({
-      nowPage: e.detail.current+1
+      nowPage: e.detail.current + 1
     })
   },
-  changeIndicatorDots: function (e) {
+  showPay() {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+
+    animation.translateY(0).step()
+
     this.setData({
-      indicatorDots: !this.data.indicatorDots
+      animationPay: animation.export()
     })
   },
-  changeAutoplay: function (e) {
-    this.setData({
-      autoplay: !this.data.autoplay
+  hidePay() {
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
     })
-  },
-  intervalChange: function (e) {
+
+    animation.translateY('100%').step()
+
     this.setData({
-      interval: e.detail.value
-    })
-  },
-  durationChange: function (e) {
-    this.setData({
-      duration: e.detail.value
+      animationPay: animation.export()
     })
   }
 })

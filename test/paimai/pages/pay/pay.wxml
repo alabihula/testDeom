@@ -1,5 +1,5 @@
 <!--pages/pay/pay.wxml-->
-<view class='box'>
+<view class='payBox'>
   <view class='titleBox'>
     <view class='bigBox'>
       <image class='bigPic' src="{{bigPic}}"></image>

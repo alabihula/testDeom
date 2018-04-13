@@ -66,7 +66,8 @@
       分享
     </view>
     <view class='bCenter'>
-      <navigator url="../pay/pay" hover-class="navigator-hover">出价</navigator>
+      <!-- <navigator url="../pay/pay" hover-class="navigator-hover">出价</navigator> -->
+      <view bindtap="showPay">出价</view>
     </view>
     <view class='bRight'>
       <navigator url="../center/center" hover-class="navigator-hover">
@@ -74,5 +75,47 @@
       </navigator>
     </view>
   </view>
+
+  <view bindtap='hidePay' animation="{{animationPay}}" class='payBox'>
+  <view class='titleBox'>
+    <view class='bigBox'>
+      <image class='bigPic' src="{{pay_bigPic}}"></image>
+      <view class='bigBg'></view>
+    </view>
+    <image class='smallPic' src="{{pay_smallPic}}"></image>
+    <view class='area'>
+      <text>出价范围</text>
+      <text class='pl'>￥{{pay_startPrice}}~{{pay_endPrice}}</text>
+      <text>仅限出价{{pay_time}}次</text>
+    </view>
+  </view>
+  
+  <view class='priceBox'>
+    <view class='priceDes'>出价金额：</view>
+    <view class='nowPrice'>
+      <text>￥{{pay_nowPrice}}</text>
+    </view>
+    <view class='slideBox flex-row-center'>
+      <text>￥{{pay_startPrice}}</text>
+      <view class="slide">
+        <slider activeColor="#444444" backgroundColor="#888888" block-size="22" block-color="rgba(0,0,0,0.6)" bindchanging="sliderchange" min="{{pay_startPrice}}" max="{{pay_endPrice}}"/>
+      </view>
+      <text>￥{{pay_endPrice}}</text>
+    </view>
+  </view>
+
+  <view class='pro'>
+    <view class="checkbox flex-row-center">
+      <checkbox color="#888888" value="{{item.name}}" checked="checked"/>
+      <navigator class='proStr' url="../protocol/protocol" hover-class="navigator-hover">已阅读本活动协议</navigator>
+    </view>
+    <view>本拍品非质量问题不做退换货</view>
+    <view>竞拍未中标所支付金额1个工作日内退换</view>
+    <button type="primary" bindtap="primary">确认支付</button>
+  </view>
+</view>
+
+
+  <!-- <view bindtap='hidePay' animation="{{animationPay}}" style="background:red;height:200rpx;width:200rpx;position:absolute;top:0rpx;left:0rpx;opacity:0"></view> -->
 </view>
 

@@ -1,5 +1,6 @@
 /* pages/auction/auction.wxss */
 @import '../../styles/iconfont/iconfont.wxss';
+@import './pay.wxss';
 .box{
   padding-bottom: 100rpx;
 }
