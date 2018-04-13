@@ -1,0 +1,52 @@
+/* pages/extract/extract.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.box{
+  font-size: 35rpx;
+}
+.title{
+  padding-left: 30rpx;
+  margin: 20rpx 0;
+}
+.name{
+  text-align: center;
+  width: 100%;
+  margin: 100rpx auto;
+}
+.goodBox{
+  background: rgba(0, 0, 0, 0.1);
+  height: 180rpx;
+  padding-left: 20rpx;
+}
+.goodBox text{
+  width: 80%;
+  padding-left: 10rpx;
+  font-size: 30rpx;
+}
+.goodBox image{
+  width: 140rpx;
+  height: 140rpx;
+  border: 4rpx solid white;
+}
+.inputBox{
+  border: 1rpx solid #e4e4e4;
+}
+.inputBox label{
+  width: 30%;
+  padding-left: 30rpx;
+}
+.inputBox .flex-row{
+  height: 90rpx;
+}
+.inputBox textarea{
+  height: 90rpx;
+}
+.bottomBtn{
+  margin: 20rpx auto;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

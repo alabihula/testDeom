@@ -1,0 +1,48 @@
+<!--pages/extract/extract.wxml-->
+<view class='box'>
+  <view class='name'>UJJJJJ 港口店</view>
+  <view class='title'>发货管理</view>
+  <view class='inputBox'>
+    <view class='flex-row'>
+      <label>收件人</label>
+      <input type='text' placeholder="收件人" />
+    </view>
+    <view class='flex-row'>
+      <label>手机号</label>
+      <input type='text' placeholder="手机号" />
+    </view>
+    <view class='flex-row'>
+      <label>收件地址</label>
+      <input type='text' placeholder="收件地址"></input>
+    </view>
+    <view class='flex-row-center goodBox'>
+      <image src="{{pic}}"></image>
+      <text>{{des}}</text>
+    </view>
+    <view class='flex-row'>
+      <label style='flex:2'>商品规格</label>
+      <input style='flex:1' type='text' placeholder="S"></input>
+      <label style='flex:2'>数量</label>
+      <input style='flex:1' type='text' placeholder="S"></input>
+    </view>
+
+
+    <radio-group class="radio-group" bindchange="radioChange">
+      <view class="radio flex-row" wx:for="{{goodType}}">
+        <label>
+          <radio value="{{item.value}}" />
+          <text>{{item.name}}</text>
+        </label>
+        <view>
+          <input wx:if="{{item.value==0}}" type='text' placeholder='请输入快递单号'></input>
+        </view>
+      </view>
+    </radio-group>
+
+
+
+  </view>
+    <view class='bottomBtn'>
+    确认发货
+  </view>
+</view>

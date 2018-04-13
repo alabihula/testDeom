@@ -1,0 +1,50 @@
+<!--pages/issue/issue.wxml-->
+<view class='box'>
+  <view class='title'>输入标题不得超过16个字</view>
+  <view class='picBox'>
+    <view wx:for="{{picArr}}" wx:key>
+      <image src="{{item}}"></image>
+    </view>
+    <view class='iconfont icon-jia'></view>
+    <view class='iconfont icon-jian'></view>
+  </view>
+
+  <view class='form'>
+    <view class='flex-row'>
+      <label>原价</label>
+      <input type='text' placeholder="吊牌价"></input>
+    </view>
+    <view class='flex-row'>
+      <text>出价范围，不得超过吊牌价</text>
+    </view>
+    <view class='flex-row'>
+      <label>拍卖价</label>
+      <input type='text' placeholder="起拍价~吊牌价"></input>
+      <text class='tip'>1折起拍</text>
+    </view>
+    <view class='flex-row'>
+      <label style='flex:1'>规格</label>
+      <input style='flex:2' type='text' placeholder="S,M,L,XL"></input>
+      <label style='flex:1'>数量</label>
+      <input style='flex:2' type='text' placeholder="1"></input>
+    </view>
+    <view class='flex-row'>
+      <label>出价人数</label>
+      <input type='text' placeholder="期望多少人出价"></input>
+    </view>
+    <view class='flex-row'>
+      <text>流拍规则，截止时间内少于最低人数</text>
+    </view>
+    <view class='flex-row'>
+      <label>最低人数</label>
+      <input type='text' placeholder="建议少于50%期望人数则流拍"></input>
+    </view>
+    <view class='flex-row'>
+      <label>截止时间</label>
+      <input type='text' placeholder="2018/4/1 00:00:00"></input>
+    </view>
+  </view>
+  <view class='issue'>
+    发布
+  </view>
+</view>

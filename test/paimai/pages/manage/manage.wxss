@@ -1,0 +1,82 @@
+/* pages/manage/manage.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.box{
+  font-size: 35rpx;
+}
+.title{
+  padding-left: 30rpx;
+  margin: 20rpx 0;
+}
+.name{
+  text-align: center;
+  width: 100%;
+  margin: 100rpx auto;
+}
+.headBox{
+  height: 150rpx;
+  padding-left: 30rpx;
+}
+.line{
+  border: 2rpx solid #e4e4e4;
+}
+.share{
+  width: 10%;
+}
+.headDes{
+  width: 80%;
+  padding-left: 20rpx;
+  height: 100%;
+  line-height: 75rpx;
+}
+
+.headBox image{
+  width: 80rpx;
+  height: 80rpx;
+  border: 1rpx solid #e4e4e4;
+  border-radius: 40rpx;
+}
+.goodBox{
+  background: rgba(0, 0, 0, 0.1);
+  height: 180rpx;
+  padding-left: 20rpx;
+}
+.goodBox text{
+  width: 80%;
+  padding-left: 10rpx;
+  font-size: 30rpx;
+}
+.goodBox image{
+  width: 140rpx;
+  height: 140rpx;
+  border: 4rpx solid white;
+}
+.timeBox{
+  display: block;
+  font-size: 30rpx;
+  text-align: center;
+  padding:10rpx;
+}
+.done{
+  background: red;
+  color: white;
+   width: 130rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+.zhuan{
+  font-size: 30rpx;
+}
+.icon-zhuanfa{
+  text-align: center;
+  font-size: 60rpx;
+}
+.pai{
+  width: 130rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2)
+}

@@ -1,0 +1,29 @@
+<!--pages/deduction/deduction.wxml-->
+<view class='box'>
+  <view class='name'>UJJJJJ 港口店</view>
+  <view class='content'>
+    <label>订单金额</label>
+    <view class='input'>
+      <input type='text' placeholder='请输入顾客订单总额'></input>
+    </view>
+    <label>不参与抵扣金额</label>
+    <view class='input'>
+      <input type='text' placeholder='请输入不参与抵扣金额'></input>
+    </view>
+    <view class='detail'>可抵扣订单总额：￥20000.00元</view>
+    <view class='detail'>最大可用低佣金：￥20000.00元</view>
+    <view class='detail'>顾客尚需要支付：￥20000.00元</view>
+
+    <view class='bottom flex-row'>
+      <checkbox color="#888888" checked="checked" />
+      <text>确认告知顾客项</text>
+    </view>
+    <view class='des'>
+      <view>1、如客人产生退货，低佣金不坐退换。</view>
+      <view>2、如客人产生换货，仅能换取扣减低佣金后实际付费同等价位的产品或者同款产品</view>
+    </view>
+  </view>
+  <view class='bottomBtn'>
+    确认扣除
+  </view>
+</view>

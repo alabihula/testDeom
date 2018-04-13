@@ -1,0 +1,42 @@
+<!--pages/manage/manage.wxml-->
+<view class='box'>
+  <view class='name'>UJJJJJ 港口店</view>
+  <view class='title'>发布记录</view>
+  <view class='content'>
+
+
+    <view class='line' wx:for="{{tabArr1}}" wx:key>
+      <navigator url="/pages/extract/extract" hover-class="navigator-hover">
+        <view class='flex-row headBox'>
+          <view class='headDes'>
+            <view class='flex-row'>
+              <text style='flex:1'>参与人数：{{item.peoNum}}</text>
+              <text style='flex:1'>最高出价：{{item.priceTop}}</text>
+            </view>
+            <view>起拍范围：￥{{item.priceStart}}~{{item.priceEnd}}</view>
+          </view>
+
+          <view wx:if="{{item.status == 0}}">
+            <view class='iconfont icon-zhuanfa'></view>
+            <view class='zhuan'>转发邀请</view>
+          </view>
+          <view wx:if="{{item.status == 1}}">
+            <view class='pai'>流拍</view>
+          </view>
+          <view wx:if="{{item.status == 2}}">
+            <view class='done'>成交</view>
+          </view>
+        </view>
+
+        <view class='flex-row-center goodBox'>
+          <image src="{{item.pic}}"></image>
+          <text>{{item.des}}</text>
+        </view>
+        <view class='timeBox'>距结束{{item.endTime}}</view>
+      </navigator>
+    </view>
+
+
+
+  </view>
+</view>

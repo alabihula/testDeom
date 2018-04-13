@@ -1,0 +1,47 @@
+/* pages/deduction/deduction.wxss */
+.box{
+  font-size: 35rpx;
+}
+.name{
+  text-align: center;
+  width: 100%;
+  margin: 100rpx auto;
+}
+.content{
+  padding-left: 30rpx;
+}
+.input{
+  height: 110rpx;
+  border-bottom: 2rpx solid #e4e4e4;
+  line-height: 150rpx;
+  margin-bottom: 30rpx;
+}
+.input input{
+  display: inline-block;
+}
+.detail{
+  margin-bottom: 20rpx;
+}
+checkbox{
+  transform:scale(0.7) translateX(30%);
+}
+.bottom{
+  margin-top: 100rpx;
+}
+.des{
+  margin-top: 20rpx;
+  font-size: 25rpx;
+  color: red;
+  padding-left: 100rpx;
+  width: 90%;
+}
+.bottomBtn{
+ margin: 30rpx auto;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

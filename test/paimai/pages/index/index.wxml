@@ -1,0 +1,15 @@
+<!--pages/guide/guide.wxml-->
+<view class='box'>
+  
+  <view class='guide'>
+    <navigator url="/pages/auction/auction" hover-class="navigator-hover">
+    顾客端
+    </navigator>
+  </view>
+
+  <view class='guide'>
+    <navigator url="/pages/guide/guide" hover-class="navigator-hover">
+    导购端
+    </navigator>
+  </view>
+</view>

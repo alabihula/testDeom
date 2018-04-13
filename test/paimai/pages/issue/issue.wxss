@@ -1,0 +1,67 @@
+/* pages/issue/issue.wxss */
+@import '../../styles/iconfont/iconfont.wxss';
+.box{
+  font-size: 35rpx;
+}
+.title{
+  line-height: 100rpx;
+  height: 100rpx;
+  background: #f2f2f2;
+  padding-left: 30rpx;
+}
+.picBox view{
+  float: left;
+  margin: 10rpx;
+  width: 166rpx;
+  height: 166rpx;
+  border: 1rpx #e4e4e4 solid;
+}
+.picBox image{
+  width: 163rpx;
+  height: 163rpx;
+  border: 0;
+}
+.picBox .icon-jia{
+  color: #888888;
+  font-size: 50rpx;
+  line-height: 165rpx;
+  text-align: center;
+  border: 1rpx #e4e4e4 solid;
+}
+.picBox .icon-jian{
+  color: #888888;
+  font-size: 50rpx;
+  line-height: 165rpx;
+  text-align: center;
+  border: 1rpx #e4e4e4 solid;
+}
+.picBox{
+  border-bottom: 1rpx solid #e4e4e4;
+  overflow: hidden;
+  padding-bottom: 30rpx;
+}
+.form{
+  padding-left: 30rpx;
+}
+.form > .flex-row{
+  height: 90rpx;
+  border-bottom: 2rpx solid #e4e4e4;
+}
+.form label{
+  width: 160rpx;
+}
+.tip{
+  color: red;
+}
+.issue{
+  margin-left: 400rpx;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  width: 320rpx;
+  height: 75rpx;
+  text-align: center;
+  line-height: 75rpx;
+  color: white;
+  font-size: 35rpx;
+  background: #35cc35;
+}

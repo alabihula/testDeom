@@ -1,0 +1,21 @@
+<!--pages/guide/guide.wxml-->
+<view class='box'>
+  
+  <view class='guide'>
+    <navigator url="/pages/issue/issue" hover-class="navigator-hover">
+    发布竞拍
+    </navigator>
+  </view>
+
+  <view class='guide'>
+    <navigator url="/pages/deduction/deduction" hover-class="navigator-hover">
+    消费抵扣
+    </navigator>
+  </view>
+
+  <view class='guide'>
+    <navigator url="/pages/manage/manage" hover-class="navigator-hover">
+    竞拍管理
+    </navigator>
+  </view>
+</view>
