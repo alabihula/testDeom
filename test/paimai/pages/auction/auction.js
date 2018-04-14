@@ -65,7 +65,7 @@ Page({
       delay: 0
     })
 
-    animation.translateY(0).step()
+    animation.translateY(0).opacity(1).step()
 
     this.setData({
       animationPay: animation.export()
@@ -78,7 +78,7 @@ Page({
       delay: 0
     })
 
-    animation.translateY('100%').step()
+    animation.translateY('100%').opacity(0).step()
 
     this.setData({
       animationPay: animation.export()
