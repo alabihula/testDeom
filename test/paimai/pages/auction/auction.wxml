@@ -115,7 +115,5 @@
   </view>
 </view>
 
-
-  <!-- <view bindtap='hidePay' animation="{{animationPay}}" style="background:red;height:200rpx;width:200rpx;position:absolute;top:0rpx;left:0rpx;opacity:0"></view> -->
 </view>
 
