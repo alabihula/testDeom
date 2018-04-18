@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +8,67 @@
     <title>Document</title>
     <!-- <script src="vueVnode.js"></script> -->
     <script src="vueDev.js"></script>
+    <script src="vuex.js"></script>
 </head>
+
 <body>
-   <div class="app">
-       <h1>{{num}}</h1>
-       <h1>{{lastNum}}</h1>
-       <h2>{{comNum}}</h2>
-       <h3>{{obj}}</h3>
-       <p v-for="v in arr">{{v}}</p>
-   </div>
+    <div class="app">
+        <h1>{{num}}</h1>
+        <h1>{{lastNum}}</h1>
+        <h2>{{comNum}}</h2>
+        <h3>{{obj}}</h3>
+        <p v-for="v in arr">{{v}}</p>
+        <p>vuex num</p>
+        <p>{{count}}</p>
+    </div>
 </body>
 <script>
     var closeWatcherDepend = false;
-
-     var app = new Vue({
-        el:'.app',
-        data:{
-            num:1,
-            lastNum:2,
-            obj:{a:1},
-            arr:['a','b','c',{name:222}]
+    const store = new Vuex.Store({
+        state: {
+            count: 0
+        },
+        mutations: {
+            increment: state => state.count++,
+            decrement: state => state.count--
+        }
+    })
+    var mapState = Vuex.mapState;
+    console.log('%cmapState','font-size:100px',mapState);
+    // Vue.use(store);
+    var app = new Vue({
+        el: '.app',
+        data: {
+            num: 1,
+            lastNum: 2,
+            obj: {
+                a: 1
+            },
+            arr: ['a', 'b', 'c', {
+                name: 222
+            }]
         },
         mounted() {
             // this.addNum();
+            store.commit('increment')
         },
-        computed:{
-            'comNum'() {
-                return this.num+"-computed-"+this.lastNum;
+        computed: {
+            'comNum' () {
+                return this.num + "-computed-" + this.lastNum;
+            },
+            'count'() {
+                return store.state.count;
             }
         },
-        methods:{
+        methods: {
             addNum() {
-                this.num  = 3;
-                this.lastNum  = 10;
+                this.num = 3;
+                this.lastNum = 10;
             }
         }
     })
 </script>
 <script>
 </script>
+
 </html>

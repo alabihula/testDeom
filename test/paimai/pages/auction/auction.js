@@ -33,7 +33,11 @@ Page({
     pay_endPrice: 499,
     pay_time: 1,
     pay_nowPrice: 0,
-    pay_protocol: true
+    pay_protocol: true,
+    lastX: 0,
+    lastY: 0,
+    text: "没有滑动",
+    currentGesture: 0,
 
   },
   onLoad: function () {
@@ -84,4 +88,5 @@ Page({
       animationPay: animation.export()
     })
   }
+
 })

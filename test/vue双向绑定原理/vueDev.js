@@ -3573,7 +3573,7 @@ function createComputedGetter (key) {
       }
       if (Dep.target) {
         console.log('createComputedGetter watcher depend===========');
-        // watcher.depend();
+        watcher.depend();
       }
       console.log('%ccreateComputedGetter watcher.value is','color:blue;font-size:40px',watcher.value);
       return watcher.value

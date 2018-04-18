@@ -26,10 +26,8 @@
   display: block;
 }
 .service{
-    position: fixed;
-  bottom: 10rpx;
-  left: 50%;
-  margin-left: -160rpx;
+  display: inline-block;
+  margin: 150rpx auto;
   width: 320rpx;
   height: 75rpx;
   text-align: center;

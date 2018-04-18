@@ -9,7 +9,7 @@
           <text>{{price}}</text>
         </view>
       </view>
-      <view class='card'>会员卡</view>
+      <view wx:if="{{false}}" class='card'>会员卡</view>
     </view>
     <text>低佣金为参与竞拍好友共同享有，先用先得，不可提现。</text>
   </view>
