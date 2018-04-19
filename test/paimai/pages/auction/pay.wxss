@@ -1,7 +1,6 @@
 /* pages/pay/pay.wxss */
 .payBox{
   transform: translateY(100%);
-  background: white;
   position: fixed;
   z-index: 100;
   opacity: 0;
@@ -11,15 +10,23 @@
   height: 100%;
 }
 .payBox .titleBox{
+  background: rgba(0, 0, 0, 0.5);
   position: relative;
   height: 470rpx;
 }
 .payBox .bigBox{
-   position: absolute;
-  top: 0px;
+  position: absolute;
+  background: white;
+  bottom: 0px;
   width: 100%;
-  height: 300rpx;
+  height: 190rpx;
   overflow: hidden;
+}
+.payBox .bigBox icon{
+  position: absolute;
+  right:10rpx;
+  top: 10rpx;
+  z-index: 10;
 }
 .payBox .bigBg{
   position: absolute;
@@ -46,6 +53,7 @@
 }
 .payBox .area{
    position: absolute;
+   background: white;
     width: 480rpx;
     height: 150rpx;
     font-size: 30rpx;
@@ -58,8 +66,13 @@
 .payBox .pl{
   padding-left: 20rpx;
 }
+.payBox .bottomBox{
+  background: white;
+  height: 100%;
+}
 .payBox .priceBox{
     position: absolute;
+    background: white;
     width: 100%;
     height: 300rpx;
     top: 480rpx;
@@ -92,6 +105,7 @@
 }
 .payBox .pro{
   position: absolute;
+  background: white;
   width: 100%;
   top: 800rpx;
   text-align: center;

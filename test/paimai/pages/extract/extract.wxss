@@ -1,7 +1,7 @@
 /* pages/extract/extract.wxss */
 @import '../../styles/iconfont/iconfont.wxss';
 .box{
-  font-size: 35rpx;
+  font-size: 30rpx;
 }
 .title{
   padding-left: 30rpx;
@@ -31,14 +31,16 @@
   border: 1rpx solid #e4e4e4;
 }
 .inputBox label{
-  width: 30%;
+  width: 20%;
+  line-height: 90rpx;
   padding-left: 30rpx;
 }
-.inputBox .flex-row{
-  height: 90rpx;
+.inputBox text{
+  width: 80%;
+  padding-left: 30rpx;
 }
-.inputBox textarea{
-  height: 90rpx;
+.inputBox>view{
+  min-height: 90rpx;
 }
 .bottomBtn{
   margin: 20rpx auto;

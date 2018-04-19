@@ -19,6 +19,11 @@ view{
   flex-direction:row;
   align-items:center;
   }
+  .flex-row-b {
+  display: flex;
+  flex-direction:row;
+  align-items:baseline;
+  }
 .flex-row-centerb {
   display: flex;
   flex-direction:row;

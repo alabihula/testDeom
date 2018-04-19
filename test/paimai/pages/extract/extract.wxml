@@ -5,15 +5,15 @@
   <view class='inputBox'>
     <view class='flex-row'>
       <label>收件人</label>
-      <input type='text' placeholder="收件人" />
+      <text>Tom adefdf</text>
     </view>
     <view class='flex-row'>
       <label>手机号</label>
-      <input type='text' placeholder="手机号" />
+      <text>18333233333</text>
     </view>
-    <view class='flex-row'>
+    <view class='flex-row-b'>
       <label>收件地址</label>
-      <input type='text' placeholder="收件地址"></input>
+      <text>杜老师放假了适得府君书代理费就是福利世纪东方技术的家乐福</text>
     </view>
     <view class='flex-row-center goodBox'>
       <image src="{{pic}}"></image>
