@@ -107,7 +107,6 @@
   right: 0rpx;
   top: 15rpx;
   height: 120rpx !important;
-  width: 190rpx;
   border: 0 !important;
   text-align: center;
   line-height: 50rpx !important;
@@ -117,6 +116,8 @@
   width:70rpx;
   height:70rpx;
   margin:0 auto;
+  padding-left: 10rpx;
+  text-align: center;
   line-height: 80rpx;
 }
 .tips{
