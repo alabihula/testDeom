@@ -102,13 +102,22 @@
   color: #888888;
 }
 .invite{
+  font-size: 30rpx !important;
   position: absolute;
-  right: 30rpx;
+  right: 0rpx;
   top: 15rpx;
+  height: 120rpx !important;
+  width: 190rpx;
+  border: 0 !important;
   text-align: center;
+  line-height: 50rpx !important;
 }
 .icon-fenxiang{
   font-size: 50rpx;
+  width:70rpx;
+  height:70rpx;
+  margin:0 auto;
+  line-height: 80rpx;
 }
 .tips{
   font-size: 30rpx;
@@ -161,9 +170,14 @@
 }
 .opBox .bleft{
   width: 20%;
+  font-size: 25rpx;
+  border: 0 !important;
+  height: 100rpx;
+  line-height: 20rpx;
 }
 .opBox .bleft .iconfont{
-  font-size: 50rpx;
+  font-size: 40rpx;
+  line-height: 70rpx;
 }
 .opBox .bCenter{
   width: 60%;
@@ -174,6 +188,7 @@
   background: #35cc35;
 }
 .opBox .bRight{
+  font-size: 25rpx;
   width: 20%;
 }
 .opBox .bRight .iconfont{

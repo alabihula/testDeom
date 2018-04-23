@@ -33,10 +33,10 @@
       <view>25</view>人出价，最高出价者将获得本拍品</view>
     <view class='flex-row-centerb grev'>出价人数未达到
       <view class='peoNo'>25</view>人将流拍</view>
-    <view class='invite'>
+    <button size="mini" plain="true" type="default" open-type='share' class='invite'>
       <view class='iconfont icon-fenxiang'></view>
       邀请好友
-    </view>
+    </button>
   </view>
 
   <view class='tips'>拍卖所得作为参与竞拍者在本店活动的奖励,可以在本店消费抵扣现金</view>
@@ -62,10 +62,10 @@
   </view>
 
   <view class='opBox flex-row-center'>
-    <view class='bleft'>
+    <button size="mini" plain="true" type="default" open-type='share' class='bleft'>
       <view class='iconfont icon-fenxiang'></view>
       分享
-    </view>
+    </button>
     <view class='bCenter'>
       <view bindtap="showPay">出价</view>
     </view>
