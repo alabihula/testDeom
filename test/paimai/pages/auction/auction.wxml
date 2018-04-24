@@ -76,44 +76,48 @@
     </view>
   </view>
 
-<!-- 支付弹窗 -->
+  <!-- 支付弹窗 -->
   <view animation="{{animationPay}}" class='payBox' catchtouchmove="true">
-    <view class='titleBox'>
-      <view class='bigBox'>
-        <icon bindtap='hidePay' type="clear" size="20"/>
-      </view>
-      <image class='smallPic' src="{{pay_smallPic}}"></image>
-      <view class='area'>
-        <text>出价范围</text>
-        <text class='pl'>￥{{pay_startPrice}}~{{pay_endPrice}}</text>
-        <text>仅限出价{{pay_time}}次</text>
-      </view>
-    </view>
+    <view class='content'>
 
-    <view class='bottomBox'>
-      <view class='priceBox'>
-        <view class='priceDes'>出价金额：</view>
-        <view class='nowPrice'>
-          <text>￥{{pay_nowPrice}}</text>
+      <view class='titleBox'>
+        <view class='bigBox'>
+          <icon bindtap='hidePay' type="clear" size="20" />
         </view>
-        <view class='slideBox flex-row-center'>
-          <text>￥{{pay_startPrice}}</text>
-          <view class="slide">
-            <slider activeColor="#444444" backgroundColor="#888888" block-size="22" block-color="rgba(0,0,0,0.6)" bindchanging="sliderchange" min="{{pay_startPrice}}" max="{{pay_endPrice}}" />
+        <image class='smallPic' src="{{pay_smallPic}}"></image>
+        <view class='area'>
+          <text>出价范围</text>
+          <text class='pl'>￥{{pay_startPrice}}~{{pay_endPrice}}</text>
+          <text>仅限出价{{pay_time}}次</text>
+        </view>
+      </view>
+
+      <view class='bottomBox'>
+        <view class='priceBox'>
+          <view class='priceDes'>出价金额：</view>
+          <view class='nowPrice'>
+            <text>￥{{pay_nowPrice}}</text>
           </view>
-          <text>￥{{pay_endPrice}}</text>
+          <view class='slideBox flex-row-center'>
+            <text>￥{{pay_startPrice}}</text>
+            <view class="slide">
+              <slider activeColor="#444444" backgroundColor="#888888" block-size="22" block-color="rgba(0,0,0,0.6)" bindchanging="sliderchange" min="{{pay_startPrice}}" max="{{pay_endPrice}}" />
+            </view>
+            <text>￥{{pay_endPrice}}</text>
+          </view>
+        </view>
+
+        <view class='pro'>
+          <view class="checkbox flex-row-center">
+            <checkbox color="#888888" value="{{item.name}}" checked="checked" />
+            <navigator class='proStr' url="../protocol/protocol" hover-class="navigator-hover">已阅读本活动协议</navigator>
+          </view>
+          <view>本拍品非质量问题不做退换货</view>
+          <view>竞拍未中标所支付金额1个工作日内退换</view>
+          <button type="primary">确认支付</button>
         </view>
       </view>
 
-      <view class='pro'>
-        <view class="checkbox flex-row-center">
-          <checkbox color="#888888" value="{{item.name}}" checked="checked" />
-          <navigator class='proStr' url="../protocol/protocol" hover-class="navigator-hover">已阅读本活动协议</navigator>
-        </view>
-        <view>本拍品非质量问题不做退换货</view>
-        <view>竞拍未中标所支付金额1个工作日内退换</view>
-        <button type="primary" >确认支付</button>
-      </view>
     </view>
   </view>
 </view>

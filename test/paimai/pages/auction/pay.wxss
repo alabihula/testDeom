@@ -1,6 +1,7 @@
 /* pages/pay/pay.wxss */
 .payBox{
   transform: translateY(100%);
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
   z-index: 100;
   opacity: 0;
@@ -9,10 +10,18 @@
   width: 100%;
   height: 100%;
 }
+.payBox .content{
+  background: white;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 790rpx;
+}
 .payBox .titleBox{
-  background: rgba(0, 0, 0, 0.5);
-  position: relative;
-  height: 470rpx;
+  position: absolute;
+  top: 0rpx;
+  width: 100%;
+  height: 190rpx;
 }
 .payBox .bigBox{
   position: absolute;
@@ -47,17 +56,16 @@
   position: absolute;
   width: 220rpx;
   height: 220rpx;
-  top: 220rpx;
+  top: -50rpx;
   left: 50rpx;
   border: 1px solid #e4e4e4;
 }
 .payBox .area{
    position: absolute;
-   background: white;
     width: 480rpx;
     height: 150rpx;
     font-size: 30rpx;
-    top: 310rpx;
+    top: 40rpx;
     left: 290rpx;
 }
 .payBox .area text{
@@ -68,14 +76,17 @@
 }
 .payBox .bottomBox{
   background: white;
-  height: 100%;
+  height: 600rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0rpx;
 }
 .payBox .priceBox{
     position: absolute;
     background: white;
     width: 100%;
-    height: 300rpx;
-    top: 480rpx;
+    height: 250rpx;
+    top: 0rpx;
     left: 0rpx;
 }
 .payBox .slideBox{
@@ -107,7 +118,8 @@
   position: absolute;
   background: white;
   width: 100%;
-  top: 800rpx;
+  height: 350rpx;
+  top: 250rpx;
   text-align: center;
   font-size: 30rpx;
   line-height: 50rpx;
@@ -121,7 +133,7 @@
 .payBox button{
   width: 90%;
   height: 80rpx;
-  margin-top: 80rpx;
+  margin-top: 30rpx;
   font-size: 35rpx;
   font-weight: normal;
   line-height: 80rpx;
