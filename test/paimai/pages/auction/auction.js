@@ -1,3 +1,5 @@
+
+const app = getApp()
 Page({
   data: {
     imgUrls: [
@@ -38,7 +40,8 @@ Page({
     lastY: 0,
     text: "没有滑动",
     currentGesture: 0,
-    hidden: true
+    hidden: true,
+    userInfo:{}
 
   },
   onLoad: function () {
@@ -53,6 +56,43 @@ Page({
       pay_nowPrice: parseInt(this.data.pay_startPrice),
     })
 
+    //头像
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          console.log(res.userInfo);
+          this.setData({
+            userInfo: res.userInfo
+          })
+        }
+      })
+    }
+  },
+
+  /**
+  * 生成分享图
+ */
+  share: function () {
+    var t = this
+    console.log(t.data.avatarUrl);
+    wx.showLoading({
+      title: '努力生成中...'
+    })
+    //生成背景图 分享图 头像
     let promise1 = new Promise(function (resolve, reject) {
       wx.getImageInfo({
         src: '../../images/pic.png',
@@ -82,47 +122,36 @@ Page({
       ctx.drawImage('../../' + res[1].path, t.getPx(460), t.getPx(700), t.getPx(200), t.getPx(200))
 
       ctx.setTextAlign('left')
-      ctx.setFillStyle('black')
-      ctx.setFontSize(t.getPx(20));
-      ctx.fillText('来自', 10, 20)
-      t.drawText(ctx,'来自巴黎了圣诞节福利的时间飞机上的垃圾分类第三讲法律上的距离放假了实地缴费历史的记录',10,400-100,150);
+      ctx.setFillStyle('rgba(0,0,0,0.4)')
+      ctx.fillRect(0, 0, t.getPx(660), t.getPx(50))
+      ctx.setFillStyle('white')
+      ctx.setFontSize(t.getPx(25));
+      ctx.fillText('来自' + t.data.userInfo.nickName + '的分享', t.getPx(10), t.getPx(30))
+
+      ctx.setFillStyle('rgba(0,0,0,0.5)')
+      ctx.fillRect(0, t.getPx(700), t.getPx(660), t.getPx(700))
+
+      
+      t.drawText(ctx, '来自巴黎了圣诞节福利的时间飞机上的垃圾分类第三讲法律上的距离放', t.getPx(10), t.getPx(900 - 200), t.getPx(400));
+  
       ctx.setFontSize(t.getPx(40))
-      ctx.fillText('￥359', 10, 400 - 10)
+      ctx.fillText('￥' + t.data.pay_nowPrice, t.getPx(10), t.getPx(900 - 40))
+      ctx.setFontSize(t.getPx(30))
+      ctx.setFillStyle('#ccd4d9')
+      var l = String(t.data.endPrice).split('').length;
+      ctx.fillText('￥' + t.data.endPrice, t.getPx(150), t.getPx(900 - 40))
+      ctx.setStrokeStyle('#ccd4d9')
+      ctx.moveTo(t.getPx(150), t.getPx(900 - 40))
+      ctx.lineTo(t.getPx(150+l*22), t.getPx(900 - 40))
 
       ctx.stroke()
       ctx.draw()
-    })
-  },
 
-  /**
-  * 生成分享图
- */
-  share: function () {
-    var that = this
-    wx.showLoading({
-      title: '努力生成中...'
+      t.setData({
+        hidden: false
+      })
+      wx.hideLoading()
     })
-    wx.canvasToTempFilePath({
-      x: 0,
-      y: 0,
-      width: 600,
-      height: 800,
-      destWidth: 600,
-      destHeight: 800,
-      canvasId: 'shareImg',
-      success: function (res) {
-        console.log(res.tempFilePath);
-        that.setData({
-          prurl: res.tempFilePath,
-          hidden: false
-        })
-        wx.hideLoading()
-      },
-      fail: function (res) {
-        console.log(res)
-      }
-    })
-
     // wx.openSetting({
     //   success: (res) => {
     //     console.log('success');
@@ -137,7 +166,7 @@ Page({
     var chr = t.split("");
     var temp = "";
     var row = [];
-    ctx.fillStyle = "black";
+    ctx.setFillStyle('white')
     ctx.textBaseline = "middle";
 
     for (var a = 0; a < chr.length; a++) {
@@ -150,9 +179,7 @@ Page({
       }
       temp += chr[a];
     }
-
     row.push(temp);
-
     for (var b = 0; b < row.length; b++) {
       ctx.fillText(row[b], x, y + (b + 1) * 20);
     }
@@ -169,7 +196,6 @@ Page({
             scope: 'scope.writePhotosAlbum',
             success() {
               console.log('yes');
-              // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
               wx.saveImageToPhotosAlbum, wx.saveVideoToPhotosAlbum();
             },
             fail() {
@@ -190,28 +216,45 @@ Page({
   * 保存到相册
  */
   save: function () {
-    var that = this
-    //生产环境时 记得这里要加入获取相册授权的代码
-    wx.saveImageToPhotosAlbum({
-      filePath: that.data.prurl,
-      success(res) {
-        wx.showModal({
-          content: '图片已保存到相册，赶紧晒一下吧~',
-          showCancel: false,
-          confirmText: '好哒',
-          confirmColor: '#72B9C3',
-          success: function (res) {
-            if (res.confirm) {
-              console.log('用户点击确定');
-              that.setData({
-                hidden: true
-              })
-            }
+    var t = this;
+    wx.canvasToTempFilePath({
+      canvasId: 'shareImg',
+      success: function (res) {
+        console.log(res.tempFilePath);
+
+        wx.saveImageToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success(res) {
+            wx.showModal({
+              content: '图片已保存到相册，赶紧晒一下吧~',
+              showCancel: false,
+              confirmText: '好的',
+              confirmColor: '#72B9C3',
+              success: function (res) {
+                if (res.confirm) {
+                  t.setData({
+                    hidden: true
+                  })
+                }
+              }
+            })
           }
         })
+      },
+      fail: function (res) {
+        console.log(res)
       }
     })
   },
+  /**
+   * 关闭分享
+   */
+   hideShare() {
+     this.setData({
+       hidden: true
+     })
+   },
+  
   sliderchange(e) {
     this.setData({
       pay_nowPrice: e.detail.value,

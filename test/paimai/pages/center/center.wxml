@@ -44,8 +44,6 @@
   </view>
 
   <view class='bottomBtn'>
-    <navigator url="/pages/shop/shop" hover-class="navigator-hover">
-    去消费
-    </navigator>
+    <view>去消费</view>
   </view>
 </view>

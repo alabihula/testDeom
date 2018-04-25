@@ -14,7 +14,12 @@
   left: 50%;
   margin-left: -330rpx;
   z-index: 3;
-  border: 1px dashed #fff;
+}
+.closeS{
+  position: absolute;
+  top: 0rpx;
+  right: 0rpx;
+  z-index: 100
 }
 .preview image{
   width: 660rpx;
@@ -31,4 +36,6 @@
   left: 30%;
   width: 40%;
   bottom: 20rpx;
+  background: #ff5777;
+  color: white;
 }

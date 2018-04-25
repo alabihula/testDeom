@@ -137,4 +137,6 @@
   font-size: 35rpx;
   font-weight: normal;
   line-height: 80rpx;
+  background: #ff5777;
+  border-radius: 10rpx;
 }

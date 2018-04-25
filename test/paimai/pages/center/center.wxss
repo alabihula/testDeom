@@ -99,5 +99,6 @@
   line-height: 75rpx;
   color: white;
   font-size: 35rpx;
-  background: #35cc35;
+  background: #ff5777;
+  border-radius: 10rpx;
 }

@@ -79,7 +79,6 @@
   <!-- 支付弹窗 -->
    <view animation="{{animationPay}}" class='payBox' catchtouchmove="true">
     <view class='content'>
-
       <view class='titleBox'>
         <view class='bigBox'>
           <icon bindtap='hidePay' type="clear" size="20" />
@@ -121,15 +120,12 @@
     </view>
   </view>
 
-<!-- 画布  -->
-<!-- <canvas class='shareCan' canvas-id="shareImg" style="width:600rpx;height:800rpx"></canvas>
-   -->
-<!-- 预览区域  -->
-<view hidden='{{hidden}}' class='preview'>
-<canvas class='shareCan' canvas-id="shareImg" style="width:660rpx;height:900rpx"></canvas>
-  
-  <!-- <image src='{{prurl}}'></image> -->
-  <button type='primary' size='mini' bindtap='checkAuth'>保存分享图</button>
+
+<!-- 分享截图  -->
+<view hidden='{{hidden}}' class='preview' catchtouchmove="true">
+  <icon class='closeS' bindtap='hideShare' type="clear" size="20" />
+  <canvas class='shareCan' canvas-id="shareImg" ></canvas>
+  <button type='default' size='mini' bindtap='checkAuth'>保存分享图</button>
 </view>
 
 </view>

@@ -187,7 +187,8 @@
   color: white;
   height: 85rpx;
   line-height: 80rpx;
-  background: #35cc35;
+  background: #ff5777;
+  border-radius: 10rpx;
 }
 .opBox .bRight{
   font-size: 25rpx;
