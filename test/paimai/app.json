@@ -1,12 +1,12 @@
 {
   "pages": [
+    "pages/auction/auction",
     "pages/index/index",
     "pages/extract/extract",
     "pages/manage/manage",
     "pages/deduction/deduction",
     "pages/issue/issue",
     "pages/guide/guide",
-    "pages/auction/auction",
     "pages/editAd/editAd",
     "pages/address/address",
     "pages/record/record",
@@ -15,7 +15,8 @@
     "pages/shop/shop",
     "pages/logs/logs",
     "pages/protocol/protocol",
-    "pages/service/service"
+    "pages/service/service",
+    "components/pay/pay"
   ],
   "window": {
     "backgroundTextStyle": "light",

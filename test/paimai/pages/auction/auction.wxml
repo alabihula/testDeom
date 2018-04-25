@@ -62,7 +62,7 @@
   </view>
 
   <view class='opBox flex-row-center'>
-    <button size="mini" plain="true" type="default" open-type='share' class='bleft'>
+    <button size="mini" plain="true" type="default" bindtap='share' class='bleft'>
       <view class='iconfont icon-fenxiang'></view>
       分享
     </button>
@@ -77,7 +77,7 @@
   </view>
 
   <!-- 支付弹窗 -->
-  <view animation="{{animationPay}}" class='payBox' catchtouchmove="true">
+   <view animation="{{animationPay}}" class='payBox' catchtouchmove="true">
     <view class='content'>
 
       <view class='titleBox'>
@@ -120,4 +120,16 @@
 
     </view>
   </view>
+
+<!-- 画布  -->
+<!-- <canvas class='shareCan' canvas-id="shareImg" style="width:600rpx;height:800rpx"></canvas>
+   -->
+<!-- 预览区域  -->
+<view hidden='{{hidden}}' class='preview'>
+<canvas class='shareCan' canvas-id="shareImg" style="width:660rpx;height:900rpx"></canvas>
+  
+  <!-- <image src='{{prurl}}'></image> -->
+  <button type='primary' size='mini' bindtap='checkAuth'>保存分享图</button>
+</view>
+
 </view>

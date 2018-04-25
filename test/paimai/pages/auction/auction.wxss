@@ -1,6 +1,7 @@
 /* pages/auction/auction.wxss */
 @import '../../styles/iconfont/iconfont.wxss';
 @import './pay.wxss';
+@import './sharePic.wxss';
 .box{
   padding-bottom: 100rpx;
 }

@@ -1,0 +1,140 @@
+/* pages/pay/pay.wxss */
+.payBox{
+  transform: translateY(100%);
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 100;
+  opacity: 0;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.payBox .content{
+  background: white;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 790rpx;
+}
+.payBox .titleBox{
+  position: absolute;
+  top: 0rpx;
+  width: 100%;
+  height: 190rpx;
+}
+.payBox .bigBox{
+  position: absolute;
+  background: white;
+  bottom: 0px;
+  width: 100%;
+  height: 190rpx;
+  overflow: hidden;
+}
+.payBox .bigBox icon{
+  position: absolute;
+  right:10rpx;
+  top: 10rpx;
+  z-index: 10;
+}
+.payBox .bigBg{
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 300rpx;
+  background: rgba(0, 0, 0, 0.5)
+}
+.payBox .bigPic{
+  position: absolute;
+  width: 610rpx;
+  height: 610rpx;
+  top:-305rpx;
+  left: 70rpx;
+  border: 1px solid #e4e4e4;
+}
+.payBox .smallPic{
+  position: absolute;
+  width: 220rpx;
+  height: 220rpx;
+  top: -50rpx;
+  left: 50rpx;
+  border: 1px solid #e4e4e4;
+}
+.payBox .area{
+   position: absolute;
+    width: 480rpx;
+    height: 150rpx;
+    font-size: 30rpx;
+    top: 40rpx;
+    left: 290rpx;
+}
+.payBox .area text{
+  display: block;
+}
+.payBox .pl{
+  padding-left: 20rpx;
+}
+.payBox .bottomBox{
+  background: white;
+  height: 600rpx;
+  width: 100%;
+  position: absolute;
+  bottom: 0rpx;
+}
+.payBox .priceBox{
+    position: absolute;
+    background: white;
+    width: 100%;
+    height: 250rpx;
+    top: 0rpx;
+    left: 0rpx;
+}
+.payBox .slideBox{
+  width: 100%;
+}
+.payBox .slide{
+  padding: 0px;
+  width: 480rpx;
+}
+.payBox .slideBox text{
+  font-size: 30rpx;
+}
+.payBox .priceDes{
+  font-size: 30rpx;
+  padding-left: 100rpx;
+}
+.payBox .nowPrice{
+  width: 100%;
+  display: inline-block;
+  font-size: 60rpx;
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+.payBox .nowPrice .proStr{
+  padding-right: 12rpx;
+  border-bottom: 3rpx solid #999999;
+}
+.payBox .pro{
+  position: absolute;
+  background: white;
+  width: 100%;
+  height: 350rpx;
+  top: 250rpx;
+  text-align: center;
+  font-size: 30rpx;
+  line-height: 50rpx;
+}
+.payBox .checkbox{
+  color: blue;
+}
+.payBox .checkbox checkbox{
+  transform:scale(0.6) translateX(40%);
+}
+.payBox button{
+  width: 90%;
+  height: 80rpx;
+  margin-top: 30rpx;
+  font-size: 35rpx;
+  font-weight: normal;
+  line-height: 80rpx;
+}
