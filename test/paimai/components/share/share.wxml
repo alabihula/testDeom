@@ -1,0 +1,6 @@
+<!-- 分享截图  -->
+<view hidden='{{hidden}}' class='preview' catchtouchmove="true">
+  <icon class='closeS' bindtap='_hideShare' type="clear" size="20" />
+  <canvas class='shareCan' canvas-id="shareImg" ></canvas>
+  <button type='default' size='mini' bindtap='_checkAuth'>保存分享图</button>
+</view>

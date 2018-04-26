@@ -1,3 +1,6 @@
 {
-
+  "usingComponents": {
+    "component-share": "/components/share/share",
+    "component-pay": "/components/pay/pay"
+  }
 }

@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/auction/auction",
     "pages/index/index",
+    "pages/auction/auction",
     "pages/extract/extract",
     "pages/manage/manage",
     "pages/deduction/deduction",
@@ -15,7 +15,8 @@
     "pages/logs/logs",
     "pages/protocol/protocol",
     "pages/service/service",
-    "components/pay/pay"
+    "components/pay/pay",
+    "components/share/share"
   ],
   "window": {
     "backgroundTextStyle": "light",

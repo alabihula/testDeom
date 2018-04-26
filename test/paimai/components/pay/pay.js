@@ -1,9 +1,6 @@
 // components/pay/pay.js
 Component({
   properties:{
-    animationPay:{
-      type:Object
-    },
     pay_startPrice:{
       type: Number,
     },
@@ -21,7 +18,7 @@ Component({
    * 页面的初始数据
    */
   data: {
-  
+    animationPay:{}
   },
 
   /**
@@ -31,8 +28,37 @@ Component({
   
   },
   methods:{
-    hidePay() {
+    _sliderchange(e) {
+      this.setData({
+        pay_nowPrice: e.detail.value,
+      })
+      console.log(e.detail.value)
+    },
+    _showPay() {
+      var animation = wx.createAnimation({
+        duration: 200,
+        timingFunction: "linear",
+        delay: 0
+      })
 
+      animation.translateY(0).opacity(1).step()
+
+      this.setData({
+        animationPay: animation.export()
+      })
+    },
+    _hidePay() {
+      var animation = wx.createAnimation({
+        duration: 200,
+        timingFunction: "linear",
+        delay: 0
+      })
+
+      animation.translateY('100%').opacity(0).step()
+
+      this.setData({
+        animationPay: animation.export()
+      })
     }
   }
 })

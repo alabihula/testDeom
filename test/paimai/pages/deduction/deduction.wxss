@@ -43,5 +43,6 @@ checkbox{
   line-height: 75rpx;
   color: white;
   font-size: 35rpx;
-  background: #35cc35;
+  border-radius: 10rpx;
+  background: #ff5777;
 }

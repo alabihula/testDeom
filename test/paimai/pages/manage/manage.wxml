@@ -6,7 +6,6 @@
 
 
     <view class='line' wx:for="{{tabArr1}}" wx:key>
-      <navigator url="/pages/extract/extract" hover-class="navigator-hover">
         <view class='flex-row headBox'>
           <view class='headDes'>
             <view class='flex-row'>
@@ -33,7 +32,6 @@
           <text>{{item.des}}</text>
         </view>
         <view class='timeBox'>距结束{{item.endTime}}</view>
-      </navigator>
     </view>
 
 

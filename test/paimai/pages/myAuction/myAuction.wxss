@@ -40,8 +40,11 @@
 .tab2 .headDes{
   width: 70%;
 }
+.btn{
+  border-radius: 10rpx;
+}
 .btn.on{
-  background: #35cc35;
+  background: #ff5777;
   color: white;
 }
 .headDes{

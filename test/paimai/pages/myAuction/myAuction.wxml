@@ -14,7 +14,6 @@
           <text>贡献抵押金：{{item.price2}}</text>
         </view>
         <view wx:if="{{item.isGet==0}}" class="btn on">
-        <navigator></navigator>
           <navigator class='flex-row-center address' url="/pages/extract/extract" hover-class="navigator-hover">
           领取
           </navigator>

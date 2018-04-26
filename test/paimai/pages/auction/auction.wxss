@@ -1,7 +1,5 @@
 /* pages/auction/auction.wxss */
 @import '../../styles/iconfont/iconfont.wxss';
-@import './pay.wxss';
-@import './sharePic.wxss';
 .box{
   padding-bottom: 100rpx;
 }
@@ -12,12 +10,12 @@
   text-align: center;
   position: relative;
 }
-.slide-image{
+ .slide-image{
   width: 690rpx;
   height: 690rpx;
   margin-top: 4rpx;
   display: inline-block;
-}
+} 
 .pageNo{
   position: absolute;
   width: 100rpx;
